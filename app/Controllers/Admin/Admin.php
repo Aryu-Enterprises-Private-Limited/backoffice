@@ -2,9 +2,7 @@
 
 namespace App\Controllers\Admin;
 
-// use App\Models\userModel;
-use App\Models\registerModel;
-use PhpParser\Node\Expr\Print_;
+
 use App\Controllers\BaseController;
 
 class Admin extends BaseController

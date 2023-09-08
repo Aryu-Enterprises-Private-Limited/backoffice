@@ -27,6 +27,14 @@
                                 <td><?php if (isset($empDetails->last_name)) echo  ucfirst($empDetails->last_name);   ?></td>
                             </tr>
                             <tr>
+                                <th scope="row"> Role </th>
+                                <td><?php if (isset($roleDetails->role_name)) echo  ucfirst($roleDetails->role_name);   ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"> Role </th>
+                                <td><?php if (isset($deptDetails->department_name)) echo  ucfirst($deptDetails->department_name);   ?></td>
+                            </tr>
+                            <tr>
                                 <th scope="row"> D.O.B </th>
                                 <td><?php if (isset($empDetails->dob)) echo  ucfirst($empDetails->dob);   ?></td>
                             </tr>

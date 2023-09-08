@@ -1,210 +1,139 @@
-<html>
-<?php //echo"<pre>";print_r($qntymore);
-?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <!-- Include Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for Invoice -->
     <style>
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
+        /* Add your custom styles here */
+        .invoice {
+            /* border: 1px solid #ccc; */
+            padding: 20px;
+            margin: 20px;
             background-color: #fff;
-            background-clip: border-box;
-            border: 1px solid rgba(0, 0, 0, .125);
-            border-radius: 0.25rem;
         }
 
-        .p-2 {
-            padding: 0.5rem !important;
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .flex-row {
-            flex-direction: row !important;
+        .footer {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        .d-flex {
-            display: flex !important;
+        .invoice-no {
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
         }
 
-        .flex-column {
-            flex-direction: column !important;
+        .next-line {
+            margin-bottom: 31px;
         }
 
-        .font-weight-bold {
-            font-weight: 700 !important;
+        .head_cl {
+            padding: 15px;
+            background-color: #00aff0;
         }
-
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .table {
-            --bs-table-bg: transparent;
-            --bs-table-accent-bg: transparent;
-            --bs-table-striped-color: #212529;
-            --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
-            --bs-table-active-color: #212529;
-            --bs-table-active-bg: rgba(0, 0, 0, 0.1);
-            --bs-table-hover-color: #212529;
-            --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
-            width: 100%;
-            margin-bottom: 1rem;
-            color: #212529;
-            vertical-align: top;
-            border-color: #dee2e6;
-        }
-
-        table {
-            caption-side: bottom;
-            border-collapse: collapse;
-        }
-
-        tr {
-            display: table-row;
-            vertical-align: inherit;
-            border-color: inherit;
-        }
-
-        .content {
-            font-size: 14px;
-        }
-
-        .font-weight-bold {
-            font-weight: 700 !important;
-        }
-
-        tbody,
-        td,
-        tfoot,
-        th,
-        thead,
-        tr {
-            border-color: inherit;
-            border-style: solid;
-            border-width: 0;
-        }
-
-
-        .table-borderless>:not(caption)>*>* {
-            border-bottom-width: 0;
-        }
-
-        .add th {
-            color: #5C5C5C;
-            text-transform: uppercase;
-            font-size: 15px;
-        }
+        .margin {
+    margin-bottom: 0!important;
+}
     </style>
 </head>
 
 <body>
-    <div class="container mt-5 mb-3">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <!-- <div class="d-flex flex-row p-2"> <img src="https://i.imgur.com/vzlPPh3.png" width="48"> -->
-                    <div class="d-flex flex-column"> <span class="font-weight-bold">Tax Invoice No -</span> <small> <?= $invoice_no; ?></small> </div>
-                    <div class="d-flex flex-column"> <span class="font-weight-bold">Date -</span> <small> <?= $invoice_date; ?></small> </div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <!-- <h1 class="mt-4">Invoice</h1> -->
+            <img src="file:///C:/xampp/htdocs/aryuinvoiceheader.png" alt="Header Image" class="img-fluid">
+        </div>
+
+        <!-- Invoice Body -->
+        <div class="invoice">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="invoice-no">#AY04032301</p>
+                    <p class="invoice-no">04 March, 2023</p>
                 </div>
-                <hr>
-                <div class="table-responsive p-2">
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr class="add">
-                                <td>To</td>
-                                <td>From</td>
-                            </tr>
-                            <tr class="content">
-                                <td class="font-weight-bold"><?= $to_name; ?> <br>Attn: John Smith Pymont <br>Australia</td>
-                                <td class="font-weight-bold"><?= $from_name; ?> <br> Attn: John Right Polymont <br> USA</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </div>
+            <div class="next-line"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="invoice-no">From: ARYU ENTERPRISES PRIVATE LIMITED</p>
+                    <p>No. 2/9,First Floor, Murugesan Street,<br>Balavinayagar Nagar,Arumbakkam,<br>Chennai,Tamil Nadu 600106. India</p>
+                    <p class="invoice-no">Mobile: 9994715106</p>
+                    <p class="invoice-no">Email: <a href="">Yuvaraj@aryuenterprises.com</a></p>
                 </div>
-                <hr>
-                <div class="products p-2">
-                    <table class="table table-borderless">
+
+                <!-- Right Column (Invoice Items) -->
+                <div class="col-md-6">
+                    <p class="invoice-no">Invoice To: Medics Research</p>
+                    <p>No.13, First floor, Shivan Kovil North Car Street,<br>Near Dr.Sundararajan SMS Hospital,<br>Palayamkottai Market, Tirunelveli – 627002,Tamilnadu, India.</p>
+                    <p class="invoice-no">Mobile: +91 86820 79699</p>
+                    <p class="invoice-no">Email: <a href="">support@medicsresearch.com</a></p>
+                </div>
+            </div>
+            <div class="next-line"></div>
+            <div class="row">
+                <div class="col-md-11">
+                    <table class="table table-bordered" style="border: 2px solid;">
                         <thead>
-                            <tr class="add head">
-                                <td><strong>Description</strong></td>
-                                <td><strong>Amount</strong></td>
-                                <td><strong>Quantity</strong></td>
-                                <!-- <td><strong>Date</strong></td> -->
+                            <tr>
+                                <td class="invoice-no" style="background-color: #00aff0;">Project Description</td>
+                                <td class="invoice-no" style="background-color: #00aff0;">Quantity</td>
+                                <td class="invoice-no" style="background-color: #00aff0;">Amount</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $combinedArray = [];
-                            $add_count = count($addmore);
-                            $amnt_count =count($amntmore);
-                            $qnty_count = count($qntymore);
-
-                           
-                            if($add_count == $amnt_count && $amnt_count == $qnty_count && $qnty_count == $add_count){
-                                for ($i = 0; $i < count($addmore); $i++) {
-                                    $combinedArray[] = [
-                                        '0' => $addmore[$i],
-                                        '1' => $amntmore[$i],
-                                        '2' => $qntymore[$i]
-                                    ];
-                                }
-                                foreach ($combinedArray as $item) { ?>
-                                    <tr class="content add">
-                                        <td class="text-center"><?= $item['0'] ?></td>
-                                        <td class="text-center"><?= $item['1'] ?></td>
-                                        <td class="text-center"><?= $item['2'] ?></td>
-                                    </tr>
-                                <?php }  
-                            }else{ ?>
-                                <td class="text-center">Norecord</td>
-                          <?php  }?>
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <hr>
-                <div class="products p-2">
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr class="add">
-                                <td></td>
-                                <td>Subtotal</td>
-                                <td>GST(10%)</td>
-                                <td class="text-center">Total</td>
-                            </tr>
-                            <tr class="content">
-                                <td></td>
-                                <td>$40,000</td>
-                                <td>2,500</td>
-                                <td class="text-center">$42,500</td>
+                            <tr>
+                                <td style="padding: 30px;"> March Month Website, Server and
+                                    Software Maintenance</td>
+                                <td style="padding: 30px;">1</td>
+                                <td style="padding: 30px;">INR 5500</td>
                             </tr>
                         </tbody>
-                    </table>
-                </div>
-                <hr>
-                <div class="address p-2">
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr class="add">
-                                <td>Bank Details</td>
+                        <tfoot>
+                            <tr>
+                                <td style="padding: 15px;">
+                                <td class="invoice-no" style="padding: 30px;">Total</td>
+                                </td>
+                                <td style="padding: 30px;">
+                                    INR 5500
+                                </td>
                             </tr>
-                            <tr class="content">
-                                <td> Bank Name : ADS BANK <br> Swift Code : ADS1234Q <br> Account Holder : Jelly Pepper <br> Account Number : 5454542WQR <br> </td>
-                            </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </div>
             </div>
+            <div class="next-line"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="invoice-no margin">BANK DETAILS:</p>
+                    <p class="margin">Payment Mode: Bank Transfer</p>
+                    <p class="margin">Bank Name: Indusind Bank Ltd</p>
+                    <p class="margin">Account Name: Aryu Enterprises Private Limited</p>
+                    <p class="margin">Account Type: Current</p>
+                    <p class="margin">Account No: 259994715106</p>
+                    <p class="margin">Branch: Velacherry</p>
+                    <p class="margin">IFSC Code: INDB00060</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <img src="file:///C:/xampp/htdocs/aryuinvoicefooter.png" alt="Header Image" class="img-fluid">
         </div>
     </div>
-    </div>
+    <!-- Include Bootstrap 5 JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

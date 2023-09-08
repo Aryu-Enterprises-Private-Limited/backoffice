@@ -12,6 +12,11 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
     $daterange = $_GET['daterange'];
 } else {
     $daterange = '';
+}
+if ((isset($_GET['employee_name'])) && ($_GET['employee_name'] != '')) {
+    $employee_id = $_GET['employee_name'];
+} else {
+    $employee_id = '';
 } ?>
 <div class="container-fluid mt-4">
     <div class="card create-box">
@@ -20,37 +25,37 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
                 <div class="col-md-11">
                     <h3><?= $title; ?></h3>
                 </div>
-                <!-- <div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Date Range</label>
-                               
-                                <input type="text" class="form-control required" id="datepicker" name="daterange" placeholder="Enter date Range" value="<?php echo $daterange;
-                                                                                                                                                        ?>">
-                             
-                            </div>
-                            
+                <div class="col-lg-12 p-2 my_t">
+                    <form autocomplete="off">
+                        <div class="col-lg-2 float-start m-filter me-1">
+                            <p> Date Range :</p>
+                            <input type="text" class="form-control required" name="daterange" id="datepicker" placeholder="Enter date Range" value="<?php echo $daterange; ?>">
                         </div>
-                        <div class="col-md-4">
-                            <button type="button" id="FilterBtns" class="btn  btn-primary float-end"><i class="fi fi-rr-filter" aria-hidden="true"></i> Filter</button>
+                        <div class="col-lg-2 float-start m-filter me-1">
+                            <p> Employee Name :</p>
+                            <select name="employee_name" id="employee_name" class=" form-control">
+                                <option value="">select</option>
+                                <?php foreach ($employee_details as $key => $value) {
+                                    $selected = '';
+                                    if (isset($employee_id) && $employee_id == $value->id) {
+                                        $selected = 'selected';
+                                    }
+                                ?>
+                                    <option value="<?php echo $value->id; ?>" <?= $selected ?>>
+                                        <?php echo ucfirst($value->first_name) . ' ' . ucfirst($value->last_name); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
                         </div>
-                    </div> -->
+                        <div class="col-lg-2 float-start">
+                            <p>&nbsp;</p>
+                            <input type="button" id="FilterBtns" class="btn btn-success btn-sm btn-bordered py-2 m-filter" value="Filter">
+                        </div>
+                        <div class="col-lg-12 float-start" style="margin-top: -26px;margin-left: 522px;">
 
-                    <div class="col-lg-12 p-2 my_t">
-                        <form autocomplete="off">
-                            <div class="col-lg-2 float-start m-filter me-1">
-                                <p> Date Range :</p>
-                                <input type="text" class="form-control required" name="daterange" id="datepicker"  placeholder="Enter date Range" value="<?php echo $daterange; ?>">
-                            </div>
-                            <div class="col-lg-2 float-start">
-                                <p>&nbsp;</p>
-                                <input type="button" id="FilterBtns" class="btn btn-success btn-sm btn-bordered py-2 m-filter" value="Filter">
-                            </div>
-                            <div class="col-lg-12 float-start" style="margin-top: -26px;margin-left: 522px;">
-
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <hr>
@@ -101,15 +106,15 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
 <script>
     $(function() {
         var qryString = get_filter_strings();
-            if (qryString != '') {
-                var url = "<?php echo base_url(); ?>admin/report/list_ajax?" + qryString;
-            } else {
-                var url = "<?php echo base_url(); ?>admin/report/list_ajax";
-            }
+        if (qryString != '') {
+            var url = "<?php echo base_url(); ?>admin/report/list_ajax?" + qryString;
+        } else {
+            var url = "<?php echo base_url(); ?>admin/report/list_ajax";
+        }
         // var url = "<?php echo base_url(); ?>admin/report/list_ajax";
         var dataTbl = $("#displayDataTbl").DataTable({
             "scrollX": true,
-            "aaSorting": [3, "desc"],
+            "aaSorting": [1, "desc"],
             columnDefs: [{
                     orderable: false,
                     targets: [0]
@@ -158,22 +163,23 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
         $("#datepicker").datepicker();
 
         function get_filter_strings() {
-                var qryString = '';
-                if ($('#datepicker').val() != '') {
-                    qryString += '&daterange=' + $('#datepicker').val();
-                }
-                return qryString;
+            var qryString = '';
+            if ($('#datepicker').val() != '') {
+                qryString += '&daterange=' + $('#datepicker').val();
             }
-            $('#FilterBtns').on('click', function() {
-                var qryString = get_filter_strings();
-                if (qryString != '') {
-                    window.location.href = "<?php echo base_url(); ?>admin/report/list?" + qryString;;
-                } else {
-                    window.location.href = "<?php echo base_url(); ?>admin/report/list";
-                }
-            });
+            if ($('#employee_name').val() != '') {
+                qryString += '&employee_name=' + $('#employee_name').val();
+            }
+            return qryString;
+        }
+        $('#FilterBtns').on('click', function() {
+            var qryString = get_filter_strings();
+            if (qryString != '') {
+                window.location.href = "<?php echo base_url(); ?>admin/report/list?" + qryString;
+            } else {
+                window.location.href = "<?php echo base_url(); ?>admin/report/list";
+            }
+        });
     });
-
-    
 </script>
 <?= $this->endSection() ?>

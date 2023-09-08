@@ -31,6 +31,7 @@
                             <th> Last Name </th>
                             <th> Email </th>
                             <th> Phone </th>
+                            <th> Address </th>
                             <th> Status </th>
                             <th> Action </th>
                         </tr>
@@ -69,7 +70,7 @@
             "aaSorting": [3, "desc"],
             columnDefs: [{
                     orderable: false,
-                    targets: [0, -1, -2, ]
+                    targets: [0, -1, -2, -3]
                 },
                 {
                     responsivePriority: 1,
@@ -102,6 +103,9 @@
                 },
                 {
                     data: 'phone'
+                },
+                {
+                    data: 'address'
                 },
                 {
                     data: 'status'

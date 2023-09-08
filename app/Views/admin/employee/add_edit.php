@@ -14,15 +14,15 @@
                 </div>
             </div>
             <form method="post" action="" id="employee_form" autocomplete="off" enctype="multipart/form-data">
-            
+
                 <div class="create-labels" id="personal">
-                <input type="hidden" id="id" class="form-control" name="id" value="<?php if (isset($info) && $info->id) echo $info->id; ?>">
-                <?php 
-                $read = '';
-                if (isset($info) && $info->id){
-                    $read = 'readonly';
-                }
-                ?>
+                    <input type="hidden" id="id" class="form-control" name="id" value="<?php if (isset($info) && $info->id) echo $info->id; ?>">
+                    <?php
+                    $read = '';
+                    if (isset($info) && $info->id) {
+                        $read = 'readonly';
+                    }
+                    ?>
                     <div class="mb-3">
                         <label class="form-label">First Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Enter The first Name" id="first_name" name="first_name" <?= $read; ?> value="<?php if (isset($info) && $info->first_name) echo $info->first_name; ?>" required>
@@ -41,23 +41,55 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" placeholder="Enter The Email" name="email" id="email" value="<?php if (isset($info) && $info->email) echo $info->email; ?>" required>
+                        <input type="email" class="form-control" placeholder="Enter The Email" name="email" <?= $read; ?> id="email" value="<?php if (isset($info) && $info->email) echo $info->email; ?>" required>
                     </div>
                     <?php if (!isset($info)) { ?>
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label> Password <span class="text-danger">*</span></label>
-                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" minlength="6" />
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label> Password <span class="text-danger">*</span></label>
+                                <input name="password" id="password" type="password" class="form-control" placeholder="Password" minlength="6" />
+                            </div>
+                            <div class="col-md-6">
+                                <label> Confirm Password <span class="text-danger">*</span></label>
+                                <input name="confirmpassword" id="confirmpassword" type="password" class="form-control" equalTo="#password" placeholder="Confirm Password" minlength="6" />
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label> Confirm Password <span class="text-danger">*</span></label>
-                            <input name="confirmpassword" id="confirmpassword" type="password" class="form-control" equalTo="#password" placeholder="Confirm Password" minlength="6" />
-                        </div>
-                    </div>
                     <?php } ?>
                     <div class="mb-3">
-                        <labelclass="form-label">Address <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="3" name="address" id="address" required ><?php  if (isset($info) && $info->address) echo $info->address;  ?></textarea>
+                        <label class="form-label"> Role <span class="text-danger">*</span></label>
+                        <select class="form-select form-control" name="role_id" id="role_id" required>
+                            <option value="">select</option>
+                            <?php foreach ($role_opt as $key => $value) {
+                                $selected = '';
+                                if (isset($info->role_id) && $info->role_id == $value->id) {
+                                    $selected = 'selected';
+                                }
+                            ?>
+                                <option value="<?php echo $value->id; ?>" <?= $selected; ?>>
+                                    <?php echo ucfirst($value->role_name); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Department <span class="text-danger">*</span></label>
+                        <select class="form-select form-control" name="department_id" id="department_id" required>
+                        <option value="">select</option>
+                            <?php foreach ($dept_opt as $key => $value) {
+                                $selected = '';
+                                if (isset($info->department_id) && $info->department_id == $value->id) {
+                                    $selected = 'selected';
+                                }
+                            ?>
+                                <option value="<?php echo $value->id; ?>" <?= $selected; ?>>
+                                    <?php echo ucfirst($value->department_name); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="3" name="address" id="address" required><?php if (isset($info) && $info->address) echo $info->address;  ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Pin Code <span class="text-danger">*</span></label>
@@ -88,20 +120,20 @@
                     </div>
                 </div>
                 <div class="p" id="emergency">
-                <input type="hidden" id="id" class="form-control" name="id" value="<?php if (isset($info) && $info->id) echo $info->id; ?>">
+                    <input type="hidden" id="id" class="form-control" name="id" value="<?php if (isset($info) && $info->id) echo $info->id; ?>">
                     <div class="square">
                         <h2 class="text-center">Emergency Contact Information </h2>
                         <div class="mb-3">
                             <label class="form-label">Relationship <span class="text-danger">*</span></label>
                             <select class="form-select form-control" name="relationship" id="relationship" required>
                                 <option selected>Choose...</option>
-                                <option value="father" <?php if (isset($info)) echo ($info->relationship == 'father')?"selected":"" 
+                                <option value="father" <?php if (isset($info)) echo ($info->relationship == 'father') ? "selected" : ""
                                                         ?>>Father</option>
-                                <option value="mother" <?php if (isset($info)) echo ($info->relationship == 'mother')?"selected":"" 
+                                <option value="mother" <?php if (isset($info)) echo ($info->relationship == 'mother') ? "selected" : ""
                                                         ?>>MOther</option>
-                                <option value="brother" <?php if (isset($info)) echo ($info->relationship == 'brother')?"selected":"" 
+                                <option value="brother" <?php if (isset($info)) echo ($info->relationship == 'brother') ? "selected" : ""
                                                         ?>>Brother</option>
-                                <option value="wife" <?php if (isset($info)) echo ($info->relationship == 'wife')?"selected":"" 
+                                <option value="wife" <?php if (isset($info)) echo ($info->relationship == 'wife') ? "selected" : ""
                                                         ?>>Wife</option>
                             </select>
                         </div>
@@ -119,7 +151,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Address <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="3" name="r_address" id="r_address" ><?php  if (isset($info) && $info->r_address) echo $info->r_address;  ?></textarea>
+                            <textarea class="form-control" rows="3" name="r_address" id="r_address"><?php if (isset($info) && $info->r_address) echo $info->r_address;  ?></textarea>
                         </div>
                         <div class="mb-3">
                             <button type="button" class="btn btn-primary but next_2" data-ftype="step_2" id="nexts">Next</button>
@@ -133,9 +165,9 @@
                         <label class="form-label">Fresher/Experience <span class="text-danger">*</span></label>
                         <select class="form-select form-control" name="fresher_experience">
                             <option selected>Choose</option>
-                            <option value="fresher" <?php if (isset($info)) echo ($info->work_exp == 'fresher')?"selected":"" 
+                            <option value="fresher" <?php if (isset($info)) echo ($info->work_exp == 'fresher') ? "selected" : ""
                                                     ?>>Fresher</option>
-                            <option value="experience" <?php if (isset($info)) echo ($info->work_exp == 'experience')?"selected":"" 
+                            <option value="experience" <?php if (isset($info)) echo ($info->work_exp == 'experience') ? "selected" : ""
                                                         ?>>Experience</option>
 
                         </select>
@@ -146,7 +178,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Notes <span class="text-danger">*</span></label>
-                        <textarea class="form-control" rows="3" name="notes" ><?php  if (isset($info) && $info->notes) echo $info->notes;  ?></textarea>
+                        <textarea class="form-control" rows="3" name="notes"><?php if (isset($info) && $info->notes) echo $info->notes;  ?></textarea>
                     </div>
                     <div class="mb-3">
                         <?php if (isset($info) && isset($info->status) && $info->status == '1') $sT = 'checked="checked"';
@@ -191,6 +223,7 @@
             e.preventDefault();
             var data = new FormData();
             var act_url = '<?= "/admin/employee/form_valid" ?>';
+            // alert(act_url);
             var type = $(this).attr('data-ftype');
             id_name = '';
             if (type == 'step_1') {
@@ -245,7 +278,7 @@
 
                     } else {
                         // if(res.status == 0){
-                            window.location.href = res.redirect;
+                        window.location.href = res.redirect;
                         // }
                     }
                     // console.log(res[0].id);

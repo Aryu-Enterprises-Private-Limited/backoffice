@@ -79,7 +79,7 @@ class Crm extends BaseController
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            $lead_details = $this->LmsModel->get_selected_fields(LMS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
+            $lead_details = $this->LmsModel->get_selected_fields(LMS, ['id' => $row->lead], ['id', 'first_name', 'last_name'])->getResult();
             foreach ($lead_details as $details) {
                 $rowId =  (string)$row->id;
                 $disp_status = 'Inactive';
@@ -143,9 +143,9 @@ class Crm extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['lms_opt'] = $this->CrmModel->get_selected_fields(LMS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
+            $this->data['lms_opt'] = $this->CrmModel->get_selected_fields(LMS, ['status' => '1','is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
             if ($id != '') {
-                $condition = array('is_deleted' => '0');
+                $condition = array('is_deleted' => '0','id' => $id);
                 $this->data['info'] = $this->LmsModel->get_selected_fields(CRM, $condition)->getRow();
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Crm';
@@ -172,7 +172,9 @@ class Crm extends BaseController
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
                 $this->data['crmDetails'] = $this->CrmModel->get_all_details(CRM, $condition)->getRow();
-                $this->data['lmsDetails'] = $this->LmsModel->get_all_details(LMS, $condition)->getRow();
+                // print_r($this->data['crmDetails']->lead);die;
+                $condition2 = ['id'=> $this->data['crmDetails']->lead];
+                $this->data['lmsDetails'] = $this->LmsModel->get_all_details(LMS, $condition2)->getRow();
                 if (!empty($this->data['crmDetails']) && !empty($this->data['lmsDetails'])) {
                     $this->data['title'] = 'Crm view';
                     echo view(ADMIN_PATH . '/crm/view', $this->data);

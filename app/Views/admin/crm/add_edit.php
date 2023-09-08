@@ -19,6 +19,12 @@
             <div class="create-label">
                 <form id="crm_form" method="post" action="<?= (base_url(ADMIN_PATH . '/crm/update'))  ?>" autocomplete="off" enctype="multipart/form-data">
                     <input type="hidden" id="id" name="id" value="<?php if (isset($info) && $info->id) echo $info->id; ?>">
+                    <?php
+                    $req ='required';
+                    if (isset($info) && $info->id){
+                        $req ='';
+                    }
+                    ?>
                     <div class="mb-3 row ">
                         <label class="col-sm-2 col-form-label fw-bold">Lead <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
@@ -52,7 +58,7 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold">Document Upload <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control create-input" name="crm_file" id="crm_file" value="<?php if (isset($info->document_name)) echo $info->document_name; ?>" >
+                            <input type="file" class="form-control create-input" name="crm_file" id="crm_file" value="<?php if (isset($info->document_name)) echo $info->document_name; ?>" <?= $req; ?>>
                         </div>
                     </div>
 

@@ -117,6 +117,35 @@ $routes->add('/' . ADMIN_PATH . '/invoice', 'Invoice::index',['namespace' => 'Ap
 $routes->add('/' . ADMIN_PATH . '/invoice/gen_invoice', 'Invoice::invoice_generate', ['namespace' => 'App\Controllers\Admin']);
 
 
+//role route
+$routes->add('/' . ADMIN_PATH . '/role/list', 'Role::index',['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/list_ajax', 'Role::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/add', 'Role::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/edit/(:segment)', 'Role::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/update', 'Role::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/change-status', 'Role::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/view/(:segment)', 'Role::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/role/delete', 'Role::delete', ['namespace' => 'App\Controllers\Admin']);
+
+
+
+
+//department route
+$routes->add('/' . ADMIN_PATH . '/department/list', 'Department::index',['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/list_ajax', 'Department::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/add', 'Department::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/edit/(:segment)', 'Department::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/update', 'Department::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/change-status', 'Department::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/view/(:segment)', 'Department::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/department/delete', 'Department::delete', ['namespace' => 'App\Controllers\Admin']);
+
+
+//schedule route
+$routes->add('/' . ADMIN_PATH . '/schedule/list', 'Schedule::index',['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/schedule/add', 'Schedule::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/schedule/update', 'Schedule::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+
 
 
 /*

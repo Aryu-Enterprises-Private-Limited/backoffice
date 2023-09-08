@@ -18,7 +18,7 @@ class LmsModel extends Model
         // $currentDate = date('m/d/Y');
         $sql = 'employee_id,employee_email, att_current_date,group_concat(reason SEPARATOR "~") AS concatenated_reasons,employee_name,group_concat(att_current_time SEPARATOR "~") AS concatenated_current_time';
         $builder = $this->db->table(EMPLOYEE_ATTENDANCE)->select(new RawSql($sql))
-            ->where($condition)->groupBy('employee_id');
+            ->where($condition)->groupBy('employee_id, employee_email, att_current_date, employee_name');
         // ->having('att_current_date =', $currentDate);
         return $builder->get();
     }
@@ -33,7 +33,7 @@ class LmsModel extends Model
         $builder = $this->db->table($table)
             ->select($sql, false)
             ->where($condition)
-            ->groupBy('employee_id');
+            ->groupBy('employee_id, employee_email, att_current_date, employee_name');
 
         // Count the results
         // $resultCount = $builder->countAllResults();

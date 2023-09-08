@@ -30,7 +30,10 @@
                             <th scope="row"> Phone </th>
                             <td><?php if (isset($clientDetails->phone)) echo ucfirst($clientDetails->phone); ?></td>
                         </tr>
-
+                        <tr>
+                            <th scope="row"> Address </th>
+                            <td><?php if (isset($clientDetails->address)) echo ucfirst($clientDetails->address); ?></td>
+                        </tr>
                         <tr>
                             <th scope="row"> Status </th>
                             <td><?php if (isset($clientDetails->status) && $clientDetails->status == 1) { ?><span class="btn btn-success"><?php echo 'Active'; ?></span><?php } else { ?><span class="btn btn-danger"><?php echo 'In Active'; ?></span><?php } ?></td>

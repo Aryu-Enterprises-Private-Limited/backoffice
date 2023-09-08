@@ -72,6 +72,7 @@ class Invoice extends BaseController
             $this->data['invoice_no'] = $invoice_no = $this->request->getPostGet('invoice_no');
             $this->data['invoice_date'] = $invoice_date = $this->request->getPostGet('invoice_date');
             $this->data['pdf'] = '1';
+            $this->data['header_logo'] = base_url()."images/aryuinvoiceheader.png";
 
             //  print_r(array_values($addmore));die;
             $validation = \Config\Services::validation();
@@ -84,7 +85,7 @@ class Invoice extends BaseController
                 $errors = $validation->getErrors();
                 $returnArr['status'] = '0';
                 $returnArr['response'] = $errors;
-                $this->session->setFlashdata('error_message', 'The invoice_no field must contain a unique value.');
+                $this->session->setFlashdata('error_message', 'The invoice no field must contain a unique value.');
                 return redirect()->to('/' . ADMIN_PATH . '/invoice');
                 // return $this->response->setStatusCode(422)->setJSON($returnArr);
             } else {
@@ -102,7 +103,7 @@ class Invoice extends BaseController
               
                 
                 if($result != 0){
-                    $this->LmsModel->simple_insert(INVOICE_DETAILS, $dataArr);
+                    // $this->LmsModel->simple_insert(INVOICE_DETAILS, $dataArr);
                     print_r($result);
                 }else{
                     $this->session->setFlashdata('error_message', 'Enter Correct value');

@@ -29,6 +29,8 @@
                         <tr>
                             <th> <?php echo 'Firstname' ?></th>
                             <th> <?php echo 'Lastname' ?></th>
+                            <th> <?php echo 'Role' ?></th>
+                            <th> <?php echo 'Department' ?></th>
                             <th> <?php echo 'DOB' ?></th>
                             <th> <?php echo 'Phone' ?></th>
                             <th> <?php echo 'Email' ?></th>
@@ -128,6 +130,12 @@
                 },
                 {
                     data: 'last_name'
+                },
+                {
+                    data: 'role_id'
+                },
+                {
+                    data: 'department_id'
                 },
                 {
                     data: 'dob'

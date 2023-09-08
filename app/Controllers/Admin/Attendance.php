@@ -103,7 +103,7 @@ class Attendance extends BaseController
                 'employee_email' => $row->employee_email,
                 'att_current_date' => $row->att_current_date,
                 "att_current_time" =>  $row->att_current_time,
-                "reason" =>  $row->reason,
+                "reason" =>  str_replace("_"," ",ucfirst($row->reason))
             );
         }
         $response = array(

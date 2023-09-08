@@ -43,7 +43,12 @@
                             <input type="number" class="form-control create-input" name="phone" id="phone" value="<?php if (isset($client_info->phone)) echo $client_info->phone; ?>" required >
                         </div>
                     </div>
-
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">Address <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control create-input" rows="3" name="address" id="address" required><?php if (isset($client_info) && $client_info->address) echo $client_info->address;  ?></textarea>
+                            </div>
+                    </div>
                     <div class="mb-3 row">
                         <?php if (isset($client_info) && isset($client_info->status) && $client_info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>
@@ -65,6 +70,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php if (session('success_message')) : ?>
+    <script>
+        toastr.success('<?= session('success_message') ?>');
+    </script>
+<?php endif; ?>
+<?php if (session('error_message')) : ?>
+    <script>
+        toastr.error('<?= session('error_message') ?>');
+    </script>
+<?php endif; ?>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {

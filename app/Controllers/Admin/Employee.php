@@ -2,8 +2,7 @@
 
 namespace App\Controllers\Admin;
 
-// use App\Models\userModel;
-use PhpParser\Node\Expr\Print_;
+
 use App\Controllers\BaseController;
 
 class Employee extends BaseController
@@ -11,6 +10,7 @@ class Employee extends BaseController
 
     public function __construct()
     {
+       
         $this->session = session();
         $this->LmsModel = new \App\Models\LmsModel();
     }
@@ -71,6 +71,8 @@ class Employee extends BaseController
                 'r_address' => trim($dtSearchKeyVal),
                 'work_exp' => trim($dtSearchKeyVal),
                 'notes' => trim($dtSearchKeyVal),
+                // 'department_id'=> trim($dtSearchKeyVal),
+                // 'role_id'=> trim($dtSearchKeyVal),
             );
         }
 
@@ -84,16 +86,15 @@ class Employee extends BaseController
         $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
-        // if (isset($_GET['export']) && $_GET['export'] == 'excel') {
-        //     $returnArr['status'] = '1';
-        //     $returnArr['response'] = $ajaxDataArr;
-        //     return $returnArr;
-        // }
         $tblData = array();
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            // $notes_details = $this->LmsModel->table_join()->getResult();
+             $cond = ['id'=> $row->role_id];
+             $role_name = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
+
+            $cond2 = ['id'=> $row->department_id];
+            $dept_name = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $cond2)->getRow();
 
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
@@ -118,21 +119,14 @@ class Employee extends BaseController
 
             $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/employee/delete"><i class="fas fa-trash-alt"></i></a>';
 
-            // $source = '';
-            // $logo = MEMBER_PROFILE_DEFAULT;
-            // if (isset($row->logo) && $row->logo != '') {
-            //     $logo = COMPANIES_LOGO_PATH . $row->logo;
-            //     $source .= '<img src="' . base_url() . '/' . $logo . '" width="128" height="128" class="rounded-circle img-thumbnail" alt="' . $row->name . ' Image">';
-            // } else {
-            //     $source .= '<img src="assets/images/users/avatar-1.jpg" alt="user-img" class="rounded-circle user-img">';
-            // }
-
 
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
-                'first_name' => $row->first_name,
-                'last_name' => $row->last_name,
+                'first_name' => ucfirst($row->first_name),
+                'last_name' => ucfirst($row->last_name),
+                 'role_id' => ucfirst($role_name->role_name),
+                 'department_id' => ucfirst($dept_name->department_name),
                 'dob' => $row->dob,
                 'phone' => $row->phone,
                 'email' => $row->email,
@@ -153,7 +147,8 @@ class Employee extends BaseController
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );
-        }
+      
+    }
         $response = array(
             "status" => '1',
             "draw" => intval($draw),
@@ -171,8 +166,10 @@ class Employee extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
+            $this->data['role_opt'] = $this->LmsModel->get_selected_fields(EMPLOYEE_ROLE, ['status' => '1','is_deleted' => '0'], ['id', 'role_name'])->getResult();
+            $this->data['dept_opt'] = $this->LmsModel->get_selected_fields(DEPARTMENT_DETAILS, ['status' => '1','is_deleted' => '0'], ['id', 'department_name'])->getResult();
             if ($id != '') {
-                $condition = array('is_deleted' => '0');
+                $condition = array('is_deleted' => '0','id' => $id);
                 $this->data['info'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, $condition)->getRow();
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Employee Details';
@@ -213,6 +210,8 @@ class Employee extends BaseController
             $pan_no = (string)$this->request->getPostGet('pan_no');
             $password = (string)$this->request->getPostGet('password');
             $confirmpassword = (string)$this->request->getPostGet('confirmpassword');
+            $role_id = (string)$this->request->getPostGet('role_id');
+            $department_id = (string)$this->request->getPostGet('department_id');
 
 
             $relationship = (string)$this->request->getPostGet('relationship');
@@ -250,6 +249,8 @@ class Employee extends BaseController
                             'pan_no' => 'required',
                             'password' => 'required|max_length[25]|min_length[8]',
                             'confirmpassword' => 'required|max_length[255]|matches[password]',
+                            'department_id' => 'required',
+                            'role_id' => 'required',
                         ],
                         [   // Errors
                             'first_name' => [
@@ -286,6 +287,12 @@ class Employee extends BaseController
                                 'required' => 'This field is required.',
                             ],
                             'pan_no' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'role_id' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'department_id' => [
                                 'required' => 'This field is required.',
                             ],
                         ]
@@ -389,6 +396,8 @@ class Employee extends BaseController
                             'r_email' => $r_email,
                             'r_address' => $r_address,
                             'work_exp' => $fresher_experience,
+                            'department_id' => $department_id,
+                            'role_id' => $role_id,
                             'status' => $status,
                             'notes' => $notes,
                             'is_deleted' => '0',
@@ -428,6 +437,8 @@ class Employee extends BaseController
                             'blood_group' => 'required',
                             'aadhar_no' => 'required',
                             'pan_no' => 'required',
+                            'department_id' => 'required',
+                            'role_id' => 'required',
                             // 'password' => 'required|max_length[25]|min_length[8]',
                             // 'confirmpassword' => 'required|max_length[255]|matches[password]',
                         ],
@@ -466,6 +477,12 @@ class Employee extends BaseController
                                 'required' => 'This field is required.',
                             ],
                             'pan_no' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'role_id' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'department_id' => [
                                 'required' => 'This field is required.',
                             ],
                         ]
@@ -565,11 +582,13 @@ class Employee extends BaseController
                             'r_email' => $r_email,
                             'r_address' => $r_address,
                             'work_exp' => $fresher_experience,
+                            'department_id' => $department_id,
+                            'role_id' => $role_id,
                             'status' => $status,
                             'notes' => $notes,
                             'is_deleted' => '0',
                         );
-                        $dataArr['password'] = password_hash($password, PASSWORD_DEFAULT);
+                        // $dataArr['password'] = password_hash($password, PASSWORD_DEFAULT);
                         if ($file !== null) {
                             if ($file->isValid() && !$file->hasMoved()) {
                                 $newName = $file->getRandomName();
@@ -977,12 +996,15 @@ class Employee extends BaseController
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
                 $this->data['empDetails'] = $this->LmsModel->get_all_details(EMPLOYEE_DETAILS, $condition)->getRow();
-                // $this->data['lmsDetails'] = $this->LmsModel->get_all_details(LMS, $condition)->getRow();
+                $cond = ['id'=>$this->data['empDetails']->role_id];
+                 $this->data['roleDetails'] = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
+                 $cond2 = ['id'=>$this->data['empDetails']->department_id];
+                 $this->data['deptDetails'] = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $cond2)->getRow();
                 if (!empty($this->data['empDetails'])) {
                     $this->data['title'] = 'Employee view';
                     echo view(ADMIN_PATH . '/employee/view', $this->data);
                 } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Crm');
+                    $this->session->setFlashdata('error_message', 'Couldnot find the Employee');
                     // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
                     return redirect()->route(ADMIN_PATH . '/employee/list');
                 }

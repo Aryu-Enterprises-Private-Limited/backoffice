@@ -105,6 +105,10 @@ defined('EMPLOYEE_DETAILS')          || define('EMPLOYEE_DETAILS', 'employee_det
 defined('EMPLOYEE_ATTENDANCE')          || define('EMPLOYEE_ATTENDANCE', 'employee_attendance');
 defined('CLIENT_DETAILS')          || define('CLIENT_DETAILS', 'client_details');
 defined('INVOICE_DETAILS')          || define('INVOICE_DETAILS', 'invoice_details');
+defined('EMPLOYEE_ROLE')          || define('EMPLOYEE_ROLE', 'employee_role');
+defined('DEPARTMENT_DETAILS')          || define('DEPARTMENT_DETAILS', 'department_details');
+defined('SCHEDULE_HOURS')          || define('SCHEDULE_HOURS', 'schedule_hours');
+
 
 /**
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.

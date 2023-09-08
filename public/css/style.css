@@ -203,3 +203,12 @@ body
     display: none;
 }
 
+.create-inputs {
+    width: 50px;
+}
+.create-in {
+    width: 250px;
+}
+.len{
+    width: 40%;
+}

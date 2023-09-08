@@ -19,6 +19,7 @@ class Report extends BaseController
     {
         if ($this->checkSession('A') != '') {
             $this->data['title'] = 'Report List';
+            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['is_deleted' => '0',], ['id', 'first_name', 'last_name'])->getResult();
             echo view(ADMIN_PATH . '/report/list', $this->data);
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
@@ -29,6 +30,8 @@ class Report extends BaseController
     public function list_ajax($returnType = 'json')
     {
         $daterange = $this->request->getGetPost('daterange');
+        $employee_id = $this->request->getGetPost('employee_name');
+        // echo $employee_id;die;
         $draw = $this->request->getPostGet('draw');
         $row_start = $this->request->getPostGet('start');
         $rowperpage = $this->request->getPostGet('length'); // Rows display per page
@@ -68,8 +71,13 @@ class Report extends BaseController
                 $condition['att_current_date'] = $daterange;
             }
         }
+        if (isset($employee_id) && !empty($employee_id)) {
+            if (!empty($employee_id)) {
+                $condition['employee_id'] = $employee_id;
+            }
+        }
 
-        $totCounts = $this->LmsModel->group_count_tbl(EMPLOYEE_ATTENDANCE, $condition, $likeArr);
+         $totCounts = $this->LmsModel->group_count_tbl(EMPLOYEE_ATTENDANCE, $condition, $likeArr);
 
         // $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_ATTENDANCE, $condition, '', $likeArr);
         $sortArr = array('dt' => -1);
@@ -80,7 +88,7 @@ class Report extends BaseController
         // $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_ATTENDANCE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $groupby = $this->LmsModel->group_by_tbl($condition, $sortArr, $rowperpage, $row_start, $likeArr);
-
+// print_r($groupby);die;
 
         $tblData = array();
         $position = 1;
@@ -115,7 +123,7 @@ class Report extends BaseController
             }
 
             if (isset($login) && isset($logout)) {
-                $timeString = $login;
+                /*$timeString = $login;
                 $login = explode(' ', $timeString);
 
                 $timeString2 = $logout;
@@ -139,8 +147,25 @@ class Report extends BaseController
                 // Create the formatted time difference string
                 $login_out_diff = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
 
-                //   echo "Time Difference: " . $login_out_diff;
-                $break_diff = '-';
+                   echo "Time Difference: " . $login_out_diff;*/
+                $login = $login;
+                $logout = $logout;
+
+                // Create DateTime objects with AM/PM format
+                $loginTime = DateTime::createFromFormat('h:i:s A', $login);
+                $logoutTime = DateTime::createFromFormat('h:i:s A', $logout);
+
+                // Calculate the time difference
+                $timeDifference = $logoutTime->diff($loginTime);
+
+                // Format the time difference as "hh:mm:ss"
+                $login_out_diff = $timeDifference->format('%H:%I:%S');
+
+                // echo "Time Difference: " . $login_out_diff;
+
+
+
+                $break_diff = '';
                 if (isset($break_out) && isset($break_in)) {
                     $timeString3 = $break_out;
                     $break_out = explode(' ', $timeString3);
@@ -166,9 +191,9 @@ class Report extends BaseController
                     // Create the formatted time difference string
                     $break_diff = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
                 }
-                
+
                 $timeDifferenceFormatted = $login_out_diff;
-                if (isset($break_diff) && $break_diff != '-' && isset($login_out_diff) && $login_out_diff != '') {
+                if (isset($break_diff) && $break_diff != '' && isset($login_out_diff) && $login_out_diff != '') {
                     $logoutTime = $login_out_diff;
                     $totalBreakTime = $break_diff;
 
@@ -194,7 +219,7 @@ class Report extends BaseController
 
                     //  echo "Time Difference: " . $timeDifferenceFormatted;
                 }
-                // echo $timeDifferenceFormatted;
+                //  echo $login_out_diff;
                 $tblData[] = array(
                     'employee_name' => $data->employee_name,
                     'employee_email' =>  $data->employee_email,
@@ -205,6 +230,15 @@ class Report extends BaseController
                     // 'id' => '0',
 
                 );
+            } else if (isset($login) && !isset($logout)) {
+                $tblData[] = array(
+                    'employee_name' => $data->employee_name,
+                    'employee_email' =>  $data->employee_email,
+                    'att_current_date' => $data->att_current_date,
+                    'id' => 'W',
+                    'reason' => 'W',
+                    'att_current_time' => 0,
+                );
             } else {
                 $tblData[] = array(
                     'employee_name' => $data->employee_name,
@@ -213,8 +247,6 @@ class Report extends BaseController
                     'id' => 0,
                     'reason' => 0,
                     'att_current_time' => 0,
-                    // 'id' => '0',
-
                 );
             }
             unset($login, $break_out, $break_in, $logout, $break_diff, $login_out_diff);
@@ -222,8 +254,8 @@ class Report extends BaseController
         $response = array(
             "status" => '1',
             "draw" => intval($draw),
-            "iTotalRecords" => $totCounts,
-            "iTotalDisplayRecords" => $totCounts,
+             "iTotalRecords" => $totCounts,
+             "iTotalDisplayRecords" => $totCounts,
             "aaData" => $tblData
         );
         $returnArr = $response;
@@ -237,7 +269,7 @@ class Report extends BaseController
             $id = $uri->getSegment(4);
             $this->data['lms_opt'] = $this->LmsModel->get_selected_fields(LMS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
             if ($id != '') {
-                $condition = array('is_deleted' => '0');
+                $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['info'] = $this->LmsModel->get_selected_fields(CRM, $condition)->getRow();
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Crm';

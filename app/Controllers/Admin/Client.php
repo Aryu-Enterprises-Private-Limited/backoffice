@@ -56,6 +56,7 @@ class Client extends BaseController
                 'last_name' => strtolower(trim($dtSearchKeyVal)),
                 'phone' => trim($dtSearchKeyVal),
                 'email' => trim($dtSearchKeyVal),
+                'address' => trim($dtSearchKeyVal),
             );
         }
 
@@ -68,12 +69,6 @@ class Client extends BaseController
         // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(CLIENT_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
-
-        // if (isset($_GET['export']) && $_GET['export'] == 'excel') {
-        //     $returnArr['status'] = '1';
-        //     $returnArr['response'] = $ajaxDataArr;
-        //     return $returnArr;
-        // }
         $tblData = array();
         $position = 1;
 
@@ -101,15 +96,6 @@ class Client extends BaseController
 
             $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/client/delete"><i class="fas fa-trash-alt"></i></a>';
 
-            // $source = '';
-            // $logo = MEMBER_PROFILE_DEFAULT;
-            // if (isset($row->logo) && $row->logo != '') {
-            //     $logo = COMPANIES_LOGO_PATH . $row->logo;
-            //     $source .= '<img src="' . base_url() . '/' . $logo . '" width="128" height="128" class="rounded-circle img-thumbnail" alt="' . $row->name . ' Image">';
-            // } else {
-            //     $source .= '<img src="assets/images/users/avatar-1.jpg" alt="user-img" class="rounded-circle user-img">';
-            // }
-
 
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
@@ -118,6 +104,7 @@ class Client extends BaseController
                 'last_name' => $row->last_name,
                 'phone' => $row->phone,
                 'email' => $row->email,
+                'address' => $row->address,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );
@@ -137,25 +124,25 @@ class Client extends BaseController
     public function add_edit($id = "")
     {
         if ($this->checkSession('A') != '') {
-        $uri = service('uri');
-        $id = $uri->getSegment(4);
-        if ($id != '') {
-            $condition = array('is_deleted' => '0');
-            $this->data['client_info'] = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, $condition)->getRow();
-            if (!empty($this->data['client_info'])) {
-                $this->data['title'] = 'Edit Client Details';
+            $uri = service('uri');
+            $id = $uri->getSegment(4);
+            if ($id != '') {
+                $condition = array('is_deleted' => '0');
+                $this->data['client_info'] = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, $condition)->getRow();
+                if (!empty($this->data['client_info'])) {
+                    $this->data['title'] = 'Edit Client Details';
+                } else {
+                    $this->session->setFlashdata('error_message', 'Couldnot find the Employee');
+                    return redirect()->route(ADMIN_PATH . '/client/list');
+                }
             } else {
-                $this->session->setFlashdata('error_message', 'Couldnot find the Employee');
-                return redirect()->route(ADMIN_PATH . '/client/list');
+                $this->data['title'] = 'Add Client';
             }
+            echo view(ADMIN_PATH . '/client/add_edit', $this->data);
         } else {
-            $this->data['title'] = 'Add Client';
-        }
-        echo view(ADMIN_PATH . '/client/add_edit', $this->data);
-    }else{
-        $this->session->setFlashdata('error_message', 'Please login!!!');
+            $this->session->setFlashdata('error_message', 'Please login!!!');
             return redirect()->to('/' . ADMIN_PATH);
-    }
+        }
     }
 
 
@@ -163,133 +150,190 @@ class Client extends BaseController
     public function insertUpdate()
     {
         if ($this->checkSession('A') != '') {
-        $first_name = (string)$this->request->getPostGet('first_name');
-        $last_name = (string)$this->request->getPostGet('last_name');
-        $email = (string)$this->request->getPostGet('email');
-        $phone = (string)$this->request->getPostGet('phone');
-        $status = (string)$this->request->getPostGet('status');
-        $id = (string)$this->request->getPostGet('id');
-        if ($status == '') {
-            $status = 'off';
-        }
-        $fSubmit = FALSE;
-        if ($first_name != '' && $last_name != '' && $phone != '' && $email !='') {
-            if ($status == 'on') {
-                $status = '1';
-            } else {
-                $status = '0';
+            $first_name = (string)$this->request->getPostGet('first_name');
+            $last_name = (string)$this->request->getPostGet('last_name');
+            $email = (string)$this->request->getPostGet('email');
+            $phone = (string)$this->request->getPostGet('phone');
+            $address = (string)$this->request->getPostGet('address');
+            $status = (string)$this->request->getPostGet('status');
+            $id = (string)$this->request->getPostGet('id');
+            if ($status == '') {
+                $status = 'off';
             }
-            $dataArr = array(
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'phone' => $phone,
-                'email' => $email,
-                'status' => $status,
-            );
-           
-            if ($id == '') {
-                $this->LmsModel->simple_insert(CLIENT_DETAILS, $dataArr);
-                $this->session->setFlashdata('success_message', 'Client details added successfully.');
-                $fSubmit = TRUE;
+            $fSubmit = FALSE;
+            if ($first_name != '' && $last_name != '' && $phone != '' && $email != '' && $address != '') {
+
+                if ($status == 'on') {
+                    $status = '1';
+                } else {
+                    $status = '0';
+                }
+                $dataArr = array(
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'status' => $status,
+                    'address' => $address
+                );
+
+                if ($id == '') {
+                    $validation = \Config\Services::validation();
+                    $validation->setRules(
+                        [
+                            'phone' => 'required|max_length[10]|min_length[10]|is_unique[client_details.phone]',
+                            'email' => 'required|valid_email|is_unique[client_details.email]',
+                        ],
+                        [   // Errors
+
+                            'phone_number' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'email' => [
+                                'required' => 'This field is required.',
+                            ],
+                        ]
+                    );
+                    if (!$validation->withRequest($this->request)->run()) {
+                        $errors = $validation->getErrors();
+                        // $returnArr['status'] = '0';
+                        // $returnArr['response'] = $errors;
+                        if(isset($errors['phone'])){
+                            $errors_msg = $errors['phone'];
+                        }else{
+                            $errors_msg = $errors['email'];
+                        }
+                        // print_r($errors['phone']) ;die;
+                        $this->session->setFlashdata('error_message', $errors_msg);
+                        return redirect()->to('/' . ADMIN_PATH . '/client/add');
+                        // return $this->response->setStatusCode(422)->setJSON($returnArr);
+                    } else {
+                        $this->LmsModel->simple_insert(CLIENT_DETAILS, $dataArr);
+                        $this->session->setFlashdata('success_message', 'Client details added successfully.');
+                        $fSubmit = TRUE;
+                    }
+                } else {
+                    $validation = \Config\Services::validation();
+                    $validation->setRules(
+                        [
+                            'phone' => 'required|max_length[10]|min_length[10]|is_unique[client_details.phone,id,' . $id . ']',
+                            'email' => 'required|valid_email|is_unique[client_details.email,id,' . $id . ']',
+                        ],
+                        [   // Errors
+
+                            'phone_number' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'email' => [
+                                'required' => 'This field is required.',
+                            ],
+                        ]
+                    );
+                    if (!$validation->withRequest($this->request)->run()) {
+                        $errors = $validation->getErrors();
+                        $returnArr['status'] = '0';
+                        $returnArr['response'] = $errors;
+                        return $this->response->setStatusCode(422)->setJSON($returnArr);
+                    } else {
+                        $condition = array('id' => $id);
+                        $this->LmsModel->update_details(CLIENT_DETAILS, $dataArr, $condition);
+                        $this->session->setFlashdata('success_message', 'Client details update successfully');
+                        $fSubmit = TRUE;
+                    }
+                }
             } else {
-                $condition = array('id' => $id);
-                $this->LmsModel->update_details(CLIENT_DETAILS, $dataArr, $condition);
-                $this->session->setFlashdata('success_message', 'Client details update successfully');
-                $fSubmit = TRUE;
+                $this->session->setFlashdata('error_message', 'Form data is missing.');
             }
+            if ($fSubmit) {
+                $url = ADMIN_PATH . '/client/list';
+            } else {
+                if ($id == '') $url = ADMIN_PATH . '/client/add';
+                else $url = ADMIN_PATH . '/client/edit/' . $id;
+            }
+            return redirect()->to("$url");
         } else {
-            $this->session->setFlashdata('error_message', 'Form data is missing.');
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
         }
-        if ($fSubmit) {
-            $url = ADMIN_PATH . '/client/list';
-        } else {
-            if ($id == '') $url = ADMIN_PATH . '/client/add';
-            else $url = ADMIN_PATH . '/client/edit/' . $id;
-        }
-        return redirect()->to("$url");
-    }else{
-        $this->session->setFlashdata('error_message', 'Please login!!!');
-        return redirect()->to('/' . ADMIN_PATH);
-    }
     }
 
     public function update_status()
     {
         if ($this->checkSession('A') != '') {
-        $returnArr['status'] = '0';
-        $returnArr['response'] = 'Failed to updated, Please try again';
-        if ($this->checkSession('A') == '') {
-            $returnArr['status'] = '00';
-            $returnArr['response'] = 'Session has been timed out, Please login again and try.';
+            $returnArr['status'] = '0';
+            $returnArr['response'] = 'Failed to updated, Please try again';
+            if ($this->checkSession('A') == '') {
+                $returnArr['status'] = '00';
+                $returnArr['response'] = 'Session has been timed out, Please login again and try.';
+            } else {
+                $mode = $this->request->getPostGet('mode');
+                $id = $this->request->getPostGet('record_id');
+                $status = ($mode == '0') ? '0' : '1';
+                $newdata = array('status' => $status);
+                $condition = array('id' => $id);
+                $this->LmsModel->update_details(CLIENT_DETAILS, $newdata, $condition);
+                $returnArr['status'] = '1';
+                $returnArr['response'] = 'Client Status Changed Successfully';
+            }
+            echo json_encode($returnArr);
+            exit;
         } else {
-            $mode = $this->request->getPostGet('mode');
-            $id = $this->request->getPostGet('record_id');
-            $status = ($mode == '0') ? '0' : '1';
-            $newdata = array('status' => $status);
-            $condition = array('id' => $id);
-            $this->LmsModel->update_details(CLIENT_DETAILS, $newdata, $condition);
-            $returnArr['status'] = '1';
-            $returnArr['response'] = 'Client Status Changed Successfully';
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
         }
-        echo json_encode($returnArr);
-        exit;
-    }else{
-        $this->session->setFlashdata('error_message', 'Please login!!!');
-        return redirect()->to('/' . ADMIN_PATH);
-    }
     }
 
     public function view($id = "")
     {
         if ($this->checkSession('A') != '') {
-         $uri = service('uri');
-         $id = $uri->getSegment(4);
-        if ($id != '') {
-            $condition = array('id' => $id, 'is_deleted' => '0');
-            $this->data['clientDetails'] = $this->LmsModel->get_all_details(CLIENT_DETAILS, $condition)->getRow();
-            if (!empty($this->data['clientDetails'])) {
-                $this->data['title'] = 'Client view';
-                echo view(ADMIN_PATH . '/client/view', $this->data);
-            } else {
+            $uri = service('uri');
+            $id = $uri->getSegment(4);
+            if ($id != '') {
+                $condition = array('id' => $id, 'is_deleted' => '0');
+                $this->data['clientDetails'] = $this->LmsModel->get_all_details(CLIENT_DETAILS, $condition)->getRow();
+                if (!empty($this->data['clientDetails'])) {
+                    $this->data['title'] = 'Client view';
+                    echo view(ADMIN_PATH . '/client/view', $this->data);
+                } else {
                     $this->session->setFlashdata('error_message', 'Couldnot find the Crm');
                     // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
                     return redirect()->route(ADMIN_PATH . '/client/list');
+                }
+            } else {
+                $this->session->setFlashdata('error_message', 'Couldnot find the Employee');
+                // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
+                return redirect()->route(ADMIN_PATH . '/client/list');
             }
         } else {
-            $this->session->setFlashdata('error_message', 'Couldnot find the Employee');
-            // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
-            return redirect()->route(ADMIN_PATH . '/client/list');
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
         }
-    }else{
-        $this->session->setFlashdata('error_message', 'Please login!!!');
-        return redirect()->to('/' . ADMIN_PATH);
-    }
     }
 
     public function delete()
     {
         if ($this->checkSession('A') != '') {
-        $returnArr['status'] = '0';
-        $returnArr['response'] = 'Failed to delete, Please try again';
-        if ($this->checkSession('A') == '') {
-            $returnArr['status'] = '00';
-            $returnArr['response'] = 'Session has been timed out, Please login again and try.';
-        } else {
-            $record_id = $this->request->getPostGet('record_id');
-            if (isset($record_id)) {
-                $this->LmsModel->isDelete(CLIENT_DETAILS, 'id', TRUE);
-                // $this->setFlashMessage('success', 'Lms deleted successfully');
-                $returnArr['status'] = '1';
-                $returnArr['response'] = 'Record Deleted Successfully';
+            $returnArr['status'] = '0';
+            $returnArr['response'] = 'Failed to delete, Please try again';
+            if ($this->checkSession('A') == '') {
+                $returnArr['status'] = '00';
+                $returnArr['response'] = 'Session has been timed out, Please login again and try.';
+            } else {
+                $record_id = $this->request->getPostGet('record_id');
+                if (isset($record_id)) {
+                    $this->LmsModel->isDelete(CLIENT_DETAILS, 'id', TRUE);
+                    // $this->setFlashMessage('success', 'Lms deleted successfully');
+                    $returnArr['status'] = '1';
+                    $returnArr['response'] = 'Record Deleted Successfully';
+                }
+                // $this->LmsModel->commonDelete(LMS, array('id' => $record_id));
             }
-            // $this->LmsModel->commonDelete(LMS, array('id' => $record_id));
-        }
 
-        echo json_encode($returnArr);
-        exit;
-    }else{
-        $this->session->setFlashdata('error_message', 'Please login!!!');
-        return redirect()->to('/' . ADMIN_PATH);
-    }
+            echo json_encode($returnArr);
+            exit;
+        } else {
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
+        }
     }
 }
