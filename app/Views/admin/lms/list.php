@@ -165,7 +165,7 @@
             // myModal.show();
             var row_id = $(this).attr('data-row_id');
             var act_url = $(this).attr('data-act_url');
-//alert(row_id);
+            //alert(row_id);
             $.ajax({
                 type: 'post',
                 url: act_url,
@@ -263,42 +263,42 @@
         }).then((result) => {
 
             if (result.isConfirmed) {
-            $('.btn-success').attr("disabled", true);
-            $.ajax({
-                type: 'post',
-                url: act_url,
-                data: {
-                    'record_id': row_id
-                },
-                dataType: 'json',
-                success: function(res) {
-                    $('.btn-success').removeAttr("disabled");
-                    if (res.status == '1') {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: res.response,
-                            type: "success"
-                        });
-                        $('#' + row_id).remove();
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2500);
-                        // setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
-                        // location.reload();
-                    } else {
-                        Swal.fire({
-                            title: "Error",
-                            text: res.response,
-                            type: "error"
-                        });
+                $('.btn-success').attr("disabled", true);
+                $.ajax({
+                    type: 'post',
+                    url: act_url,
+                    data: {
+                        'record_id': row_id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('.btn-success').removeAttr("disabled");
+                        if (res.status == '1') {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: res.response,
+                                type: "success"
+                            });
+                            $('#' + row_id).remove();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2500);
+                            // setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
+                            // location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: res.response,
+                                type: "error"
+                            });
+                        }
+                        if (res.status == '00') {
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+                        }
                     }
-                    if (res.status == '00') {
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1500);
-                    }
-                }
-            });
+                });
             }
         })
     });

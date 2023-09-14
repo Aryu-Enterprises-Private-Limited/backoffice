@@ -170,32 +170,13 @@ class Schedule extends BaseController
                         $keyArr = explode(',', $key);
                         $dataArr['employee_email'] = $keyArr[0];
                         $dataArr['employee_id'] = $keyArr[1];
-                        $condition = array('date' => $date,'id'=>$keyArr[2]);
+                        $condition = array('date' => $date, 'id' => $keyArr[2]);
                         $dataArr['daily_working_hrs'] = json_encode($data);
                         $this->LmsModel->update_details(SCHEDULE_HOURS, $dataArr, $condition);
                     }
                     $this->session->setFlashdata('success_message', 'Scheduled details Update successfully.');
                     $fSubmit = TRUE;
                 }
-
-
-
-                // if ($id == '') {
-                //     foreach ($sch_hrs as $key => $data) {
-                //         $keyArr = explode(',', $key);
-                //         $dataArr['employee_id'] = $keyArr[1];
-                //         $dataArr['employee_email'] = $keyArr[0];
-                //         $dataArr['daily_working_hrs'] = json_encode($data);
-                //         $this->LmsModel->simple_insert(SCHEDULE_HOURS, $dataArr);
-                //     }
-                //     $this->session->setFlashdata('success_message', 'Scheduled details added successfully.');
-                //     $fSubmit = TRUE;
-                // } else {
-                //     $condition = array('id' => $id);
-                //     $this->LmsModel->update_details(SCHEDULE_HOURS, $dataArr, $condition);
-                //     $this->session->setFlashdata('success_message', 'Scheduled details update successfully');
-                //     $fSubmit = TRUE;
-                // }
             } else {
                 $this->session->setFlashdata('error_message', 'Form data is missing.');
             }

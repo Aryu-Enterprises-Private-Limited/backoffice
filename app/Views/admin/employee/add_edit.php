@@ -7,10 +7,26 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= '/' . ADMIN_PATH . '/employee/list' ?>"><?php echo  'Employee'; ?> </a>
+                        </li>
+                        <?php if (isset($info) && $info->first_name) { ?>
+                            <li class="breadcrumb-item">
+                                <?php echo $info->first_name; ?>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Edit'; ?>
+                            </li>
+                        <?php } else { ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Add New'; ?>
+                            </li>
+                        <?php } ?>
+                    </ol>
+                    <hr>
                     <h3><?= $title;  ?></h3>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
                 </div>
             </div>
             <form method="post" action="" id="employee_form" autocomplete="off" enctype="multipart/form-data">
@@ -74,7 +90,7 @@
                     <div class="mb-3">
                         <label class="form-label"> Department <span class="text-danger">*</span></label>
                         <select class="form-select form-control" name="department_id" id="department_id" required>
-                        <option value="">select</option>
+                            <option value="">select</option>
                             <?php foreach ($dept_opt as $key => $value) {
                                 $selected = '';
                                 if (isset($info->department_id) && $info->department_id == $value->id) {
@@ -89,7 +105,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Address <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="3" name="address" id="address" required><?php if (isset($info) && $info->address) echo $info->address;  ?></textarea>
+                        <textarea class="form-control" rows="3" name="address" id="address" required><?php if (isset($info) && $info->address) echo $info->address;  ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Pin Code <span class="text-danger">*</span></label>
@@ -135,6 +151,8 @@
                                                         ?>>Brother</option>
                                 <option value="wife" <?php if (isset($info)) echo ($info->relationship == 'wife') ? "selected" : ""
                                                         ?>>Wife</option>
+                                <option value="others" <?php if (isset($info)) echo ($info->relationship == 'others') ? "selected" : ""
+                                                        ?>>Others</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -146,8 +164,8 @@
                             <input type="tel" class="form-control" placeholder="Enter The Phone No" name="r_phone" id="r_phone" value="<?php if (isset($info) && $info->r_phone) echo $info->r_phone; ?>">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="@email" class="form-control" placeholder="Enter The Email " name="r_email" id="r_email" value="<?php if (isset($info) && $info->r_email) echo $info->r_email; ?>">
+                            <label class="form-label">Email</label>
+                            <input type="@email" class="form-select" placeholder="Enter The Email " name="r_email" id="r_email" value="<?php if (isset($info) && $info->r_email) echo $info->r_email; ?>">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Address <span class="text-danger">*</span></label>
@@ -208,17 +226,6 @@
         $('#emergency').hide();
         $('#employe_information').hide();
 
-        // $("#next_1").click(function() {
-        //     $('#personal').hide();
-        //     $('#emergency').show();
-        // });
-        // $("#nexts").click(function() {
-        //     $('#emergency').hide();
-        //     $('#personal').hide();
-        //     $('#employe_information').show();
-
-        // });
-
         $('body').on("click", ".next_1,.next_2,.sbmtBtn", function(e) {
             e.preventDefault();
             var data = new FormData();
@@ -240,6 +247,7 @@
             });
 
             if (type == 'step_3') {
+                $('.sbmtBtn').prop('disabled', true);
                 $('#personal .form-control:hidden').each(function(i, e) {
                     data.append($(e).attr('name'), $(e).val());
                 });
@@ -286,6 +294,7 @@
                 error: function(jqXHR, textStatus, errorThrown) {
                     // console.dir(jqXHR.responseJSON.response);
                     if (jqXHR.responseJSON.response) {
+                        $('.sbmtBtn').prop('disabled', false);
                         $('.error.text-danger').remove();
                         $('#' + id_name + ' .form-control').each(function(i, e) {
                             var spanV = $('<span class="error text-danger">').text(jqXHR.responseJSON.response[$(e).attr('name')]);

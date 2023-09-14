@@ -7,14 +7,29 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= '/' . ADMIN_PATH . '/lms/list' ?>"><?php echo  'LMS'; ?> </a>
+                        </li>
+                        <?php if (isset($info) && $info->first_name) { ?>
+                            <li class="breadcrumb-item">
+                                <?php echo $info->first_name . ' ' . $info->last_name; ?>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Edit'; ?>
+                            </li>
+                        <?php } else { ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Add New'; ?>
+                            </li>
+                        <?php } ?>
+                    </ol>
+                    <hr>
                     <h3><?= $title;  ?></h3>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
-                </div>
 
+                </div>
             </div>
-
 
             <div class="create-label">
                 <form id="lms_form" method="post" action="<?= (base_url(ADMIN_PATH . '/lms/update'))  ?>" autocomplete="off">
@@ -92,7 +107,7 @@
                         <label class="col-sm-2 col-form-label fw-bold">Notes <span class="text-danger">*</span></label>
                         <div class="input-container">
                             <div class="input-group control-group after-add-more col-sm-10">
-                                <input type="text" name="addmore[]" class="form-control" id="addmore" >
+                                <input type="text" name="addmore[]" class="form-control" id="addmore">
                                 <div class="input-group-btn ">
                                     <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
                                 </div>
@@ -101,30 +116,21 @@
                     </div>
 
                     <?php if (isset($notes_info)) { ?>
-                        <!-- <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold">Notes <span class="text-danger">*</span></label>
-                        <div class="input-group control-group after-add-more col-sm-10">
-                        <input type="hidden" id="id" name="notes_id[]" value="">
-                            <input type="text" name="addmore[]" class="form-control" id="addmore" value=""  required>
-                            <div class="input-group-btn ">
-                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
-                            </div>
-                        </div>
-                    </div> -->
-                    
-                      <?php  foreach ($notes_info as $data) {
+                        <?php foreach ($notes_info as $data) {
                             //echo $data->note
-                           // if($notes_info[0]->note != $data->note) {?>
+                            // if($notes_info[0]->note != $data->note) {
+                        ?>
                             <div class="copy  hide_show">
                                 <div class="control-group input-group" style="margin-top:10px">
-                                <input type="hidden" id="id" name="notes_id[]" value="<?php if (isset($data) && $data->id) echo $data->id; ?>">
+                                    <input type="hidden" id="id" name="notes_id[]" value="<?php if (isset($data) && $data->id) echo $data->id; ?>">
                                     <input type="text" name="addmore[]" class="form-control" value="<?php if (isset($data)) echo $data->note; ?>" id="removemore">
                                     <div class="input-group-btn">
                                         <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
                                     </div>
                                 </div>
                             </div>
-                    <?php } }
+                    <?php }
+                    }
                     //}
                     ?>
                     <button type="button" class="btn butn-submit text-white sbmtBtn" id="btn">Submit</button>
@@ -163,11 +169,6 @@
             // var input = $('<input type="text">');
             var html = $(".copy:hidden").clone().removeClass('hide').removeAttr('style');
             $('.input-container').append(html);
-            
-            // // console.log(html);
-            // var req_html = $(".after-add-more").after(html);
-            // var inputId = $(req_html).find("input").attr("id");
-            // $("#removemore").prop('required', true);
         });
 
         $("body").on("click", ".remove", function() {

@@ -64,12 +64,6 @@ class Role extends BaseController
         // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
-
-        // if (isset($_GET['export']) && $_GET['export'] == 'excel') {
-        //     $returnArr['status'] = '1';
-        //     $returnArr['response'] = $ajaxDataArr;
-        //     return $returnArr;
-        // }
         $tblData = array();
         $position = 1;
 

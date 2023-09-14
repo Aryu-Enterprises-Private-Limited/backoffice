@@ -7,6 +7,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= '/' . ADMIN_PATH . '/schedule/list' ?>"><?php echo  'Schedule'; ?> </a>
+                        </li>
+                    </ol>
+                    <hr>
                     <h3><?= $title; ?></h3>
                 </div>
 
@@ -98,26 +105,12 @@
         } else {
             var url = "<?php echo base_url(); ?>admin/schedule/add";
         }
-        // $("#month_filter").on('change', function() {
-        //     var qryString = get_filter_strings();
-        //      var month = $(this).val();
-
         $.ajax({
             url: url,
             // type: "post",
             data: {
 
             },
-            // success: function(response) {
-            //     if (response == 0) {
-            //         _this.val('');
-            //         _this.parent().parent().find('.multi_date_txt').text('you have already requested for this date');
-            //     }
-
-            // },
-            // error: function(jqXHR, textStatus, errorThrown) {
-            //     console.log(textStatus, errorThrown);
-            // }
         });
 
 

@@ -32,7 +32,7 @@
                         </tr>
                         <tr>
                             <th scope="row"> Document </th>
-                           <td><a href="<? if (isset($crmDetails->resume)) echo ('/'. ADMIN_PATH . '/crm/view_doc/'.(string)$crmDetails->document_name . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                            <td><a href="<?php if (isset($crmDetails->resume)) echo ('/' . ADMIN_PATH . '/crm/view_doc/' . (string)$crmDetails->document_name . '')  ?>" class="btn btn-info v_btn">View</td> </a>
                         </tr>
 
                         <tr>

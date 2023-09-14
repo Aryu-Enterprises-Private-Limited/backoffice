@@ -7,10 +7,26 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= '/' . ADMIN_PATH . '/department/list' ?>"><?php echo  'Department'; ?> </a>
+                        </li>
+                        <?php if (isset($dept_info) && $dept_info->department_name) { ?>
+                            <li class="breadcrumb-item">
+                                <?php echo $dept_info->department_name; ?>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Edit'; ?>
+                            </li>
+                        <?php } else { ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Add New'; ?>
+                            </li>
+                        <?php } ?>
+                    </ol>
+                    <hr>
                     <h3><?= $title;  ?></h3>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
                 </div>
             </div>
 

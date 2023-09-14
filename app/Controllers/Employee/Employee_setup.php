@@ -87,15 +87,16 @@ class Employee_setup extends BaseController
         }
     }
 
-    public function logout(){
-		$sessdata = array(
-			APP_NAME . '_session_employee_id' => '',
-			APP_NAME . '_session_employee_email' => '',
-			APP_NAME . '_session_employee_name' => '',
-		);
-		$this->session->set($sessdata);
+    public function logout()
+    {
+        $sessdata = array(
+            APP_NAME . '_session_employee_id' => '',
+            APP_NAME . '_session_employee_email' => '',
+            APP_NAME . '_session_employee_name' => '',
+        );
+        $this->session->set($sessdata);
         $this->session->setFlashdata('success_message', 'Successfully logout from your account');
-		// $this->setFlashMessage('success', 'Successfully logout from your account');
-		return redirect()->to('/');
+        // $this->setFlashMessage('success', 'Successfully logout from your account');
+        return redirect()->to('/');
     }
 }

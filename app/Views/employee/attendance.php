@@ -14,10 +14,6 @@
                 <div class="col-md-11">
                     <h3><?= $title;  ?></h3>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
-                </div>
-
             </div>
 
 
@@ -35,60 +31,60 @@
                     <div class="mb-3 row ">
                         <label class="col-sm-2 col-form-label fw-bold">Reason <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <?php 
-                           $login_hs ='';
-                           $break_i='hidden';
-                           $break_o='hidden';
-                           $logout_hs ='hidden';
-                           $oth = 'hidden'; 
-                            if(isset($att_details) && !empty($att_details)){
-                                foreach($att_details as $details){
+                            <?php
+                            $login_hs = '';
+                            $break_i = 'hidden';
+                            $break_o = 'hidden';
+                            $logout_hs = 'hidden';
+                            $oth = 'hidden';
+                            if (isset($att_details) && !empty($att_details)) {
+                                foreach ($att_details as $details) {
                                     // echo $att_details[0]->reason;die;
-                                    if(isset($details->reason) && $details->reason == 'login'){
+                                    if (isset($details->reason) && $details->reason == 'login') {
                                         $login_hs = 'hidden';
-                                        $break_o='';
+                                        $break_o = '';
                                         $oth = '';
                                         // $break_i = '';
-                                        $logout_hs ='';
-                                        if(isset($att_details[0]->reason) && $att_details[0]->reason == 'break_out'){
+                                        $logout_hs = '';
+                                        if (isset($att_details[0]->reason) && $att_details[0]->reason == 'break_out') {
                                             $login_hs = 'hidden';
                                             $break_i = '';
                                             $break_o = 'hidden';
-                                            $logout_hs='hidden';
+                                            $logout_hs = 'hidden';
                                             $oth = 'hidden';
                                         }
-                                        if(isset($att_details[0]->reason) && $att_details[0]->reason == 'break_in'){
+                                        if (isset($att_details[0]->reason) && $att_details[0]->reason == 'break_in') {
                                             $login_hs = 'hidden';
                                             $break_i = 'hidden';
                                             $break_o = '';
                                         }
-                                        if(isset($att_details[0]->reason) && $att_details[0]->reason == 'logout'){
+                                        if (isset($att_details[0]->reason) && $att_details[0]->reason == 'logout') {
                                             $login_hs = 'hidden';
                                             $break_i = 'hidden';
                                             $break_o = 'hidden';
                                             $logout_hs = 'hidden';
-                                            $oth= 'hidden';
+                                            $oth = 'hidden';
                                         }
                                     }
-                                    // if(isset($details->reason) && $details->reason == 'break_out'){
-                                    //     $login_hs = 'hidden';
-                                    //     $break_i = '';
-                                    //     $break_o = 'hidden';
-                                    // }
-                                    // if(isset($details->reason) && $details->reason == 'break_in'){
-                                    //     $login_hs = 'hidden';
-                                    //     $break_i = 'hidden';
-                                    //     $break_o = '';
-                                    // }
                                 }
                             } ?>
                             <select class="form-select form-control create-input" name="reason" id="reason" required>
                                 <option value=""> Select </option>
-                                <option value="login" class="<?php if(isset($login_hs)){ echo $login_hs; } ?>">Login</option>
-                                <option value="logout" class="<?php if(isset($logout_hs)){ echo $logout_hs; } ?>">Logout</option>
-                                <option value="break_out" class="<?php if(isset($break_o)){ echo $break_o; } ?>">Break Out</option>
-                                <option value="break_in" class="<?php if(isset($break_i)){ echo $break_i; } ?>">Break In</option>
-                                <option value="others" class="<?php if(isset($oth)){ echo $oth; } ?>" >Others</option>
+                                <option value="login" class="<?php if (isset($login_hs)) {
+                                                                    echo $login_hs;
+                                                                } ?>">Login</option>
+                                <option value="logout" class="<?php if (isset($logout_hs)) {
+                                                                    echo $logout_hs;
+                                                                } ?>">Logout</option>
+                                <option value="break_out" class="<?php if (isset($break_o)) {
+                                                                        echo $break_o;
+                                                                    } ?>">Break Out</option>
+                                <option value="break_in" class="<?php if (isset($break_i)) {
+                                                                    echo $break_i;
+                                                                } ?>">Break In</option>
+                                <option value="others" class="<?php if (isset($oth)) {
+                                                                    echo $oth;
+                                                                } ?>">Others</option>
                             </select>
                         </div>
                     </div>
@@ -204,7 +200,7 @@
 
             ]
         });
-    
+
 
 
 
@@ -220,10 +216,6 @@
 
     });
 
-    // $(".time_option").change(function() {
-    //     // document.getElementById('ct5').innerHTML = '';
-    //     $("#ct5").removeAttr("id");
-    // });
 
     function display_ct5() {
         var x = new Date()
@@ -233,17 +225,17 @@
         hours = hours ? hours : 12;
         // var x1 = x.getMonth() + 1 + "/" + x.getDate() + "/" + x.getFullYear();
         // x1 = '0' + x1 + " - " + x.getHours() + ":" + x.getMinutes() + ":" + x.getSeconds() + " " + ampm;
-        
-        month = ((x.getMonth()+1) < 10 ? "0" : "") + (x.getMonth()+1);
+
+        month = ((x.getMonth() + 1) < 10 ? "0" : "") + (x.getMonth() + 1);
         date = (x.getDate() < 10 ? "0" : "") + x.getDate();
         year = (x.getFullYear() < 10 ? "0" : "") + x.getFullYear();
 
         x1 = month + "/" + date + "/" + year;
 
-        hours = (hours < 10 ? "0" : "") + hours; 
-        minutes = (x.getMinutes() < 10 ? "0" : "") + x.getMinutes(); 
+        hours = (hours < 10 ? "0" : "") + hours;
+        minutes = (x.getMinutes() < 10 ? "0" : "") + x.getMinutes();
         seconds = (x.getSeconds() < 10 ? "0" : "") + x.getSeconds();
-        x1 = x1 + " - " +  hours + ":" + minutes + ":" + seconds + " " + ampm;
+        x1 = x1 + " - " + hours + ":" + minutes + ":" + seconds + " " + ampm;
 
         document.getElementById('ct5').innerHTML = x1;
         // document.getElementsByClassName('ct5').innerHTML = x1;

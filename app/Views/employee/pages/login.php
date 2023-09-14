@@ -86,21 +86,12 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <!-- <script type="text/javascript">
-   $(document).ready(function() {
-      $("#sbmtBtn").click(function(evt) {
-         if ($('#login_form').valid()) {
-            $('#sbmtBtn').attr("disabled", true);
-            $('#login_form').submit();
-         }
-      });
-   });
-</script> -->
-<?php if (session('success_message')) : ?>
-    <script>
-        toastr.success('<?= session('success_message') ?>');
-    </script>
-<?php endif; ?>
+
+    <?php if (session('success_message')) : ?>
+        <script>
+            toastr.success('<?= session('success_message') ?>');
+        </script>
+    <?php endif; ?>
     <?php if (session('error_message')) : ?>
         <script>
             toastr.error('<?= session('error_message') ?>');

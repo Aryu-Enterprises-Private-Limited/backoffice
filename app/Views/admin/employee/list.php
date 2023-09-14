@@ -295,43 +295,43 @@
             cancelButtonText: "No, Cancel!",
         }).then((result) => {
             if (result.isConfirmed) {
-            //if (t.value == true) {
-            $('.btn-success').attr("disabled", true);
-            $.ajax({
-                type: 'post',
-                url: act_url,
-                data: {
-                    'record_id': row_id
-                },
-                dataType: 'json',
-                success: function(res) {
-                    $('.btn-success').removeAttr("disabled");
-                    if (res.status == '1') {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: res.response,
-                            type: "success"
-                        });
-                        $('#' + row_id).remove();
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2500);
-                        // setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
-                        // location.reload();
-                    } else {
-                        Swal.fire({
-                            title: "Error",
-                            text: res.response,
-                            type: "error"
-                        });
+                //if (t.value == true) {
+                $('.btn-success').attr("disabled", true);
+                $.ajax({
+                    type: 'post',
+                    url: act_url,
+                    data: {
+                        'record_id': row_id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('.btn-success').removeAttr("disabled");
+                        if (res.status == '1') {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: res.response,
+                                type: "success"
+                            });
+                            $('#' + row_id).remove();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2500);
+                            // setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
+                            // location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: res.response,
+                                type: "error"
+                            });
+                        }
+                        if (res.status == '00') {
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+                        }
                     }
-                    if (res.status == '00') {
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1500);
-                    }
-                }
-            });
+                });
             }
         })
     });

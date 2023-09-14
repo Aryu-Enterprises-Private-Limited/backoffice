@@ -9,7 +9,7 @@
                     <h3> DASHBOARD </h3>
                     <?php
                     //    print_r($_SESSION);die;
-                    echo '<h3>' . 'Welcome ' . ucfirst(session(APP_NAME .'_session_employee_name')) . '!!'.'</h3>';
+                    echo '<h3>' . 'Welcome ' . ucfirst(session(APP_NAME . '_session_employee_name')) . '!!' . '</h3>';
                     ?>
                 </div>
             </div>

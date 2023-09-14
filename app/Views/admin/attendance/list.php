@@ -21,39 +21,25 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
     <div class="card create-box">
         <div class="card-body">
             <div class="row">
-            <div class="col-md-11">
+                <div class="col-md-11">
                     <h3><?= $title; ?></h3>
                 </div>
-                    <!-- <hr> -->
-                    <!-- <div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Date Range</label>
-                                <input type="text" class="form-control required" id="datepicker" name="daterange" placeholder="Enter date Range" value="<?php echo $daterange;
-                                                                                                                                                        ?>">
-                            </div>
+                <div class="col-lg-12 p-2 my_t">
+                    <form autocomplete="off">
+                        <div class="col-lg-2 float-start m-filter me-1">
+                            <p> Date Range :</p>
+                            <input type="text" class="form-control required" name="daterange" id="datepicker" placeholder="Enter date Range" value="<?php echo $daterange; ?>">
                         </div>
-                        <div class="col-md-4">
-                            <button type="button" id="FilterBtns" class="btn btn-primary btn-sm"><i class="fi fi-rr-filter" aria-hidden="true"></i> Filter</button>
+                        <div class="col-lg-2 float-start">
+                            <p>&nbsp;</p>
+                            <input type="button" id="FilterBtns" class="btn btn-success btn-sm btn-bordered py-2 m-filter" value="Filter">
                         </div>
-                    </div> -->
+                        <div class="col-lg-12 float-start" style="margin-top: -26px;margin-left: 522px;">
 
-                    <div class="col-lg-12 p-2 my_t">
-                        <form autocomplete="off">
-                            <div class="col-lg-2 float-start m-filter me-1">
-                                <p> Date Range :</p>
-                                <input type="text" class="form-control required" name="daterange" id="datepicker"  placeholder="Enter date Range" value="<?php echo $daterange; ?>">
-                            </div>
-                            <div class="col-lg-2 float-start">
-                                <p>&nbsp;</p>
-                                <input type="button" id="FilterBtns" class="btn btn-success btn-sm btn-bordered py-2 m-filter" value="Filter">
-                            </div>
-                            <div class="col-lg-12 float-start" style="margin-top: -26px;margin-left: 522px;">
+                        </div>
+                    </form>
+                </div>
 
-                            </div>
-                        </form>
-                    </div>
-               
 
                 <hr>
                 <div class="list-label">
@@ -154,12 +140,6 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
             });
 
             $("#datepicker").datepicker();
-            // $('input[name="daterange"]').on('apply.datepicker', function(ev, picker) {
-            //     $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            // });
-            // $('input[name="daterange"]').on('cancel.datepicker', function(ev, picker) {
-            //     $(this).val('');
-            // });
 
             function get_filter_strings() {
                 var qryString = '';

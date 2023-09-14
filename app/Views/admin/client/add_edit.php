@@ -7,12 +7,27 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= '/' . ADMIN_PATH . '/client/list' ?>"><?php echo  'Client'; ?> </a>
+                        </li>
+                        <?php if (isset($client_info) && $client_info->first_name) { ?>
+                            <li class="breadcrumb-item">
+                                <?php echo $client_info->first_name; ?>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Edit'; ?>
+                            </li>
+                        <?php } else { ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Add New'; ?>
+                            </li>
+                        <?php } ?>
+                    </ol>
+                    <hr>
                     <h3><?= $title;  ?></h3>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
-                </div>
-
             </div>
 
 
@@ -40,14 +55,14 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold"> Phone <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control create-input" name="phone" id="phone" value="<?php if (isset($client_info->phone)) echo $client_info->phone; ?>" required >
+                            <input type="number" class="form-control create-input" name="phone" id="phone" value="<?php if (isset($client_info->phone)) echo $client_info->phone; ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold">Address <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
                             <textarea class="form-control create-input" rows="3" name="address" id="address" required><?php if (isset($client_info) && $client_info->address) echo $client_info->address;  ?></textarea>
-                            </div>
+                        </div>
                     </div>
                     <div class="mb-3 row">
                         <?php if (isset($client_info) && isset($client_info->status) && $client_info->status == '1') $sT = 'checked="checked"';

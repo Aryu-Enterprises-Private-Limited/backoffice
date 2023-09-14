@@ -93,16 +93,16 @@ class Admin extends BaseController
     }
 
 
-    public function logout(){
-		$sessdata = array(
-			APP_NAME . '_session_admin_id' => '',
-			APP_NAME . '_session_admin_name' => '',
-			APP_NAME . '_session_admin_email' => '',
-		);
-		$this->session->set($sessdata);
+    public function logout()
+    {
+        $sessdata = array(
+            APP_NAME . '_session_admin_id' => '',
+            APP_NAME . '_session_admin_name' => '',
+            APP_NAME . '_session_admin_email' => '',
+        );
+        $this->session->set($sessdata);
         $this->session->setFlashdata('success_message', 'Successfully logout from your account');
-		// $this->setFlashMessage('success', 'Successfully logout from your account');
-		return redirect()->to('/' . ADMIN_PATH);
+        // $this->setFlashMessage('success', 'Successfully logout from your account');
+        return redirect()->to('/' . ADMIN_PATH);
     }
-
 }

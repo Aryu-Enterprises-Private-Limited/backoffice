@@ -2,8 +2,6 @@
 
 namespace App\Controllers\Admin;
 
-// use App\Models\userModel;
-use PhpParser\Node\Expr\Print_;
 use App\Controllers\BaseController;
 
 class Crm extends BaseController
@@ -70,62 +68,47 @@ class Crm extends BaseController
         $ajaxDataArr = $this->CrmModel->get_all_details(CRM, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
-        // if (isset($_GET['export']) && $_GET['export'] == 'excel') {
-        //     $returnArr['status'] = '1';
-        //     $returnArr['response'] = $ajaxDataArr;
-        //     return $returnArr;
-        // }
         $tblData = array();
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            $lead_details = $this->LmsModel->get_selected_fields(LMS, ['id' => $row->lead], ['id', 'first_name', 'last_name'])->getResult();
-            foreach ($lead_details as $details) {
-                $rowId =  (string)$row->id;
-                $disp_status = 'Inactive';
-                $actTitle = 'Click to active';
-                $mode = 1;
-                $btnColr = 'btn-danger';
-                if (isset($row->status) && $row->status == '1') {
-                    $disp_status = 'Active';
-                    $mode = 0;
-                    $btnColr = 'btn-success';
-                    $actTitle = 'Click to inactivate';
-                }
-                $statusTxt = $actTitle;
-                $actionTxt = '';
+            $cond = ['id' => $row->lead];
+            $lead_details = $this->LmsModel->get_all_details(LMS, $cond)->getRow();
 
-                $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/crm/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
-
-
-                $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/crm/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
-
-                $actionTxt .= '<a class="btn btn-icon" href="/' . ADMIN_PATH . '/crm/edit/' . (string)$rowId . '"><i class="fas fa-edit"></i></a>';
-
-
-                $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/crm/delete"><i class="fas fa-trash-alt"></i></a>';
-
-                // $source = '';
-                // $logo = MEMBER_PROFILE_DEFAULT;
-                // if (isset($row->logo) && $row->logo != '') {
-                //     $logo = COMPANIES_LOGO_PATH . $row->logo;
-                //     $source .= '<img src="' . base_url() . '/' . $logo . '" width="128" height="128" class="rounded-circle img-thumbnail" alt="' . $row->name . ' Image">';
-                // } else {
-                //     $source .= '<img src="assets/images/users/avatar-1.jpg" alt="user-img" class="rounded-circle user-img">';
-                // }
-
-
-                $tblData[] = array(
-                    // 'DT_RowId' => (string)$rowId,
-                    // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
-                    'lead' => $details->first_name . ' ' . $details->last_name,
-                    'project_details' => $row->project_details,
-                    'price' => $row->price,
-                    "status" =>  $statusTxt,
-                    "action" =>  $actionTxt
-                    //"action" =>  '1'
-                );
+            $rowId =  (string)$row->id;
+            $disp_status = 'Inactive';
+            $actTitle = 'Click to active';
+            $mode = 1;
+            $btnColr = 'btn-danger';
+            if (isset($row->status) && $row->status == '1') {
+                $disp_status = 'Active';
+                $mode = 0;
+                $btnColr = 'btn-success';
+                $actTitle = 'Click to inactivate';
             }
+            $statusTxt = $actTitle;
+            $actionTxt = '';
+
+            $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/crm/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
+
+
+            $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/crm/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
+
+            $actionTxt .= '<a class="btn btn-icon" href="/' . ADMIN_PATH . '/crm/edit/' . (string)$rowId . '"><i class="fas fa-edit"></i></a>';
+
+
+            $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/crm/delete"><i class="fas fa-trash-alt"></i></a>';
+
+
+            $tblData[] = array(
+                // 'DT_RowId' => (string)$rowId,
+                // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
+                'lead' => ucfirst($lead_details->first_name) . ' ' . ucfirst($lead_details->last_name),
+                'project_details' => $row->project_details,
+                'price' => $row->price,
+                "status" =>  $statusTxt,
+                "action" =>  $actionTxt
+            );
         }
         $response = array(
             "status" => '1',
@@ -143,9 +126,9 @@ class Crm extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['lms_opt'] = $this->CrmModel->get_selected_fields(LMS, ['status' => '1','is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
+            $this->data['lms_opt'] = $this->CrmModel->get_selected_fields(LMS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
             if ($id != '') {
-                $condition = array('is_deleted' => '0','id' => $id);
+                $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['info'] = $this->LmsModel->get_selected_fields(CRM, $condition)->getRow();
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Crm';
@@ -173,7 +156,7 @@ class Crm extends BaseController
                 $condition = array('id' => $id, 'is_deleted' => '0');
                 $this->data['crmDetails'] = $this->CrmModel->get_all_details(CRM, $condition)->getRow();
                 // print_r($this->data['crmDetails']->lead);die;
-                $condition2 = ['id'=> $this->data['crmDetails']->lead];
+                $condition2 = ['id' => $this->data['crmDetails']->lead];
                 $this->data['lmsDetails'] = $this->LmsModel->get_all_details(LMS, $condition2)->getRow();
                 if (!empty($this->data['crmDetails']) && !empty($this->data['lmsDetails'])) {
                     $this->data['title'] = 'Crm view';

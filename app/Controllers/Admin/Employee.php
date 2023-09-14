@@ -10,7 +10,7 @@ class Employee extends BaseController
 
     public function __construct()
     {
-       
+
         $this->session = session();
         $this->LmsModel = new \App\Models\LmsModel();
     }
@@ -90,10 +90,10 @@ class Employee extends BaseController
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-             $cond = ['id'=> $row->role_id];
-             $role_name = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
+            $cond = ['id' => $row->role_id];
+            $role_name = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
 
-            $cond2 = ['id'=> $row->department_id];
+            $cond2 = ['id' => $row->department_id];
             $dept_name = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $cond2)->getRow();
 
             $rowId =  (string)$row->id;
@@ -125,8 +125,8 @@ class Employee extends BaseController
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'first_name' => ucfirst($row->first_name),
                 'last_name' => ucfirst($row->last_name),
-                 'role_id' => ucfirst($role_name->role_name),
-                 'department_id' => ucfirst($dept_name->department_name),
+                'role_id' => ucfirst($role_name->role_name),
+                'department_id' => ucfirst($dept_name->department_name),
                 'dob' => $row->dob,
                 'phone' => $row->phone,
                 'email' => $row->email,
@@ -147,8 +147,7 @@ class Employee extends BaseController
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );
-      
-    }
+        }
         $response = array(
             "status" => '1',
             "draw" => intval($draw),
@@ -166,10 +165,10 @@ class Employee extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['role_opt'] = $this->LmsModel->get_selected_fields(EMPLOYEE_ROLE, ['status' => '1','is_deleted' => '0'], ['id', 'role_name'])->getResult();
-            $this->data['dept_opt'] = $this->LmsModel->get_selected_fields(DEPARTMENT_DETAILS, ['status' => '1','is_deleted' => '0'], ['id', 'department_name'])->getResult();
+            $this->data['role_opt'] = $this->LmsModel->get_selected_fields(EMPLOYEE_ROLE, ['status' => '1', 'is_deleted' => '0'], ['id', 'role_name'])->getResult();
+            $this->data['dept_opt'] = $this->LmsModel->get_selected_fields(DEPARTMENT_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'department_name'])->getResult();
             if ($id != '') {
-                $condition = array('is_deleted' => '0','id' => $id);
+                $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['info'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, $condition)->getRow();
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Employee Details';
@@ -312,7 +311,7 @@ class Employee extends BaseController
                             'relationship' => 'required',
                             'r_name' => 'required',
                             'r_phone' => 'required|max_length[10]|min_length[10]|is_unique[employee_details.r_phone]',
-                            'r_email' => 'required|valid_email|is_unique[employee_details.r_email]',
+                            // 'r_email' => 'required|valid_email|is_unique[employee_details.r_email]',
                             'r_address' => 'required',
 
                         ],
@@ -326,9 +325,9 @@ class Employee extends BaseController
                             'r_phone' => [
                                 'required' => 'This field is required.',
                             ],
-                            'r_email' => [
-                                'required' => 'This field is required.',
-                            ],
+                            // 'r_email' => [
+                            //     'required' => 'This field is required.',
+                            // ],
                             'r_address' => [
                                 'required' => 'This field is required.',
                             ],
@@ -609,350 +608,6 @@ class Employee extends BaseController
                     }
                 }
             }
-
-
-
-
-
-
-            // if (isset($type) && $type == 'step_1') {
-            //     $validation = \Config\Services::validation();
-            //     if ($id == '') {
-            //         $validation->setRules(
-            //             [
-            //                 'first_name' => 'required',
-            //                 'last_name' => 'required',
-            //                 'date_of_birth' => 'required',
-            //                 'phone_number' => 'required|max_length[10]|min_length[10]|is_unique[employee_details.phone]',
-            //                 'email' => 'required|valid_email|is_unique[employee_details.email]',
-            //                 'address' => 'required',
-            //                 'pin_code' => 'required',
-            //                 'city' => 'required',
-            //                 'state' => 'required',
-            //                 'blood_group' => 'required',
-            //                 'aadhar_no' => 'required',
-            //                 'pan_no' => 'required',
-            //                 'password' => 'required|max_length[25]|min_length[8]',
-            //                 'confirmpassword' => 'required|max_length[255]|matches[password]',
-            //             ],
-            //             [   // Errors
-            //                 'first_name' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'last_name' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'date_of_birth' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'phone_number' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'email' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'address' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'pin_code' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'city' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'state' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'blood_group' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'aadhar_no' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'pan_no' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //             ]
-            //         );
-            //     } else {
-            //         $validation->setRules(
-            //             [
-            //                 'first_name' => 'required',
-            //                 'last_name' => 'required',
-            //                 'date_of_birth' => 'required',
-            //                 'phone_number' => 'required|max_length[10]|min_length[10]|is_unique[employee_details.phone,id,' . $id . ']',
-            //                 'email' => 'required|valid_email|is_unique[employee_details.email,id,' . $id . ']',
-            //                 'address' => 'required',
-            //                 'pin_code' => 'required',
-            //                 'city' => 'required',
-            //                 'state' => 'required',
-            //                 'blood_group' => 'required',
-            //                 'aadhar_no' => 'required',
-            //                 'pan_no' => 'required',
-            //                 // 'password' => 'required|max_length[25]|min_length[8]',
-            //                 // 'confirmpassword' => 'required|max_length[255]|matches[password]',
-            //             ],
-            //             [   // Errors
-            //                 'first_name' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'last_name' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'date_of_birth' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'phone_number' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'email' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'address' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'pin_code' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'city' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'state' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'blood_group' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'aadhar_no' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'pan_no' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //             ]
-            //         );
-            //     }
-            //     if (!$validation->withRequest($this->request)->run()) {
-            //         $errors = $validation->getErrors();
-            //         $returnArr['status'] = '0';
-            //         $returnArr['response'] = $errors;
-            //         return $this->response->setStatusCode(422)->setJSON($returnArr);
-            //     } else {
-            //         $returnArr['status'] = '1';
-            //         $returnArr['response'] = 'success';
-            //     }
-            // } else if ($type == 'step_2') {
-            //     $validation = \Config\Services::validation();
-            //     if ($id == '') {
-            //         $validation->setRules(
-            //             [
-            //                 'relationship' => 'required',
-            //                 'r_name' => 'required',
-            //                 'r_phone' => 'required|max_length[10]|min_length[10]|is_unique[employee_details.r_phone]',
-            //                 'r_email' => 'required|valid_email|is_unique[employee_details.r_email]',
-            //                 'r_address' => 'required',
-
-            //             ],
-            //             [
-            //                 'relationship' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_name' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_phone' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_email' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_address' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //             ]
-            //         );
-            //     } else {
-            //         $validation->setRules(
-            //             [
-            //                 'relationship' => 'required',
-            //                 'r_name' => 'required',
-            //                 'r_phone' => 'required|max_length[10]|min_length[10]|is_unique[employee_details.r_phone,id,' . $id . ']',
-            //                 'r_email' => 'required|valid_email|is_unique[employee_details.r_email,id,' . $id . ']',
-            //                 'r_address' => 'required',
-
-            //             ],
-            //             [
-            //                 'relationship' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_name' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_phone' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_email' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'r_address' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //             ]
-            //         );
-            //     }
-            //     if (!$validation->withRequest($this->request)->run()) {
-            //         $errors = $validation->getErrors();
-            //         $returnArr['status'] = '0';
-            //         $returnArr['response'] = $errors;
-            //         return $this->response->setStatusCode(422)->setJSON($returnArr);
-            //     } else {
-            //         $returnArr['status'] = '1';
-            //         $returnArr['response'] = 'success';
-            //     }
-            // } else {
-            //     if ($status == '') {
-            //         $status = 'off';
-            //     }
-            //     $validation = \Config\Services::validation();
-            //     if ($id = '') {
-            //         $validation->setRules(
-            //             [
-            //                 'fresher_experience' => 'required',
-            //                 'cv_resume' => 'required',
-            //                 'notes' => 'required',
-            //             ],
-            //             [   // Errors
-            //                 'fresher_experience' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'cv_resume' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'notes' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //             ]
-            //         );
-            //     } else {
-            //         $validation->setRules(
-            //             [
-            //                 'fresher_experience' => 'required',
-            //                 // 'cv_resume' => 'required',
-            //                 'notes' => 'required',
-            //             ],
-            //             [   // Errors
-            //                 'fresher_experience' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'cv_resume' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //                 'notes' => [
-            //                     'required' => 'This field is required.',
-            //                 ],
-            //             ]
-            //         );
-            //     }
-
-            //     if (!$validation->withRequest($this->request)->run()) {
-            //         $errors = $validation->getErrors();
-            //         $returnArr['status'] = '0';
-            //         $returnArr['response'] = $errors;
-            //         return $this->response->setStatusCode(422)->setJSON($returnArr);
-            //     } else {
-            //         if ($id = '') {
-            //             if ($status == 'on') {
-            //                 $status = '1';
-            //             } else {
-            //                 $status = '0';
-            //             }
-            //             $dataArr = array(
-            //                 'first_name' => $first_name,
-            //                 'last_name' => $last_name,
-            //                 'dob' => $date_of_birth,
-            //                 'phone' => $phone_number,
-            //                 'email' => $email,
-            //                 'address' => $address,
-            //                 'pin_code' => $pin_code,
-            //                 'city' => $city,
-            //                 'state' => $state,
-            //                 'blood_grp' => $blood_group,
-            //                 'aadhar_no' => $aadhar_no,
-            //                 'pan_no' => $pan_no,
-            //                 'relationship' => $relationship,
-            //                 'r_name' => $r_name,
-            //                 'r_phone' => $r_phone,
-            //                 'r_email' => $r_email,
-            //                 'r_address' => $r_address,
-            //                 'work_exp' => $fresher_experience,
-            //                 'status' => $status,
-            //                 'notes' => $notes,
-            //                 'is_deleted' => '0',
-            //             );
-            //             $dataArr['password'] = password_hash($password, PASSWORD_DEFAULT);
-            //             if ($file !== null) {
-            //                 if ($file->isValid() && !$file->hasMoved()) {
-            //                     $newName = $file->getRandomName();
-            //                     $file->move(WRITEPATH . EMPLOYEE_RESUME_DOC_PATH, $newName);
-            //                     $dataArr['resume'] = $file->getName();
-            //                 } else {
-            //                     echo 'Upload failed.';
-            //                 }
-            //             } else {
-            //             }
-            //             $returnArr['status'] = '1';
-            //             $returnArr['response'] = 'success';
-            //             $this->LmsModel->simple_insert(EMPLOYEE_DETAILS, $dataArr);
-            //         } else {
-            //             if ($status == 'on') {
-            //                 $status = '1';
-            //             } else {
-            //                 $status = '0';
-            //             }
-            //             $dataArr = array(
-            //                 'first_name' => $first_name,
-            //                 'last_name' => $last_name,
-            //                 'dob' => $date_of_birth,
-            //                 'phone' => $phone_number,
-            //                 'email' => $email,
-            //                 'address' => $address,
-            //                 'pin_code' => $pin_code,
-            //                 'city' => $city,
-            //                 'state' => $state,
-            //                 'blood_grp' => $blood_group,
-            //                 'aadhar_no' => $aadhar_no,
-            //                 'pan_no' => $pan_no,
-            //                 'relationship' => $relationship,
-            //                 'r_name' => $r_name,
-            //                 'r_phone' => $r_phone,
-            //                 'r_email' => $r_email,
-            //                 'r_address' => $r_address,
-            //                 'work_exp' => $fresher_experience,
-            //                 'status' => $status,
-            //                 'notes' => $notes,
-            //                 'is_deleted' => '0',
-            //             );
-            //             $dataArr['password'] = password_hash($password, PASSWORD_DEFAULT);
-            //             if ($file !== null) {
-            //                 if ($file->isValid() && !$file->hasMoved()) {
-            //                     $newName = $file->getRandomName();
-            //                     $file->move(WRITEPATH . EMPLOYEE_RESUME_DOC_PATH, $newName);
-            //                     $dataArr['resume'] = $file->getName();
-            //                 } else {
-            //                     echo 'Upload failed.';
-            //                 }
-            //             } else {
-            //             }
-            //             $returnArr['status'] = '1';
-            //             $returnArr['response'] = 'success';
-
-            //             $condition = array('id' => $id);
-            //             $this->LmsModel->update_details(EMPLOYEE_DETAILS, $dataArr, $condition);
-            //         }
-            //         $redirectUrl = site_url('/' . ADMIN_PATH . '/employee/list');
-            //         return $this->response->setJSON(['redirect' => $redirectUrl]);
-            //     }
-            // }
             echo json_encode($returnArr);
             exit;
         } else {
@@ -996,10 +651,10 @@ class Employee extends BaseController
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
                 $this->data['empDetails'] = $this->LmsModel->get_all_details(EMPLOYEE_DETAILS, $condition)->getRow();
-                $cond = ['id'=>$this->data['empDetails']->role_id];
-                 $this->data['roleDetails'] = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
-                 $cond2 = ['id'=>$this->data['empDetails']->department_id];
-                 $this->data['deptDetails'] = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $cond2)->getRow();
+                $cond = ['id' => $this->data['empDetails']->role_id];
+                $this->data['roleDetails'] = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
+                $cond2 = ['id' => $this->data['empDetails']->department_id];
+                $this->data['deptDetails'] = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $cond2)->getRow();
                 if (!empty($this->data['empDetails'])) {
                     $this->data['title'] = 'Employee view';
                     echo view(ADMIN_PATH . '/employee/view', $this->data);

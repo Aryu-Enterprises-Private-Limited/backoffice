@@ -54,7 +54,7 @@ class Attendance extends BaseController
         $likeArr = [];
         // $currentDate = date('m/d/Y');
         // $condition = array('att_current_date' => $currentDate);
-        $condition =array();
+        $condition = array();
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'employee_name' => trim($dtSearchKeyVal),
@@ -77,25 +77,10 @@ class Attendance extends BaseController
         $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_ATTENDANCE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
-        // if (isset($_GET['export']) && $_GET['export'] == 'excel') {
-        //     $returnArr['status'] = '1';
-        //     $returnArr['response'] = $ajaxDataArr;
-        //     return $returnArr;
-        // }
         $tblData = array();
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            // $source = '';
-            // $logo = MEMBER_PROFILE_DEFAULT;
-            // if (isset($row->logo) && $row->logo != '') {
-            //     $logo = COMPANIES_LOGO_PATH . $row->logo;
-            //     $source .= '<img src="' . base_url() . '/' . $logo . '" width="128" height="128" class="rounded-circle img-thumbnail" alt="' . $row->name . ' Image">';
-            // } else {
-            //     $source .= '<img src="assets/images/users/avatar-1.jpg" alt="user-img" class="rounded-circle user-img">';
-            // }
-
-
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
@@ -103,7 +88,7 @@ class Attendance extends BaseController
                 'employee_email' => $row->employee_email,
                 'att_current_date' => $row->att_current_date,
                 "att_current_time" =>  $row->att_current_time,
-                "reason" =>  str_replace("_"," ",ucfirst($row->reason))
+                "reason" =>  str_replace("_", " ", ucfirst($row->reason))
             );
         }
         $response = array(

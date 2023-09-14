@@ -115,9 +115,6 @@
         } else {
             var url = "<?php echo base_url(); ?>admin/schedule/list";
         }
-        // $("#month_filter").on('change', function() {
-        //     var qryString = get_filter_strings();
-        //      var month = $(this).val();
 
         $.ajax({
             url: url,
@@ -125,16 +122,7 @@
             data: {
 
             },
-            // success: function(response) {
-            //     if (response == 0) {
-            //         _this.val('');
-            //         _this.parent().parent().find('.multi_date_txt').text('you have already requested for this date');
-            //     }
 
-            // },
-            // error: function(jqXHR, textStatus, errorThrown) {
-            //     console.log(textStatus, errorThrown);
-            // }
         });
 
         function get_filter_strings() {

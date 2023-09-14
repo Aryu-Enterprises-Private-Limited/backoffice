@@ -77,7 +77,7 @@ class Report extends BaseController
             }
         }
 
-         $totCounts = $this->LmsModel->group_count_tbl(EMPLOYEE_ATTENDANCE, $condition, $likeArr);
+        $totCounts = $this->LmsModel->group_count_tbl(EMPLOYEE_ATTENDANCE, $condition, $likeArr);
 
         // $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_ATTENDANCE, $condition, '', $likeArr);
         $sortArr = array('dt' => -1);
@@ -88,7 +88,6 @@ class Report extends BaseController
         // $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_ATTENDANCE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $groupby = $this->LmsModel->group_by_tbl($condition, $sortArr, $rowperpage, $row_start, $likeArr);
-// print_r($groupby);die;
 
         $tblData = array();
         $position = 1;
@@ -254,8 +253,8 @@ class Report extends BaseController
         $response = array(
             "status" => '1',
             "draw" => intval($draw),
-             "iTotalRecords" => $totCounts,
-             "iTotalDisplayRecords" => $totCounts,
+            "iTotalRecords" => $totCounts,
+            "iTotalDisplayRecords" => $totCounts,
             "aaData" => $tblData
         );
         $returnArr = $response;

@@ -9,10 +9,6 @@
                 <div class="col-md-11">
                     <h3><?= $title;  ?></h3>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
-                </div>
-
             </div>
 
 
@@ -20,27 +16,27 @@
                 <form id="crm_form" method="post" action="<?= (base_url(ADMIN_PATH . '/crm/update'))  ?>" autocomplete="off" enctype="multipart/form-data">
                     <input type="hidden" id="id" name="id" value="<?php if (isset($info) && $info->id) echo $info->id; ?>">
                     <?php
-                    $req ='required';
-                    if (isset($info) && $info->id){
-                        $req ='';
+                    $req = 'required';
+                    if (isset($info) && $info->id) {
+                        $req = '';
                     }
                     ?>
                     <div class="mb-3 row ">
                         <label class="col-sm-2 col-form-label fw-bold">Lead <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                        <select name="lead" class="form-control create-input required" id="lead">
-                            <option value="">select</option>
-                            <?php foreach ($lms_opt as $key => $value) {
-                                $selected = '';
-                                if (isset($info->lead) && $info->lead == $value->id ) {
-                                    $selected = 'selected';
-                                }
-                            ?>
-                                <option value="<?php echo $value->id; ?>" <?= $selected; ?>>
-                                    <?php echo ucfirst($value->first_name); ?> <?php echo ucfirst($value->last_name); ?>
-                                </option>
-                            <?php } ?>
-                        </select>
+                            <select name="lead" class="form-control create-input required" id="lead">
+                                <option value="">select</option>
+                                <?php foreach ($lms_opt as $key => $value) {
+                                    $selected = '';
+                                    if (isset($info->lead) && $info->lead == $value->id) {
+                                        $selected = 'selected';
+                                    }
+                                ?>
+                                    <option value="<?php echo $value->id; ?>" <?= $selected; ?>>
+                                        <?php echo ucfirst($value->first_name); ?> <?php echo ucfirst($value->last_name); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3 row">

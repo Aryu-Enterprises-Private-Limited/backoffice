@@ -30,7 +30,6 @@
                             <th> <?php echo 'Lead' ?></th>
                             <th> <?php echo 'Project Details' ?></th>
                             <th> <?php echo 'Price' ?></th>
-                            <!-- <th> <?php echo 'Document' ?></th> -->
                             <th> <?php echo 'status' ?></th>
                             <th> <?php echo 'Action'; ?> </th>
                         </tr>
@@ -65,15 +64,6 @@
     $(function() {
         var url = "<?php echo base_url(); ?>admin/crm/list_ajax";
         var dataTbl = $("#displayDataTbl").DataTable({
-            // "ordering": false,
-            // "scrollX": true,
-            // 'pageLength': 10,
-            // 'processing': true,
-            // 'serverSide': true,
-            // 'serverMethod': 'post',
-
-
-
             "scrollX": true,
             "aaSorting": [3, "desc"],
             columnDefs: [{
@@ -109,9 +99,6 @@
                 {
                     data: 'price'
                 },
-                // {
-                //     data: 'file'
-                // },
                 {
                     data: 'status'
                 },
@@ -125,112 +112,122 @@
 
 
     //$(document).on("click", ".stsconfirm", function() {
-        $(document).on("click", ".stsconfirm", function (evt) {
-            var act_url = $(this).attr('data-act_url');
-            var row_id = $(this).attr('data-row_id');
-            var stsmode = $(this).attr('data-stsmode');
-            var verify_status = $(this).attr('data-status');
-            var mainEvt = $(this);
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to change the staus!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, Change!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('.btn-success').attr("disabled", true);
-                    $.ajax({
-					type: 'post',
-					url: act_url,
-					data: { 'record_id': row_id, 'mode': stsmode, 'verify_status': verify_status },
-					dataType: 'json',
-					success: function (res) {
-						$('.btn-success').removeAttr("disabled");
-						if (res.status == '1') {
-							Swal.fire({
-								title: "Status Changed!",
-								text: res.response,
-								type: "success"
-							});
-							if (stsmode == '0') {
-								mainEvt.attr('data-stsmode', '1');
-								mainEvt.html('<button type="button" class="btn btn-danger btn-sm waves-effect waves-light">Inactive</button>');
-							} else if (stsmode == '1') {
-								mainEvt.attr('data-stsmode', '0');
-								mainEvt.html('<button type="button" class="btn btn-success btn-sm waves-effect waves-light">Active</button>');
-							} else {
-								$('.drRideBox').hide();
-							}
-							//setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
-						} else {
-							Swal.fire({
-								title: "Error",
-								text: res.response,
-								type: "error"
-							});
-						}
-						if (res.status == '00') {
-							setTimeout(function () { location.reload(); }, 1500);
-						}
-					}
-				});
-                }
-            });
-        });
-
-
-        $(document).on("click", ".delconfirm", function (evt) {
-		var row_id = $(this).attr('data-row_id');
-		var act_url = $(this).attr('data-act_url');
-		Swal.fire({
-			title: "Are you sure?",
-			text: "Do you want to Delete the Record!",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonText: "Yes, Delete!",
-			cancelButtonText: "No, Cancel!",
-		}).then((result) => {
-
-			if (result.isConfirmed) {
-				$('.btn-success').attr("disabled", true);
-				$.ajax({
-					type: 'post',
-					url: act_url,
-					data: { 'record_id': row_id },
-					dataType: 'json',
-					success: function (res) {
-						$('.btn-success').removeAttr("disabled");
-						if (res.status == '1') {
-							Swal.fire({
-								title: "Deleted!",
-								text: res.response,
-								type: "success"
-							});
-							$('#' + row_id).remove();
+    $(document).on("click", ".stsconfirm", function(evt) {
+        var act_url = $(this).attr('data-act_url');
+        var row_id = $(this).attr('data-row_id');
+        var stsmode = $(this).attr('data-stsmode');
+        var verify_status = $(this).attr('data-status');
+        var mainEvt = $(this);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to change the staus!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, Change!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('.btn-success').attr("disabled", true);
+                $.ajax({
+                    type: 'post',
+                    url: act_url,
+                    data: {
+                        'record_id': row_id,
+                        'mode': stsmode,
+                        'verify_status': verify_status
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('.btn-success').removeAttr("disabled");
+                        if (res.status == '1') {
+                            Swal.fire({
+                                title: "Status Changed!",
+                                text: res.response,
+                                type: "success"
+                            });
+                            if (stsmode == '0') {
+                                mainEvt.attr('data-stsmode', '1');
+                                mainEvt.html('<button type="button" class="btn btn-danger btn-sm waves-effect waves-light">Inactive</button>');
+                            } else if (stsmode == '1') {
+                                mainEvt.attr('data-stsmode', '0');
+                                mainEvt.html('<button type="button" class="btn btn-success btn-sm waves-effect waves-light">Active</button>');
+                            } else {
+                                $('.drRideBox').hide();
+                            }
+                            //setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: res.response,
+                                type: "error"
+                            });
+                        }
+                        if (res.status == '00') {
                             setTimeout(function() {
-                            location.reload();
-                        }, 2500);
-							//setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
-						} else {
-							Swal.fire({
-								title: "Error",
-								text: res.response,
-								type: "error"
-							});
-						}
-						if (res.status == '00') {
-							setTimeout(function () { location.reload(); }, 1500);
-						}
-					}
-				});
+                                location.reload();
+                            }, 1500);
+                        }
+                    }
+                });
+            }
+        });
+    });
 
 
-			}
-		})
-	});
+    $(document).on("click", ".delconfirm", function(evt) {
+        var row_id = $(this).attr('data-row_id');
+        var act_url = $(this).attr('data-act_url');
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to Delete the Record!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Yes, Delete!",
+            cancelButtonText: "No, Cancel!",
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                $('.btn-success').attr("disabled", true);
+                $.ajax({
+                    type: 'post',
+                    url: act_url,
+                    data: {
+                        'record_id': row_id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('.btn-success').removeAttr("disabled");
+                        if (res.status == '1') {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: res.response,
+                                type: "success"
+                            });
+                            $('#' + row_id).remove();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2500);
+                            //setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: res.response,
+                                type: "error"
+                            });
+                        }
+                        if (res.status == '00') {
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+                        }
+                    }
+                });
+
+
+            }
+        })
+    });
     //});
 </script>
 <?= $this->endSection() ?>

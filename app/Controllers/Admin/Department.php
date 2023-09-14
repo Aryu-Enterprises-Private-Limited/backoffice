@@ -97,7 +97,7 @@ class Department extends BaseController
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'department_name' => ucfirst($row->department_name),
-                'created_at' => ucfirst($row->created_at),
+                'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );

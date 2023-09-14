@@ -2,8 +2,7 @@
 
 namespace App\Controllers\Admin;
 
-// use App\Models\userModel;
-use PhpParser\Node\Expr\Print_;
+
 use App\Controllers\BaseController;
 
 class Client extends BaseController
@@ -196,14 +195,11 @@ class Client extends BaseController
                     );
                     if (!$validation->withRequest($this->request)->run()) {
                         $errors = $validation->getErrors();
-                        // $returnArr['status'] = '0';
-                        // $returnArr['response'] = $errors;
-                        if(isset($errors['phone'])){
+                        if (isset($errors['phone'])) {
                             $errors_msg = $errors['phone'];
-                        }else{
+                        } else {
                             $errors_msg = $errors['email'];
                         }
-                        // print_r($errors['phone']) ;die;
                         $this->session->setFlashdata('error_message', $errors_msg);
                         return redirect()->to('/' . ADMIN_PATH . '/client/add');
                         // return $this->response->setStatusCode(422)->setJSON($returnArr);
@@ -231,9 +227,13 @@ class Client extends BaseController
                     );
                     if (!$validation->withRequest($this->request)->run()) {
                         $errors = $validation->getErrors();
-                        $returnArr['status'] = '0';
-                        $returnArr['response'] = $errors;
-                        return $this->response->setStatusCode(422)->setJSON($returnArr);
+                        if (isset($errors['phone'])) {
+                            $errors_msg = $errors['phone'];
+                        } else {
+                            $errors_msg = $errors['email'];
+                        }
+                        $this->session->setFlashdata('error_message', $errors_msg);
+                        return redirect()->to('/' . ADMIN_PATH . '/client/edit/' . $id);
                     } else {
                         $condition = array('id' => $id);
                         $this->LmsModel->update_details(CLIENT_DETAILS, $dataArr, $condition);
