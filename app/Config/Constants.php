@@ -93,7 +93,7 @@ defined('INVOICE_NO')            || define('INVOICE_NO', 'AYE');
 //uploads file path
 defined('CRM_DOC_PATH')  || define('CRM_DOC_PATH', './uploads/crm_doc');
 defined('EMPLOYEE_RESUME_DOC_PATH')  || define('EMPLOYEE_RESUME_DOC_PATH', './uploads/employee_cv_doc');
-
+defined('CANDIDATES_RESUME_DOC_PATH')  || define('CANDIDATES_RESUME_DOC_PATH', './uploads/candidates_cv_doc');
 
 
 //database table name
@@ -108,7 +108,12 @@ defined('INVOICE_DETAILS')          || define('INVOICE_DETAILS', 'invoice_detail
 defined('EMPLOYEE_ROLE')          || define('EMPLOYEE_ROLE', 'employee_role');
 defined('DEPARTMENT_DETAILS')          || define('DEPARTMENT_DETAILS', 'department_details');
 defined('SCHEDULE_HOURS')          || define('SCHEDULE_HOURS', 'schedule_hours');
-
+defined('JOBS')          || define('JOBS', 'jobs_opening');
+defined('APPLICATION_STATUS')          || define('APPLICATION_STATUS', 'application_status');
+defined('INTERVIEW_STATUS')          || define('INTERVIEW_STATUS', 'interview_status');
+defined('STAGE')          || define('STAGE', 'stage');
+defined('REASON_REJECTION')          || define('REASON_REJECTION', 'reason_rejection');
+defined('CANDIDATES_DETAILS')          || define('CANDIDATES_DETAILS', 'candidates_details');
 
 /**
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.
