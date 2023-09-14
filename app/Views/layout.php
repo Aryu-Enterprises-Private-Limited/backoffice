@@ -60,13 +60,23 @@
             <a class="nav-link  text-white g-5" href="<?= '/' . ADMIN_PATH . '/schedule/list' ?>"><i class="fa fa-calendar" aria-hidden="true"></i> Schedule </a>
         </li>
         <li class="nav-item ">
-        <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i>Attendance</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/attendance/list' ?>">Employee Attendance</a></li>
-            <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/list' ?>">Attendance Report</a></li>
-          </ul>
+            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i>Attendance</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/attendance/list' ?>">Employee Attendance</a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/list' ?>">Attendance Report</a></li>
+            </ul>
         </li>
-
+        <li class="nav-item ">
+            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i> Recuritment </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/candidates/list' ?>"> Candidates </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/job/list' ?>"> Job Opening </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/application/list' ?>"> Application Status </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/interview/list' ?>"> Interview Status </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/stage/list' ?>"> Stage </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/reason_rejection/list' ?>"> Reason For Rejection </a></li>
+            </ul>
+        </li>
         <li class="nav-item">
             <a class="nav-link  text-white" href="<?= '/' . ADMIN_PATH . '/client/list' ?>"><i class="fa fa-user" aria-hidden="true"></i> Client </a>
         </li>
