@@ -8,9 +8,9 @@
             <div class="row">
                 <div class="col-md-11">
                     <ol class="breadcrumb p-0 m-0">
-                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
-                            <a href="<?= '/' . ADMIN_PATH . '/job/list' ?>"><?php echo  'Job'; ?> </a>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/job/list' ?>"><?php echo  'Job'; ?> </a>
                         </li>
                         <?php if (isset($job_info) && $job_info->jobs_name) { ?>
                             <li class="breadcrumb-item">
@@ -39,7 +39,18 @@
                             <input type="text" class="form-control create-input" name="job_name" id="job_name" value="<?php if (isset($job_info->jobs_name)) echo $job_info->jobs_name; ?>" required>
                         </div>
                     </div>
-
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">Job Description <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                        <textarea class="form-control create-input" rows="3" name="job_desc" id="job_desc" required><?php if (isset($job_info) && $job_info->job_desc) echo $job_info->job_desc;  ?></textarea>
+                    </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">Job Budget <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control create-input" name="job_budget" id="job_budget" value="<?php if (isset($job_info->job_budget)) echo $job_info->job_budget; ?>" required>
+                        </div>
+                    </div>
                     <div class="mb-3 row">
                         <?php if (isset($job_info) && isset($job_info->status) && $job_info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>

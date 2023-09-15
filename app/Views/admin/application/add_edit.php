@@ -8,12 +8,12 @@
             <div class="row">
                 <div class="col-md-11">
                     <ol class="breadcrumb p-0 m-0">
-                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
-                            <a href="<?= '/' . ADMIN_PATH . '/application/list' ?>"><?php echo  'Application'; ?> </a>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/application/list' ?>"><?php echo  'Application'; ?> </a>
                         </li>
                         <?php if (isset($app_info) && $app_info->app_status) { ?>
-                            <li class="breadcrumb-item">
+                            <li class="breadcrumb-item text-decoration-none">
                                 <?php echo $app_info->app_status; ?>
                             </li>
                             <li class="breadcrumb-item active">

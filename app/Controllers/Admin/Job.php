@@ -52,6 +52,8 @@ class Job extends BaseController
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'jobs_name' => trim($dtSearchKeyVal),
+                'job_desc' => trim($dtSearchKeyVal),
+                'job_budget' => trim($dtSearchKeyVal),
             );
         }
 
@@ -97,6 +99,8 @@ class Job extends BaseController
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'job_name' => ucfirst($row->jobs_name),
+                'job_desc' => ucfirst($row->job_desc),
+                'job_budget' =>  $row->job_budget,
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -144,13 +148,15 @@ class Job extends BaseController
     {
         if ($this->checkSession('A') != '') {
             $job_name = (string)$this->request->getPostGet('job_name');
+            $job_desc = (string)$this->request->getPostGet('job_desc');
+            $job_budget = (string)$this->request->getPostGet('job_budget');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
             }
             $fSubmit = FALSE;
-            if ($job_name != '') {
+            if ($job_name != '' && $job_desc!='' && $job_budget!='') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
@@ -158,6 +164,8 @@ class Job extends BaseController
                 }
                 $dataArr = array(
                     'jobs_name' => $job_name,
+                    'job_desc' => $job_desc,
+                    'job_budget' => $job_budget,
                     'status' => $status,
                 );
 

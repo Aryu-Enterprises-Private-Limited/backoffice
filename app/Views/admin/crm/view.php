@@ -6,12 +6,23 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/crm/list' ?>">CRM</a>
+                        </li>
+                        <?php if (isset($appDetails)) { ?>
+                            <li class="breadcrumb-item">
+                                <?php echo $appDetails->app_status; ?>
+                            </li>
+                        <?php } ?>
+                        <li class="breadcrumb-item active">
+                            <?php echo 'view'; ?>
+                        </li>
+                    </ol>
+                    <hr>
                     <h3><?= $title; ?></h3>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn  butn-back text-white">Back</button>
-                </div>
-
             </div>
 
 

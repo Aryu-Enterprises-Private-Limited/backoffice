@@ -7,9 +7,9 @@
             <div class="row">
                 <div class="col-md-11">
                     <ol class="breadcrumb p-0 m-0">
-                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
-                            <a href="<?= '/' . ADMIN_PATH . '/role/list' ?>">Role</a>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/role/list' ?>">Role</a>
                         </li>
                         <?php if (isset($roleDetails)) { ?>
                             <li class="breadcrumb-item">
