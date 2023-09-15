@@ -7,9 +7,9 @@
             <div class="row">
                 <div class="col-md-11">
                     <ol class="breadcrumb p-0 m-0">
-                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
-                            <a href="<?= '/' . ADMIN_PATH . '/reason_rejection/list' ?>">Reason For rejection</a>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/reason_rejection/list' ?>">Reason For rejection</a>
                         </li>
                         <?php if (isset($rrDetails)) { ?>
                             <li class="breadcrumb-item">

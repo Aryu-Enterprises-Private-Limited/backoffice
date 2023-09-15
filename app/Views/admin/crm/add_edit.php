@@ -7,6 +7,25 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
+                    <ol class="breadcrumb p-0 m-0">
+                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
+                        <li class="breadcrumb-item">
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/crm/list' ?>"><?php echo  'CRM'; ?> </a>
+                        </li>
+                        <?php if (isset($info) && $info->id) { ?>
+                            <li class="breadcrumb-item text-decoration-none">
+                                <?php echo $info->project_details; ?>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Edit'; ?>
+                            </li>
+                        <?php } else { ?>
+                            <li class="breadcrumb-item active">
+                                <?php echo 'Add New'; ?>
+                            </li>
+                        <?php } ?>
+                    </ol>
+                    <hr>
                     <h3><?= $title;  ?></h3>
                 </div>
             </div>

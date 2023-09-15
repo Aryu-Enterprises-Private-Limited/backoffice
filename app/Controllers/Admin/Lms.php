@@ -106,8 +106,8 @@ class Lms extends BaseController
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
-                'first_name' => $row->first_name,
-                'last_name' => $row->last_name,
+                'first_name' => ucfirst($row->first_name),
+                'last_name' => ucfirst($row->last_name),
                 'address' => $row->address,
                 'phone' => $row->phone,
                 'email' => $row->email,

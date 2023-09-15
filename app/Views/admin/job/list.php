@@ -29,6 +29,8 @@
                     <thead>
                         <tr>
                             <th> Job Name </th>
+                            <th> Job Description </th>
+                            <th> Job Budget </th>
                             <th> Created AT </th>
                             <th> Status </th>
                             <th> Action </th>
@@ -97,6 +99,12 @@
             },
             'columns': [{
                     data: 'job_name'
+                },
+                {
+                    data: 'job_desc'
+                },
+                {
+                    data: 'job_budget'
                 },
                 {
                     data: 'created_at'
