@@ -30,6 +30,7 @@
                     <thead>
                         <tr>
                             <th> Role Name </th>
+                            <th> Department Name </th>
                             <th> Created AT </th>
                             <th> Status </th>
                             <th> Action </th>
@@ -98,6 +99,9 @@
             },
             'columns': [{
                     data: 'role_name'
+                },
+                {
+                    data: 'department_id'
                 },
                 {
                     data: 'created_at'

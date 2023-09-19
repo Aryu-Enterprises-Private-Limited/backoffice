@@ -39,7 +39,24 @@
                             <input type="text" class="form-control create-input" name="role_name" id="role_name" value="<?php if (isset($role_info->role_name)) echo $role_info->role_name; ?>" required>
                         </div>
                     </div>
-
+                    <div class="mb-3 row ">
+                        <label class="col-sm-2 col-form-label fw-bold">Department Name <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <select name="dept_name" class="form-control create-input required" id="dept_name">
+                                <option value="">select</option>
+                                <?php foreach ($dept_opt as $key => $value) {
+                                    $selected = '';
+                                    if (isset($role_info->department_id) && $role_info->department_id == $value->id) {
+                                        $selected = 'selected';
+                                    }
+                                ?>
+                                    <option value="<?php echo $value->id; ?>" <?= $selected; ?>>
+                                        <?php echo ucfirst($value->department_name); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
                     <div class="mb-3 row">
                         <?php if (isset($role_info) && isset($role_info->status) && $role_info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>

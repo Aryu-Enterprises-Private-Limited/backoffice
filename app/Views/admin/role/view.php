@@ -31,8 +31,12 @@
                 <table class="table table-bordered m-b-0">
                     <tbody>
                         <tr>
-                            <th scope="row"> Name </th>
+                            <th scope="row"> Role Name </th>
                             <td><?php if (isset($roleDetails->role_name)) echo ucfirst($roleDetails->role_name); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Department Name </th>
+                            <td><?php if (isset($deptDetails->department_name)) echo ucfirst($deptDetails->department_name); ?></td>
                         </tr>
                         <tr>
                             <th scope="row"> Status </th>
