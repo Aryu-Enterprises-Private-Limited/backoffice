@@ -90,7 +90,7 @@ class Report extends BaseController
         $groupby = $this->LmsModel->group_by_tbl($condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $tblData = array();
-        $position = 1;
+
         foreach ($groupby->getResult() as $data) {
             $reason = $data->concatenated_reasons;
             $time = $data->concatenated_current_time;
@@ -261,172 +261,28 @@ class Report extends BaseController
         echo json_encode($returnArr);
     }
 
-    public function add_edit($id = "")
+    public function monthly_list_ajax()
     {
-        if ($this->checkSession('A') != '') {
-            $uri = service('uri');
-            $id = $uri->getSegment(4);
-            $this->data['lms_opt'] = $this->LmsModel->get_selected_fields(LMS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
-            if ($id != '') {
-                $condition = array('is_deleted' => '0', 'id' => $id);
-                $this->data['info'] = $this->LmsModel->get_selected_fields(CRM, $condition)->getRow();
-                if (!empty($this->data['info'])) {
-                    $this->data['title'] = 'Edit Crm';
-                } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Lms');
-                    return redirect()->route(ADMIN_PATH . '/crm/list');
-                }
-            } else {
-                $this->data['title'] = 'Add Crm';
-            }
-            echo view(ADMIN_PATH . '/crm/add_edit', $this->data);
-        } else {
-            $this->session->setFlashdata('error_message', 'Please login!!!');
-            return redirect()->to('/' . ADMIN_PATH);
-        }
+        $currentMonth = date('F');
+        $currentYear = date('Y');
+        $this->data['title'] = 'Monthly Report List';
+        $this->data['dates'] = $datesForCurrentMonth = $this->generateDatesForMonth($currentMonth, $currentYear);
+        echo view(ADMIN_PATH . '/report/monthly_list', $this->data);
+
     }
 
-
-    public function view($id = "")
+    private function generateDatesForMonth($currentMonth, $currentYear)
     {
-        if ($this->checkSession('A') != '') {
-            $uri = service('uri');
-            $id = $uri->getSegment(4);
-            if ($id != '') {
-                $condition = array('id' => $id, 'is_deleted' => '0');
-                $this->data['crmDetails'] = $this->LmsModel->get_all_details(CRM, $condition)->getRow();
-                $this->data['lmsDetails'] = $this->LmsModel->get_all_details(LMS, $condition)->getRow();
-                if (!empty($this->data['crmDetails']) && !empty($this->data['lmsDetails'])) {
-                    $this->data['title'] = 'Crm view';
-                    echo view(ADMIN_PATH . '/crm/view', $this->data);
-                } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Crm');
-                    return redirect()->route(ADMIN_PATH . '/crm/list');
-                }
-            } else {
-                $this->session->setFlashdata('error_message', 'Couldnot find the Crm');
-                return redirect()->route(ADMIN_PATH . '/crm/list');
-            }
-        } else {
-            $this->session->setFlashdata('error_message', 'Please login!!!');
-            return redirect()->to('/' . ADMIN_PATH);
+        $firstDayOfMonth = date('Y-m-01', strtotime("{$currentYear}-{$currentMonth}"));
+        $lastDayOfMonth = date('Y-m-t', strtotime("{$currentYear}-{$currentMonth}"));
+
+        $datesForCurrentMonth = [];
+        $currentDate = $firstDayOfMonth;
+
+        while ($currentDate <= $lastDayOfMonth) {
+            $datesForCurrentMonth[] = $currentDate;
+            $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
         }
-    }
-
-    public function insertUpdate()
-    {
-        if ($this->checkSession('A') != '') {
-            $project_details = (string)$this->request->getPostGet('project_details');
-            $file = $this->request->getFile('crm_file');
-            $price = (string)$this->request->getPostGet('price');
-            $lead = (string)$this->request->getPostGet('lead');
-            $status = (string)$this->request->getPostGet('status');
-            $id = (string)$this->request->getPostGet('id');
-            if ($status == '') {
-                $status = 'off';
-            }
-            // echo $file;die;
-            $fSubmit = FALSE;
-            if ($project_details != '' && $price != '' && $lead != '') {
-                if ($status == 'on') {
-                    $status = '1';
-                } else {
-                    $status = '0';
-                }
-                $name =  '';
-                $dataArr = array(
-                    'lead' => $lead,
-                    'project_details' => $project_details,
-                    'price' => $price,
-                    'status' => $status,
-                );
-                // $file->setRules('uploaded[crm_file]|max_size[crm_file,1024]|ext_in[crm_file,pdf,docx]');
-                if ($file->isValid() && !$file->hasMoved()) {
-                    $newName = $file->getRandomName();
-                    $file->move(WRITEPATH . CRM_DOC_PATH, $newName);
-                    $dataArr['document_name'] = $file->getName();
-                } else {
-                    echo 'Upload failed.';
-                }
-                if ($id == '') {
-                    $this->LmsModel->simple_insert(CRM, $dataArr);
-                    $this->session->setFlashdata('success_message', 'Crm details added successfully.');
-                    // $this->setFlashMessage('success', 'Crm details added successfully');
-                    $fSubmit = TRUE;
-                } else {
-                    $condition = array('id' => $id);
-                    $this->LmsModel->update_details(CRM, $dataArr, $condition);
-                    $this->session->setFlashdata('success_message', 'Crm details update successfully');
-                    $fSubmit = TRUE;
-                }
-            } else {
-                $this->session->setFlashdata('error_message', 'Form data is missing.');
-            }
-            if ($fSubmit) {
-                $url = ADMIN_PATH . '/crm/list';
-            } else {
-                if ($id == '') $url = ADMIN_PATH . '/crm/add';
-                else $url = ADMIN_PATH . '/crm/edit/' . $id;
-            }
-            return redirect()->to("$url");
-        } else {
-            $this->session->setFlashdata('error_message', 'Please login!!!');
-            return redirect()->to('/' . ADMIN_PATH);
-        }
-    }
-
-
-    public function update_status()
-    {
-        if ($this->checkSession('A') != '') {
-            $returnArr['status'] = '0';
-            $returnArr['response'] = 'Failed to updated, Please try again';
-            if ($this->checkSession('A') == '') {
-                $returnArr['status'] = '00';
-                $returnArr['response'] = 'Session has been timed out, Please login again and try.';
-            } else {
-                $mode = $this->request->getPostGet('mode');
-                // echo $mode;die;
-                $id = $this->request->getPostGet('record_id');
-                $status = ($mode == '0') ? '0' : '1';
-                $newdata = array('status' => $status);
-                $condition = array('id' => $id);
-                $this->LmsModel->update_details(CRM, $newdata, $condition);
-                $returnArr['status'] = '1';
-                $returnArr['response'] = 'Crm Status Changed Successfully';
-            }
-            echo json_encode($returnArr);
-            exit;
-        } else {
-            $this->session->setFlashdata('error_message', 'Please login!!!');
-            return redirect()->to('/' . ADMIN_PATH);
-        }
-    }
-
-    public function delete()
-    {
-        if ($this->checkSession('A') != '') {
-            $returnArr['status'] = '0';
-            $returnArr['response'] = 'Failed to delete, Please try again';
-            if ($this->checkSession('A') == '') {
-                $returnArr['status'] = '00';
-                $returnArr['response'] = 'Session has been timed out, Please login again and try.';
-            } else {
-                $record_id = $this->request->getPostGet('record_id');
-                if (isset($record_id)) {
-                    $this->LmsModel->isDelete(CRM, 'id', TRUE);
-                    // $this->setFlashMessage('success', 'Lms deleted successfully');
-                    $returnArr['status'] = '1';
-                    $returnArr['response'] = 'Record Deleted Successfully';
-                }
-                // $this->LmsModel->commonDelete(LMS, array('id' => $record_id));
-            }
-
-            echo json_encode($returnArr);
-            exit;
-        } else {
-            $this->session->setFlashdata('error_message', 'Please login!!!');
-            return redirect()->to('/' . ADMIN_PATH);
-        }
+        return $datesForCurrentMonth;
     }
 }

@@ -68,6 +68,8 @@ class Role extends BaseController
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
+            $cond = array('id'=> $row->department_id);
+            $dept_name = $this->LmsModel->get_selected_fields(DEPARTMENT_DETAILS, $cond)->getRow();
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
             $actTitle = 'Click to active';
@@ -96,6 +98,7 @@ class Role extends BaseController
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'role_name' => ucfirst($row->role_name),
+                'department_id' => ucfirst($dept_name->department_name ??'-'),
                 'created_at' => ucfirst($row->created_at),
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -118,6 +121,7 @@ class Role extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
+            $this->data['dept_opt'] = $this->LmsModel->get_selected_fields(DEPARTMENT_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'department_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['role_info'] = $this->LmsModel->get_selected_fields(EMPLOYEE_ROLE, $condition)->getRow();
@@ -143,13 +147,14 @@ class Role extends BaseController
     {
         if ($this->checkSession('A') != '') {
             $role_name = (string)$this->request->getPostGet('role_name');
+            $dept_id = (string)$this->request->getPostGet('dept_name');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
             }
             $fSubmit = FALSE;
-            if ($role_name != '') {
+            if ($role_name != '' && $dept_id) {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
@@ -157,7 +162,9 @@ class Role extends BaseController
                 }
                 $dataArr = array(
                     'role_name' => $role_name,
+                    'department_id' => $dept_id,
                     'status' => $status,
+                    'is_deleted' => '0'
                 );
 
                 if ($id == '') {
@@ -220,6 +227,8 @@ class Role extends BaseController
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
                 $this->data['roleDetails'] = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $condition)->getRow();
+                $condition2 = ['id' => $this->data['roleDetails']->department_id];
+                $this->data['deptDetails'] = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $condition2)->getRow();
                 if (!empty($this->data['roleDetails'])) {
                     $this->data['title'] = 'Role view';
                     echo view(ADMIN_PATH . '/role/view', $this->data);

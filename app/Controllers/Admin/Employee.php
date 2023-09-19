@@ -718,4 +718,30 @@ class Employee extends BaseController
             ->setStatusCode(200)
             ->setBody($binary);
     }
+
+    public function get_dept_opt_ajax()
+    {
+        // echo"xg";die;
+        $role_id = (string)$this->request->getPostGet('role_id');
+        if (isset($role_id) && $role_id != '') {
+            $cond = ['id' => $role_id];
+            $roleDetails = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $cond)->getRow();
+            $cond2 = ['id' => $roleDetails->department_id, 'is_deleted' => 0, 'status' => 1];
+            $deptDetails = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $cond2)->getRow();
+            //    echo"<pre>"; print_r($deptDetails);die;
+            $html = '';
+            if (!empty($deptDetails)) {
+                $html .= '<option value="' . $deptDetails->id . ' ">
+ ' . ucfirst($deptDetails->department_name) . '
+</option>';
+            } else {
+                $html .= '<option value="">No Record</option>';
+            }
+        } else {
+            $html['status'] = '0';
+            $html['response'] = 'Failed to get Department Option';
+        }
+        echo json_encode($html);
+            exit;
+    }
 }

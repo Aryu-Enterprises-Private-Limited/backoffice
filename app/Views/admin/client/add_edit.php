@@ -59,11 +59,43 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold">Address <span class="text-danger">*</span></label>
+                        <label class="col-sm-2 col-form-label fw-bold">Company Name <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control create-input" name="company_name" id="company_name" value="<?php if (isset($client_info->company_name)) echo $client_info->company_name; ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold" >Address <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
                             <textarea class="form-control create-input" rows="3" name="address" id="address" required><?php if (isset($client_info) && $client_info->address) echo $client_info->address;  ?></textarea>
                         </div>
                     </div>
+                    <h4>Bank Infromation</h4>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">Bank Name <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control create-input" name="bank_name" id="bank_name" value="<?php if (isset($client_info->bank_name)) echo $client_info->bank_name; ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">Branch Name <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control create-input" name="branch_name" id="branch_name" value="<?php if (isset($client_info->branch_name)) echo $client_info->branch_name; ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">Account Number <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control create-input" name="acc_no" id="acc_no" value="<?php if (isset($client_info->acc_no)) echo $client_info->acc_no; ?>" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold">IFSC Code <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control create-input" name="ifsc_code" id="ifsc_code" value="<?php if (isset($client_info->ifsc_code)) echo $client_info->ifsc_code; ?>" required>
+                        </div>
+                    </div>
+                    
                     <div class="mb-3 row">
                         <?php if (isset($client_info) && isset($client_info->status) && $client_info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>

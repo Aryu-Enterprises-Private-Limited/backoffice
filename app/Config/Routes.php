@@ -92,6 +92,8 @@ $routes->add('/' . ADMIN_PATH . '/employee/change-status', 'Employee::update_sta
 $routes->add('/' . ADMIN_PATH . '/employee/view/(:segment)', 'Employee::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/employee/delete', 'Employee::delete', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/employee/view_doc/(:segment)', 'Employee::showFile', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/employee/get_dept_opt_ajax', 'Employee::get_dept_opt_ajax', ['namespace' => 'App\Controllers\Admin']);
+
 
 //attendance route
 $routes->add('/' . ADMIN_PATH . '/attendance/list', 'Attendance::index', ['namespace' => 'App\Controllers\Admin']);
@@ -110,7 +112,7 @@ $routes->add('/' . ADMIN_PATH . '/client/delete', 'Client::delete', ['namespace'
 //report route
 $routes->add('/' . ADMIN_PATH . '/report/list', 'Report::index', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/report/list_ajax', 'Report::list_ajax', ['namespace' => 'App\Controllers\Admin']);
-
+// $routes->add('/' . ADMIN_PATH . '/report/monthly_list', 'Report::monthly_list_ajax', ['namespace' => 'App\Controllers\Admin']);
 
 //in-voice route
  $routes->add('/' . ADMIN_PATH . '/invoice', 'Invoice::index', ['namespace' => 'App\Controllers\Admin']);
@@ -149,12 +151,6 @@ $routes->add('/' . ADMIN_PATH . '/schedule/add', 'Schedule::add_edit', ['namespa
 $routes->add('/' . ADMIN_PATH . '/schedule/update', 'Schedule::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
 
 
-//candidates route
-
-
-
-
-
 //job route
 $routes->add('/' . ADMIN_PATH . '/job/list', 'Job::index', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/job/list_ajax', 'Job::list_ajax', ['namespace' => 'App\Controllers\Admin']);
@@ -164,6 +160,17 @@ $routes->add('/' . ADMIN_PATH . '/job/update', 'Job::insertUpdate', ['namespace'
 $routes->add('/' . ADMIN_PATH . '/job/change-status', 'Job::update_status', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/job/view/(:segment)', 'Job::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/job/delete', 'Job::delete', ['namespace' => 'App\Controllers\Admin']);
+
+
+//job type route
+$routes->add('/' . ADMIN_PATH . '/job_type/list', 'Jobtype::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/list_ajax', 'Jobtype::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/add', 'Jobtype::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/edit/(:segment)', 'Jobtype::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/update', 'Jobtype::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/change-status', 'Jobtype::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/view/(:segment)', 'Jobtype::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/job_type/delete', 'Jobtype::delete', ['namespace' => 'App\Controllers\Admin']);
 
 //application route
 $routes->add('/' . ADMIN_PATH . '/application/list', 'Application::index', ['namespace' => 'App\Controllers\Admin']);
@@ -218,6 +225,26 @@ $routes->add('/' . ADMIN_PATH . '/candidates/change-status', 'Candidate::update_
 $routes->add('/' . ADMIN_PATH . '/candidates/view/(:segment)', 'Candidate::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/candidates/delete', 'Candidate::delete', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/candidates/view_doc/(:segment)', 'Candidate::showFile', ['namespace' => 'App\Controllers\Admin']);
+
+//pay route
+$routes->add('/' . ADMIN_PATH . '/pay/list', 'Pay::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/list_ajax', 'Pay::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/add', 'Pay::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/edit/(:segment)', 'Pay::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/update', 'Pay::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/change-status', 'Pay::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/view/(:segment)', 'Pay::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pay/delete', 'Pay::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//public_holiday route
+$routes->add('/' . ADMIN_PATH . '/public_holiday/list', 'Public_holiday::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/list_ajax', 'Public_holiday::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/add', 'Public_holiday::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/edit/(:segment)', 'Public_holiday::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/update', 'Public_holiday::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/change-status', 'Public_holiday::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/view/(:segment)', 'Public_holiday::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/delete', 'Public_holiday::delete', ['namespace' => 'App\Controllers\Admin']);
 
 
 /*

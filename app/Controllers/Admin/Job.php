@@ -71,6 +71,9 @@ class Job extends BaseController
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
+            $job_type_id = $row->job_type_id;
+            $job_type = $this->LmsModel->get_selected_fields(JOB_TYPE, ['id' =>  $job_type_id])->getRow();
+
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
             $actTitle = 'Click to active';
@@ -101,6 +104,8 @@ class Job extends BaseController
                 'job_name' => ucfirst($row->jobs_name),
                 'job_desc' => ucfirst($row->job_desc),
                 'job_budget' =>  $row->job_budget,
+                'job_type_id' =>  $job_type->job_type_name??'-',
+                'job_requirement' =>  $row->job_requirement??'-',
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -123,6 +128,7 @@ class Job extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
+            $this->data['job_type_opt'] = $this->LmsModel->get_selected_fields(JOB_TYPE, ['status' => '1', 'is_deleted' => '0'], ['id', 'job_type_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['job_info'] = $this->LmsModel->get_selected_fields(JOBS, $condition)->getRow();
@@ -146,26 +152,33 @@ class Job extends BaseController
 
     public function insertUpdate()
     {
+        //  echo"<pre>"; print_r($_POST);die;
         if ($this->checkSession('A') != '') {
             $job_name = (string)$this->request->getPostGet('job_name');
             $job_desc = (string)$this->request->getPostGet('job_desc');
             $job_budget = (string)$this->request->getPostGet('job_budget');
+            $job_type_id = (string)$this->request->getPostGet('job_type');
+            $job_requirement = $this->request->getPostGet('job_req');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
             }
             $fSubmit = FALSE;
-            if ($job_name != '' && $job_desc!='' && $job_budget!='') {
+            if ($job_name != '' && $job_desc!='' && $job_budget!='' && $job_type_id !='' && $job_requirement !='') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
                     $status = '0';
                 }
+                $req_str = implode(",", $job_requirement);
+                // echo $string1;
                 $dataArr = array(
                     'jobs_name' => $job_name,
                     'job_desc' => $job_desc,
                     'job_budget' => $job_budget,
+                    'job_requirement' => $req_str,
+                    'job_type_id' => $job_type_id,
                     'status' => $status,
                 );
 
@@ -229,6 +242,10 @@ class Job extends BaseController
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
                 $this->data['jobDetails'] = $this->LmsModel->get_all_details(JOBS, $condition)->getRow();
+
+                $condition2 = ['id' => $this->data['jobDetails']->job_type_id];
+                $this->data['job_type_details'] = $this->LmsModel->get_all_details(JOB_TYPE, $condition2)->getRow();
+
                 if (!empty($this->data['jobDetails'])) {
                     $this->data['title'] = 'Job view';
                     echo view(ADMIN_PATH . '/job/view', $this->data);

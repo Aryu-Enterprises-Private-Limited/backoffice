@@ -169,9 +169,9 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold"> Reason for Rejection <span class="text-danger">*</span></label>
+                        <label class="col-sm-2 col-form-label fw-bold"> Reason for Rejection </label>
                         <div class="col-sm-10">
-                            <select class="form-select form-control create-input" name="reason_rejection_id" id="reason_rejection_id" required>
+                            <select class="form-select form-control create-input" name="reason_rejection_id" id="reason_rejection_id">
                                 <option value="">select</option>
                                 <?php foreach ($rr_opt as $key => $value) {
                                     $selected = '';

@@ -1,20 +1,26 @@
+<!-- Start content -->
 <?= $this->extend('layout') ?>
+<?= $this->section('styles') ?>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-
+<?php //print_r($dates); 
+?>
 <div class="container-fluid mt-4">
     <div class="card create-box">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
-                    <ol class="breadcrumb p-0 m-0">
-                        <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-                        <li class="breadcrumb-item">
-                            <a href="<?= '/' . ADMIN_PATH . '/schedule/list' ?>"><?php echo  'Schedule'; ?> </a>
-                        </li>
-                    </ol>
-                    <hr>
                     <h3><?= $title; ?></h3>
+                </div>
+                <div class="col-md-1">
+                    <a href="<?= (base_url(ADMIN_PATH . '/schedule/add')); ?>">
+                        <button type="button" class="btn btn-primary btn-sm butn-back text-white">Add Edit</button>
+                    </a>
                 </div>
 
                 <div class="col-sm-4">
@@ -30,9 +36,8 @@
                 </div>
             </div>
 
-            <!-- <div class="create-label"> -->
-            <form id="schedule_form" method="post" action="<?= (base_url(ADMIN_PATH . '/schedule/update'))  ?>" autocomplete="off" enctype="multipart/form-data">
-                <input type="hidden" id="date" name="date" value="<?php if (isset($dates)) echo $dates[0]; ?>">
+            <hr>
+            <div class="list-label">
                 <div class="card-body">
                     <div id="ajax_append">
                         <div class="table-responsive tableFixHead" id="myHeader">
@@ -52,67 +57,73 @@
                                             echo "<tr>";
                                             echo "<td> " . $item->employee_email . "</td>";
                                             $workingHours = json_decode($item->daily_working_hrs);
+
                                             if (is_array($workingHours)) {
-                                                // echo'<input type="text" name="id[]" value="'.$item->id.'">';
                                                 foreach ($workingHours as $hour) {
-                                                    echo '<td><input type="text" class="form-control create-inputs" name="sch_hrs[ ' . $item->employee_email . ',' . $item->employee_id . ',' . $item->id . '][]" id="" value="' . $hour . '" required></td>';
+                                                    // echo $hour . " ";
+                                                    echo "<td> " . $hour  . "</td>";
                                                 }
                                             } else {
                                                 echo "Invalid data format";
                                             }
                                             echo "</tr>";
                                         }
-                                    } else {
-                                        foreach ($emp_details as $item) {
-                                            echo "<tr>";
-                                            echo "<td> " . $item->email . "</td>";
-                                            for ($x = 1; $x <= count($dates); $x++) {
-                                                echo '<td><input type="text" class="form-control create-inputs" name="sch_hrs[' . $item->email . ',' . $item->id . '][]" id="" value="9" required></td>';
-                                            }
-                                            echo "</tr>";
-                                        }
-                                    } ?>
+                                    } else { ?>
+                                        <td colspan="33">No Records Found</td>
+                                    <?php   } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <button type="button" class="btn butn-submit text-white sbmtBtn" id="btn">Save</button>
-            </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</div>
+
 <?= $this->endSection() ?>
 
+
 <?= $this->section('script') ?>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".sbmtBtn").click(function(evt) {
-            if ($('#schedule_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
-                $('#schedule_form').submit();
-            }
-        });
+<!-- Include jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php if (session('success_message')) : ?>
+    <script>
+        toastr.success('<?= session('success_message') ?>');
+    </script>
+<?php endif; ?>
+<?php if (session('error_message')) : ?>
+    <script>
+        toastr.error('<?= session('error_message') ?>');
+    </script>
+<?php endif; ?>
+<script>
+    $(function() {
         var qryString = get_filter_strings();
         if (qryString != '') {
-            var url = "<?php echo base_url(); ?>admin/schedule/add?" + qryString;
+            var url = "<?php echo base_url(); ?>admin/report/monthly_list?" + qryString;
         } else {
-            var url = "<?php echo base_url(); ?>admin/schedule/add";
+            var url = "<?php echo base_url(); ?>admin/report/monthly_list";
         }
+
         $.ajax({
             url: url,
             // type: "post",
             data: {
 
             },
-        });
 
+        });
 
         function get_filter_strings() {
             var qryString = '';
@@ -124,13 +135,11 @@
         $("#month_filter").on('change', function() {
             var qryString = get_filter_strings();
             if (qryString != '') {
-                window.location.href = "<?php echo base_url(); ?>admin/schedule/add?" + qryString;;
+                window.location.href = "<?php echo base_url(); ?>admin/report/monthly_list?" + qryString;;
             } else {
-                window.location.href = "<?php echo base_url(); ?>admin/schedule/add";
+                window.location.href = "<?php echo base_url(); ?>admin/report/monthly_list";
             }
         });
-
-
 
     });
 </script>

@@ -109,11 +109,14 @@ defined('EMPLOYEE_ROLE')          || define('EMPLOYEE_ROLE', 'employee_role');
 defined('DEPARTMENT_DETAILS')          || define('DEPARTMENT_DETAILS', 'department_details');
 defined('SCHEDULE_HOURS')          || define('SCHEDULE_HOURS', 'schedule_hours');
 defined('JOBS')          || define('JOBS', 'jobs_opening');
+defined('JOB_TYPE')          || define('JOB_TYPE', 'job_type');
 defined('APPLICATION_STATUS')          || define('APPLICATION_STATUS', 'application_status');
 defined('INTERVIEW_STATUS')          || define('INTERVIEW_STATUS', 'interview_status');
 defined('STAGE')          || define('STAGE', 'stage');
 defined('REASON_REJECTION')          || define('REASON_REJECTION', 'reason_rejection');
 defined('CANDIDATES_DETAILS')          || define('CANDIDATES_DETAILS', 'candidates_details');
+defined('PAY')          || define('PAY', 'pay');
+defined('PUBLIC_HOLIDAY')          || define('PUBLIC_HOLIDAY', 'public_holiday');
 
 /**
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.

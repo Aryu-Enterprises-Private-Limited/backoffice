@@ -31,6 +31,8 @@
                             <th> Job Name </th>
                             <th> Job Description </th>
                             <th> Job Budget </th>
+                            <th> Job Type </th>
+                            <th> Job Requirement </th>
                             <th> Created AT </th>
                             <th> Status </th>
                             <th> Action </th>
@@ -105,6 +107,12 @@
                 },
                 {
                     data: 'job_budget'
+                },
+                {
+                    data: 'job_type_id'
+                },
+                {
+                    data: 'job_requirement'
                 },
                 {
                     data: 'created_at'

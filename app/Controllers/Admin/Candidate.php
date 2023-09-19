@@ -202,7 +202,7 @@ class Candidate extends BaseController
                     return redirect()->route(ADMIN_PATH . '/candidates/list');
                 }
             } else {
-                $this->data['title'] = 'Add Candidates status';
+                $this->data['title'] = 'Add Candidates';
             }
             echo view(ADMIN_PATH . '/candidates/add_edit', $this->data);
         } else {
@@ -241,7 +241,7 @@ class Candidate extends BaseController
                 $background_check = 'off';
             }
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '' && $reason_rejection_id != '') {
+            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
