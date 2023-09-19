@@ -42,6 +42,14 @@
                             <td><?php if (isset($jobDetails->job_budget)) echo ucfirst($jobDetails->job_budget); ?></td>
                         </tr>
                         <tr>
+                            <th scope="row"> Job Type </th>
+                            <td><?php if (isset($job_type_details->job_type_name)) echo ucfirst($job_type_details->job_type_name); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Job Requirement </th>
+                            <td><?php if (isset($jobDetails->job_requirement)) echo ucfirst($jobDetails->job_requirement); ?></td>
+                        </tr>
+                        <tr>
                             <th scope="row"> Status </th>
                             <td><?php if (isset($jobDetails->status) && $jobDetails->status == 1) { ?><span class="btn btn-success"><?php echo 'Active'; ?></span><?php } else { ?><span class="btn btn-danger"><?php echo 'In Active'; ?></span><?php } ?></td>
                         </tr>

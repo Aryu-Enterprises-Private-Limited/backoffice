@@ -32,6 +32,11 @@
                             <th> Email </th>
                             <th> Phone </th>
                             <th> Address </th>
+                            <th> Company Name </th>
+                            <th> Bank Name </th>
+                            <th> Branch Name </th>
+                            <th> Account Number </th>
+                            <th> IFSC Code </th>
                             <th> Status </th>
                             <th> Action </th>
                         </tr>
@@ -106,6 +111,21 @@
                 },
                 {
                     data: 'address'
+                },
+                {
+                    data: 'company_name'
+                },
+                {
+                    data: 'bank_name'
+                },
+                {
+                    data: 'branch_name'
+                },
+                {
+                    data: 'acc_no'
+                },
+                {
+                    data: 'ifsc_code'
                 },
                 {
                     data: 'status'

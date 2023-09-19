@@ -56,6 +56,11 @@ class Client extends BaseController
                 'phone' => trim($dtSearchKeyVal),
                 'email' => trim($dtSearchKeyVal),
                 'address' => trim($dtSearchKeyVal),
+                'company_name' => trim($dtSearchKeyVal),
+                'bank_name' => trim($dtSearchKeyVal),
+                'branch_name' => trim($dtSearchKeyVal),
+                'acc_no' => trim($dtSearchKeyVal),
+                'ifsc_code' => trim($dtSearchKeyVal),
             );
         }
 
@@ -99,11 +104,16 @@ class Client extends BaseController
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
-                'first_name' => $row->first_name,
-                'last_name' => $row->last_name,
+                'first_name' => ucfirst($row->first_name),
+                'last_name' => ucfirst($row->last_name),
                 'phone' => $row->phone,
                 'email' => $row->email,
-                'address' => $row->address,
+                'address' => wordwrap($row->address, 40, "<br />\n"),
+                'company_name' => ucfirst($row->company_name),
+                'bank_name' => strtoupper($row->bank_name),
+                'branch_name' => ucfirst($row->branch_name),
+                'acc_no' => $row->acc_no,
+                'ifsc_code' => strtoupper($row->ifsc_code),
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );
@@ -154,13 +164,18 @@ class Client extends BaseController
             $email = (string)$this->request->getPostGet('email');
             $phone = (string)$this->request->getPostGet('phone');
             $address = (string)$this->request->getPostGet('address');
+            $company_name = (string)$this->request->getPostGet('company_name');
+            $bank_name = (string)$this->request->getPostGet('bank_name');
+            $branch_name = (string)$this->request->getPostGet('branch_name');
+            $acc_no = (string)$this->request->getPostGet('acc_no');
+            $ifsc_code = (string)$this->request->getPostGet('ifsc_code');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
             }
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $phone != '' && $email != '' && $address != '') {
+            if ($first_name != '' && $last_name != '' && $phone != '' && $email != '' && $address != '' && $company_name!='' && $bank_name!='' && $branch_name!='' && $acc_no!='' && $ifsc_code!='') {
 
                 if ($status == 'on') {
                     $status = '1';
@@ -173,7 +188,13 @@ class Client extends BaseController
                     'phone' => $phone,
                     'email' => $email,
                     'status' => $status,
-                    'address' => $address
+                    'address' => $address,
+                    'company_name'=>$company_name,
+                    'bank_name'=>$bank_name,
+                    'branch_name'=>$branch_name,
+                    'acc_no'=>$acc_no,
+                    'ifsc_code'=>$ifsc_code,
+                    'is_deleted'=>'0',
                 );
 
                 if ($id == '') {

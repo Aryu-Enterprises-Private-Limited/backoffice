@@ -208,7 +208,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res[0].id);
+                    // console.log(res[0].id);
                     myModal.show();
                     $('#show_data').append(res);
                 }

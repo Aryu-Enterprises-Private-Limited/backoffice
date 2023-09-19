@@ -87,7 +87,7 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label class="form-label"> Department <span class="text-danger">*</span></label>
                         <select class="form-select form-control" name="department_id" id="department_id" required>
                             <option value="">select</option>
@@ -101,6 +101,12 @@
                                     <?php echo ucfirst($value->department_name); ?>
                                 </option>
                             <?php } ?>
+                        </select>
+                    </div> -->
+                    <div class="mb-3">
+                        <label class="form-label"> Department <span class="text-danger">*</span></label>
+                        <select class="form-select form-control" name="department_id" id="department_id" required>
+                            <option value="" id="option_val">select</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -151,6 +157,8 @@
                                                         ?>>Brother</option>
                                 <option value="wife" <?php if (isset($info)) echo ($info->relationship == 'wife') ? "selected" : ""
                                                         ?>>Wife</option>
+                                <option value="spouse" <?php if (isset($info)) echo ($info->relationship == 'spouse') ? "selected" : ""
+                                                        ?>>Spouse</option>
                                 <option value="others" <?php if (isset($info)) echo ($info->relationship == 'others') ? "selected" : ""
                                                         ?>>Others</option>
                             </select>
@@ -223,6 +231,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        <?php if (isset($info) && $info->id) { ?>
+            get_opt_dept();
+    <?php    } ?>
+        
+
         $('#emergency').hide();
         $('#employe_information').hide();
 
@@ -304,6 +317,29 @@
                 }
             });
         });
+
+        $("#role_id").change(function() {
+            get_opt_dept();
+        });
+        // $("#role_id").change(function() {
+            function get_opt_dept() {
+            var role_id = $('#role_id').val();
+            var url = "<?php echo base_url(); ?>admin/employee/get_dept_opt_ajax";
+            $('#option_val').html('');
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: {
+                    'role_id': role_id,
+                },
+                dataType: 'json',
+                success: function(res) {
+                    // alert(res);
+                     $('#option_val').append(res);
+                },
+            });
+        }
+        // });
     });
 </script>
 <?= $this->endSection() ?>

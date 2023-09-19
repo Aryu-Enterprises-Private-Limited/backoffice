@@ -42,8 +42,28 @@
                             <td><?php if (isset($clientDetails->phone)) echo ucfirst($clientDetails->phone); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"> Address </th>
-                            <td><?php if (isset($clientDetails->address)) echo ucfirst($clientDetails->address); ?></td>
+                            <th scope="row"> Address </th>,
+                            <td><?php if (isset($clientDetails->address)) echo ucfirst(wordwrap($clientDetails->address, 40, "<br />\n")); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Company Name </th>
+                            <td><?php if (isset($clientDetails->company_name)) echo ucfirst($clientDetails->company_name); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Bank Name </th>
+                            <td><?php if (isset($clientDetails->bank_name)) echo strtoupper($clientDetails->bank_name); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Branch Name </th>
+                            <td><?php if (isset($clientDetails->branch_name)) echo ucfirst($clientDetails->branch_name); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Account Number </th>
+                            <td><?php if (isset($clientDetails->acc_no)) echo ucfirst($clientDetails->acc_no); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> IFSC Code </th>
+                            <td><?php if (isset($clientDetails->ifsc_code)) echo strtoupper($clientDetails->ifsc_code); ?></td>
                         </tr>
                         <tr>
                             <th scope="row"> Status </th>
