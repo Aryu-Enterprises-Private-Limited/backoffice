@@ -212,3 +212,7 @@ body
 .len{
     width: 40%;
 }
+.reduce_len{
+        flex: 0 0 auto;
+        width: 47.333333%;
+}
