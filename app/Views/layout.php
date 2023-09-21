@@ -90,6 +90,14 @@
         <li class="nav-item">
             <a class="nav-link  text-white g-5" href="<?= '/' . ADMIN_PATH . '/invoice' ?>"><i class='fa fa-fax'></i> In-Voice Generate </a>
         </li>
+        <li class="nav-item ">
+            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-balance-scale"></i>Finance </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/employee/list' ?>"> Accounting </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/emp_bank_info/list' ?>"> Tax </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/emp_bank_info/list' ?>"> Alert </a></li>
+            </ul>
+        </li>
         <!--<li class="nav-item">
             <a class="nav-link  text-white" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Form</a>
         </li>

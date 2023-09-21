@@ -46,7 +46,7 @@
                     </div>
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold">Job Description <span class="text-danger">*</span></label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 reduce_len">
                             <!-- <div id="div_editor1">
                         </div> -->
                             <textarea class="form-control create-input" rows="3" name="job_desc" id="job_desc" required><?php if (isset($job_info) && $job_info->job_desc) echo $job_info->job_desc;  ?></textarea>
@@ -79,7 +79,7 @@
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold">Job Requirement <span class="text-danger">*</span></label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 reduce_len">
                             <select class="form-control js-example-tokenizer" multiple="multiple" name="job_req[]" required>
                                 <option value="">select</option>
                                 <?php
