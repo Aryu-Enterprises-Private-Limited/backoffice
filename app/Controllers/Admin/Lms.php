@@ -60,7 +60,6 @@ class Lms extends BaseController
                 'linked_in' => trim($dtSearchKeyVal),
                 'twitter' => trim($dtSearchKeyVal),
                 'facebook' => trim($dtSearchKeyVal),
-                'follow_up_alert' => trim($dtSearchKeyVal),
             );
         }
 
@@ -94,7 +93,7 @@ class Lms extends BaseController
 
             $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/lms/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
 
-            $notesTxt = '<button type="button" class="btn btn-info v_btn" data-act_url="/' . ADMIN_PATH . '/lms/get-notes_details"  data-row_id="' . $rowId . '">View </button>';
+            
 
             $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/lms/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
 
@@ -115,8 +114,6 @@ class Lms extends BaseController
                 'linked_in' => $row->linked_in,
                 'twitter' => $row->twitter,
                 'facebook' => $row->facebook,
-                "id" => $notesTxt,
-                'follow_up_alert' => $row->follow_up_alert,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );
@@ -132,36 +129,7 @@ class Lms extends BaseController
         echo json_encode($returnArr);
     }
 
-    public function get_notes_data()
-    {
-        if ($this->checkSession('A') != '') {
-            $lms_id = (string)$this->request->getPostGet('lms_id');
-            $condition = array('lms_id' => $lms_id);
-            $lms_data = $this->LmsModel->get_all_details(NOTES, $condition);
-            $html = '';
-
-            if (!empty($lms_data)) {
-                $x = 1;
-                foreach ($lms_data->getResult() as $data) {
-                    $html .= '<div class="row">
-                <div class="col-12">
-                    <div class="row form-group">
-                        <label class="col-sm-3 control-label">Notes ' . $x . ': </label>
-                        <p class="control-label">' . ucfirst($data->note) . '</p>
-                    </div>
-                </div>
-            </div>';
-                    $x++;
-                }
-            } else {
-                $html = 'No Records Found';
-            }
-            echo json_encode($html);
-        } else {
-            $this->session->setFlashdata('error_message', 'Please login!!!');
-            return redirect()->to('/' . ADMIN_PATH);
-        }
-    }
+    
 
     public function add_edit($id = "")
     {
@@ -170,9 +138,9 @@ class Lms extends BaseController
             $id = $uri->getSegment(4);
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
-                $condition2 = array('lms_id' => $id);
+
                 $this->data['info'] = $this->LmsModel->get_selected_fields(LMS, $condition)->getRow();
-                $this->data['notes_info'] = $this->LmsModel->get_selected_fields(NOTES, $condition2)->getResult();
+                
                 //   echo"<pre>";print_r($this->data['notes_info']);die;
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Lms';
@@ -231,17 +199,16 @@ class Lms extends BaseController
             $linked_in = (string)$this->request->getPostGet('linked_in');
             $twitter = (string)$this->request->getPostGet('twitter');
             $facebook = (string)$this->request->getPostGet('facebook');
-            $follow_up_alert = (string)$this->request->getPostGet('follow_up_alert');
             $status = (string)$this->request->getPostGet('status');
             if ($status == '') {
                 $status = 'off';
             }
 
-            $addmore = $this->request->getPostGet('addmore');
+            
             $notes_id = $this->request->getPostGet('notes_id');
 
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $address != '' && $phone != '' && $email != '' && $lead_source != '' && $linked_in != '' && $twitter != '' && $facebook != '' && $follow_up_alert != '' && $addmore != '') {
+            if ($first_name != '' && $last_name != '' && $address != '' && $phone != '' && $email != '' && $lead_source != '' && $linked_in != '' && $twitter != '' && $facebook != ''  ) {
                 if ($status == 'on') {
                     $status = 1;
                 } else {
@@ -258,41 +225,18 @@ class Lms extends BaseController
                     'linked_in' => $linked_in,
                     'twitter' => $twitter,
                     'facebook' => $facebook,
-                    'follow_up_alert' => $follow_up_alert,
                     'status' => $status,
+                    'is_deleted' => '0'
                 );
 
 
                 if ($id == '') {
                     $this->LmsModel->simple_insert(LMS, $dataArr);
-                    $last_inserted_id = $this->LmsModel->get_last_insert_id();
-                    $newdata = array();
-                    foreach ($addmore as $val) {
-                        // print_r($val);die;
-                        $newdata = array(
-                            'lms_id' => $last_inserted_id,
-                            'note' => $val,
-                        );
-                        $this->LmsModel->simple_insert(NOTES, $newdata);
-                    }
-
                     $this->session->setFlashdata('success_message', 'lms details added successfully.');
                     // $this->setFlashMessage('success', 'lms details added successfully');
                     $fSubmit = TRUE;
                 } else {
-                    $cond = array('lms_id' => $id);
-                    $this->LmsModel->commonDelete(NOTES, $cond);
-                    $newdata = array();
-                    foreach ($addmore as $val) {
-                        if ($val != '') {
-                            $newdata = array(
-                                'lms_id' => $id,
-                                'note' => $val,
-                            );
-                            // echo"<pre>";print_r($newdata);die;
-                            $this->LmsModel->simple_insert(NOTES, $newdata);
-                        }
-                    }
+                    
                     $condition = array('id' => $id);
 
                     $this->LmsModel->update_details(LMS, $dataArr, $condition);

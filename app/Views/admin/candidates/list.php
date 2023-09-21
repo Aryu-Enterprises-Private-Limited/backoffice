@@ -157,15 +157,11 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                             <th> Date </th>
                             <th> Location </th>
                             <th> Contact No </th>
-                            <th> Email </th>
                             <th> Job Opening </th>
                             <th> Application Status </th>
                             <th> Interview Status </th>
                             <th> Stage </th>
-                            <th> Backgound Check </th>
                             <th> Source </th>
-                            <th> Reason For Rejection </th>
-                            <th> Reason </th>
                             <th> Created AT </th>
                             <th> Status </th>
                             <th> Action </th>
@@ -251,9 +247,6 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                     data: 'contact_no'
                 },
                 {
-                    data: 'email'
-                },
-                {
                     data: 'job_opening_id'
                 },
                 {
@@ -266,16 +259,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                     data: 'stage_id'
                 },
                 {
-                    data: 'background_check'
-                },
-                {
                     data: 'source'
-                },
-                {
-                    data: 'reason_rejection'
-                },
-                {
-                    data: 'reason'
                 },
                 {
                     data: 'created_at'

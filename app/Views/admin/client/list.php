@@ -31,7 +31,7 @@
                             <th> Last Name </th>
                             <th> Email </th>
                             <th> Phone </th>
-                            <th> Address </th>
+                            <!-- <th> Address </th> -->
                             <th> Company Name </th>
                             <th> Bank Name </th>
                             <th> Branch Name </th>
@@ -109,9 +109,9 @@
                 {
                     data: 'phone'
                 },
-                {
-                    data: 'address'
-                },
+                // {
+                //     data: 'address'
+                // },
                 {
                     data: 'company_name'
                 },

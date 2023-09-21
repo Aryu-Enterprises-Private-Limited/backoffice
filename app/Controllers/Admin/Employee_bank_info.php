@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
-class Job extends BaseController
+class Employee_bank_info extends BaseController
 {
 
     public function __construct()
@@ -17,8 +17,8 @@ class Job extends BaseController
     public function index()
     {
         if ($this->checkSession('A') != '') {
-            $this->data['title'] = 'Job List';
-            echo view(ADMIN_PATH . '/job/list', $this->data);
+            $this->data['title'] = 'Employee bank info List';
+            echo view(ADMIN_PATH . '/emp_bank_info/list', $this->data);
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
             return redirect()->to('/' . ADMIN_PATH);
@@ -51,29 +51,23 @@ class Job extends BaseController
         $condition = array('is_deleted' => '0');
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
-                'jobs_name' => trim($dtSearchKeyVal),
-                // 'job_desc' => trim($dtSearchKeyVal),
-                'job_budget' => trim($dtSearchKeyVal),
+                'job_type_name' => trim($dtSearchKeyVal),
             );
         }
 
-        $totCounts = $this->LmsModel->get_all_counts(JOBS, $condition, '', $likeArr);
+        $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_BANK_INFO, $condition, '', $likeArr);
         $sortArr = array('dt' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
         // $condition
         // print_r($condition);die;
-        $ajaxDataArr = $this->LmsModel->get_all_details(JOBS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
+        $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_BANK_INFO, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
         $tblData = array();
-        $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            $job_type_id = $row->job_type_id;
-            $job_type = $this->LmsModel->get_selected_fields(JOB_TYPE, ['id' =>  $job_type_id])->getRow();
-
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
             $actTitle = 'Click to active';
@@ -88,24 +82,25 @@ class Job extends BaseController
             $statusTxt = $actTitle;
             $actionTxt = '';
 
-            $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/job/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
+            $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/emp_bank_info/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
 
-            $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/job/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
+            $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/emp_bank_info/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
 
-            $actionTxt .= '<a class="btn btn-icon " href="/' . ADMIN_PATH . '/job/edit/' . (string)$rowId . '"><i class="fas fa-edit"></i></a>';
+            $actionTxt .= '<a class="btn btn-icon " href="/' . ADMIN_PATH . '/emp_bank_info/edit/' . (string)$rowId . '"><i class="fas fa-edit"></i></a>';
 
 
-            $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/job/delete"><i class="fas fa-trash-alt"></i></a>';
+            $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/emp_bank_info/delete"><i class="fas fa-trash-alt"></i></a>';
 
 
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
-                'job_name' => ucfirst($row->jobs_name),
-                // 'job_desc' => ucfirst($row->job_desc),
-                'job_budget' =>  $row->job_budget,
-                'job_type_id' =>  $job_type->job_type_name??'-',
-                'job_requirement' =>  $row->job_requirement??'-',
+                'employee_name' => ucfirst($row->employee_name),
+                'acc_no' => $row->acc_no,
+                'ifsc_code' => $row->ifsc_code,
+                'acc_type' => $row->acc_type,
+                'branch_name' => ucfirst($row->branch_name),
+                'employee_sts' => str_replace("_"," ",$row->employee_sts),
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -128,20 +123,20 @@ class Job extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['job_type_opt'] = $this->LmsModel->get_selected_fields(JOB_TYPE, ['status' => '1', 'is_deleted' => '0'], ['id', 'job_type_name'])->getResult();
+            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name','last_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
-                $this->data['job_info'] = $this->LmsModel->get_selected_fields(JOBS, $condition)->getRow();
-                if (!empty($this->data['job_info'])) {
-                    $this->data['title'] = 'Edit Jobs';
+                $this->data['employee_bank_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_BANK_INFO, $condition)->getRow();
+                if (!empty($this->data['employee_bank_details'])) {
+                    $this->data['title'] = 'Edit Employee bank info';
                 } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Jobs');
-                    return redirect()->route(ADMIN_PATH . '/job/list');
+                    $this->session->setFlashdata('error_message', 'Couldnot find the employee details');
+                    return redirect()->route(ADMIN_PATH . '/emp_bank_info/list');
                 }
             } else {
-                $this->data['title'] = 'Add Job';
+                $this->data['title'] = 'Add Employee bank info';
             }
-            echo view(ADMIN_PATH . '/job/add_edit', $this->data);
+            echo view(ADMIN_PATH . '/emp_bank_info/add_edit', $this->data);
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
             return redirect()->to('/' . ADMIN_PATH);
@@ -152,54 +147,57 @@ class Job extends BaseController
 
     public function insertUpdate()
     {
-        //  echo"<pre>"; print_r($_POST);die;
+        
         if ($this->checkSession('A') != '') {
-            $job_name = (string)$this->request->getPostGet('job_name');
-            $job_desc = (string)$this->request->getPostGet('job_desc');
-            $job_budget = (string)$this->request->getPostGet('job_budget');
-            $job_type_id = (string)$this->request->getPostGet('job_type');
-            $job_requirement = $this->request->getPostGet('job_req');
+            $employee_name = (string)$this->request->getPostGet('employee_name');
+            $acc_no = (string)$this->request->getPostGet('acc_no');
+            $ifsc_code = (string)$this->request->getPostGet('ifsc_code');
+            $acc_type = (string)$this->request->getPostGet('acc_type');
+            $branch_name = (string)$this->request->getPostGet('branch_name');
+            $employee_sts = (string)$this->request->getPostGet('employee_sts');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
             }
+            $str_arr = explode (",", $employee_name); 
             $fSubmit = FALSE;
-            if ($job_name != '' && $job_desc!='' && $job_budget!='' && $job_type_id !='' && $job_requirement !='') {
+            if ($acc_no != '' && $ifsc_code!='' && $acc_type!='' && $branch_name!='') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
                     $status = '0';
                 }
-                $req_str = implode(",", $job_requirement);
-                // echo $string1;
                 $dataArr = array(
-                    'jobs_name' => $job_name,
-                    'job_desc' => $job_desc,
-                    'job_budget' => $job_budget,
-                    'job_requirement' => $req_str,
-                    'job_type_id' => $job_type_id,
+                    'employee_name' => $str_arr[1],
+                    'employee_id' => $str_arr[0],
+                    'acc_no' => $acc_no,
+                    'ifsc_code' => $ifsc_code,
+                    'acc_type' => $acc_type,
+                    'branch_name' => $branch_name,
+                    'employee_sts' => $employee_sts,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {
-                    $this->LmsModel->simple_insert(JOBS, $dataArr);
-                    $this->session->setFlashdata('success_message', 'Jobs details added successfully.');
+                    $this->LmsModel->simple_insert(EMPLOYEE_BANK_INFO, $dataArr);
+                    $this->session->setFlashdata('success_message', 'Employee bank info added successfully.');
                     $fSubmit = TRUE;
                 } else {
                     $condition = array('id' => $id);
-                    $this->LmsModel->update_details(JOBS, $dataArr, $condition);
-                    $this->session->setFlashdata('success_message', 'Jobs details update successfully');
+                    $this->LmsModel->update_details(EMPLOYEE_BANK_INFO, $dataArr, $condition);
+                    $this->session->setFlashdata('success_message', 'Employee bank info update successfully');
                     $fSubmit = TRUE;
                 }
             } else {
                 $this->session->setFlashdata('error_message', 'Form data is missing.');
             }
             if ($fSubmit) {
-                $url = ADMIN_PATH . '/job/list';
+                $url = ADMIN_PATH . '/emp_bank_info/list';
             } else {
-                if ($id == '') $url = ADMIN_PATH . '/job/add';
-                else $url = ADMIN_PATH . '/job/edit/' . $id;
+                if ($id == '') $url = ADMIN_PATH . '/emp_bank_info/add';
+                else $url = ADMIN_PATH . '/emp_bank_info/edit/' . $id;
             }
             return redirect()->to("$url");
         } else {
@@ -222,9 +220,9 @@ class Job extends BaseController
                 $status = ($mode == '0') ? '0' : '1';
                 $newdata = array('status' => $status);
                 $condition = array('id' => $id);
-                $this->LmsModel->update_details(JOBS, $newdata, $condition);
+                $this->LmsModel->update_details(EMPLOYEE_BANK_INFO, $newdata, $condition);
                 $returnArr['status'] = '1';
-                $returnArr['response'] = 'Job Status Changed Successfully';
+                $returnArr['response'] = 'Employee bank info Status Changed Successfully';
             }
             echo json_encode($returnArr);
             exit;
@@ -241,23 +239,19 @@ class Job extends BaseController
             $id = $uri->getSegment(4);
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
-                $this->data['jobDetails'] = $this->LmsModel->get_all_details(JOBS, $condition)->getRow();
-
-                $condition2 = ['id' => $this->data['jobDetails']->job_type_id];
-                $this->data['job_type_details'] = $this->LmsModel->get_all_details(JOB_TYPE, $condition2)->getRow();
-
-                if (!empty($this->data['jobDetails'])) {
-                    $this->data['title'] = 'Job view';
-                    echo view(ADMIN_PATH . '/job/view', $this->data);
+                $this->data['emp_bank_Details'] = $this->LmsModel->get_all_details(EMPLOYEE_BANK_INFO, $condition)->getRow();
+                if (!empty($this->data['emp_bank_Details'])) {
+                    $this->data['title'] = 'Employee bank info view';
+                    echo view(ADMIN_PATH . '/emp_bank_info/view', $this->data);
                 } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Job');
+                    $this->session->setFlashdata('error_message', 'Couldnot find the Employee bank info');
                     // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
-                    return redirect()->route(ADMIN_PATH . '/job/list');
+                    return redirect()->route(ADMIN_PATH . '/emp_bank_info/list');
                 }
             } else {
-                $this->session->setFlashdata('error_message', 'Couldnot find the Job');
+                $this->session->setFlashdata('error_message', 'Couldnot find the Employee bank info');
                 // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
-                return redirect()->route(ADMIN_PATH . '/job/list');
+                return redirect()->route(ADMIN_PATH . '/emp_bank_info/list');
             }
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
@@ -276,10 +270,10 @@ class Job extends BaseController
             } else {
                 $record_id = $this->request->getPostGet('record_id');
                 if (isset($record_id)) {
-                    $this->LmsModel->isDelete(JOBS, 'id', TRUE);
+                    $this->LmsModel->isDelete(EMPLOYEE_BANK_INFO, 'id', TRUE);
                     // $this->setFlashMessage('success', 'Lms deleted successfully');
                     $returnArr['status'] = '1';
-                    $returnArr['response'] = 'Record Deleted Successfully';
+                    $returnArr['response'] = 'Employee bank info Deleted Successfully';
                 }
                 // $this->LmsModel->commonDelete(LMS, array('id' => $record_id));
             }

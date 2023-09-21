@@ -43,9 +43,16 @@
                         </tr>
                         <tr>
                             <th scope="row"> Document </th>
-                            <td><a href="<?php if (isset($crmDetails->resume)) echo ('/' . ADMIN_PATH . '/crm/view_doc/' . (string)$crmDetails->document_name . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                            <?php if (isset($crmDetails->document_name) && $crmDetails->document_name != '') { ?>
+                            <td><a href="<?php if (isset($crmDetails->document_name)) echo ('/' . ADMIN_PATH . '/crm/view_doc/' . (string)$crmDetails->document_name . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                            <?php  } else { ?>
+                                <td><a class="btn v_btn">No Document </a></td>
+                            <?php } ?>
                         </tr>
-
+                        <tr>
+                            <th scope="row"> Followup Alert </th>
+                            <td><?php if (isset($lmsDetails->follow_up_alert)) echo ucfirst($lmsDetails->follow_up_alert); ?></td>
+                        </tr>
                         <tr>
                             <th scope="row"> Status </th>
                             <td><?php if (isset($crmDetails->status) && $crmDetails->status == 1) { ?><span class="btn btn-success"><?php echo 'Active'; ?></span><?php } else { ?><span class="btn btn-danger"><?php echo 'In Active'; ?></span><?php } ?></td>

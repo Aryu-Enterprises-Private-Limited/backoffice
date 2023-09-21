@@ -51,6 +51,7 @@
             <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i> Employee </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/employee/list' ?>"> Employee Setup </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/emp_bank_info/list' ?>"> Emp Bank info </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/pay/list' ?>"> Pay </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/role/list' ?>"> Role </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/department/list' ?>"> Department </a></li>
@@ -74,7 +75,7 @@
             <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i> Recuritment </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/candidates/list' ?>"> Candidates </a></li>
-                <!-- <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/interview_task/list' ?>"> Interview Task </a></li> -->
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/interview_task/list' ?>"> Interview Task </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/job/list' ?>"> Job Opening </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/job_type/list' ?>"> Job Type </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/application/list' ?>"> Application Status </a></li>

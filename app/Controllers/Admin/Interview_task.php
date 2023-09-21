@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
-class Job extends BaseController
+class Interview_task extends BaseController
 {
 
     public function __construct()
@@ -17,8 +17,8 @@ class Job extends BaseController
     public function index()
     {
         if ($this->checkSession('A') != '') {
-            $this->data['title'] = 'Job List';
-            echo view(ADMIN_PATH . '/job/list', $this->data);
+            $this->data['title'] = 'Interview Task List';
+            echo view(ADMIN_PATH . '/interview_task/list', $this->data);
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
             return redirect()->to('/' . ADMIN_PATH);
@@ -51,29 +51,23 @@ class Job extends BaseController
         $condition = array('is_deleted' => '0');
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
-                'jobs_name' => trim($dtSearchKeyVal),
-                // 'job_desc' => trim($dtSearchKeyVal),
-                'job_budget' => trim($dtSearchKeyVal),
+                'job_type_name' => trim($dtSearchKeyVal),
             );
         }
 
-        $totCounts = $this->LmsModel->get_all_counts(JOBS, $condition, '', $likeArr);
+        $totCounts = $this->LmsModel->get_all_counts(INTERVIEW_TASK, $condition, '', $likeArr);
         $sortArr = array('dt' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
         // $condition
         // print_r($condition);die;
-        $ajaxDataArr = $this->LmsModel->get_all_details(JOBS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
+        $ajaxDataArr = $this->LmsModel->get_all_details(INTERVIEW_TASK, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
         $tblData = array();
-        $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            $job_type_id = $row->job_type_id;
-            $job_type = $this->LmsModel->get_selected_fields(JOB_TYPE, ['id' =>  $job_type_id])->getRow();
-
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
             $actTitle = 'Click to active';
@@ -88,24 +82,22 @@ class Job extends BaseController
             $statusTxt = $actTitle;
             $actionTxt = '';
 
-            $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/job/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
+            $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/interview_task/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
 
-            $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/job/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
+            $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/interview_task/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
 
-            $actionTxt .= '<a class="btn btn-icon " href="/' . ADMIN_PATH . '/job/edit/' . (string)$rowId . '"><i class="fas fa-edit"></i></a>';
+            $actionTxt .= '<a class="btn btn-icon " href="/' . ADMIN_PATH . '/interview_task/edit/' . (string)$rowId . '"><i class="fas fa-edit"></i></a>';
 
 
-            $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/job/delete"><i class="fas fa-trash-alt"></i></a>';
+            $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/interview_task/delete"><i class="fas fa-trash-alt"></i></a>';
 
 
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
-                'job_name' => ucfirst($row->jobs_name),
-                // 'job_desc' => ucfirst($row->job_desc),
-                'job_budget' =>  $row->job_budget,
-                'job_type_id' =>  $job_type->job_type_name??'-',
-                'job_requirement' =>  $row->job_requirement??'-',
+                'date' => $row->date,
+                'candidate_name' => $row->candidate_name,
+                'interview_task_sts' => ucfirst($row->interview_task_sts),
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -128,20 +120,21 @@ class Job extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['job_type_opt'] = $this->LmsModel->get_selected_fields(JOB_TYPE, ['status' => '1', 'is_deleted' => '0'], ['id', 'job_type_name'])->getResult();
+            $this->data['candidate_opt'] = $this->LmsModel->get_selected_fields(CANDIDATES_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
-                $this->data['job_info'] = $this->LmsModel->get_selected_fields(JOBS, $condition)->getRow();
-                if (!empty($this->data['job_info'])) {
-                    $this->data['title'] = 'Edit Jobs';
+                $this->data['inter_task_info'] = $this->LmsModel->get_selected_fields(INTERVIEW_TASK, $condition)->getRow();
+            //    echo"<pre>"; print_r($this->data['inter_task_info']);die;
+                if (!empty($this->data['inter_task_info'])) {
+                    $this->data['title'] = 'Edit Interview Task';
                 } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Jobs');
-                    return redirect()->route(ADMIN_PATH . '/job/list');
+                    $this->session->setFlashdata('error_message', 'Couldnot find the Interview Task');
+                    return redirect()->route(ADMIN_PATH . '/interview_task/list');
                 }
             } else {
-                $this->data['title'] = 'Add Job';
+                $this->data['title'] = 'Add Interview Task';
             }
-            echo view(ADMIN_PATH . '/job/add_edit', $this->data);
+            echo view(ADMIN_PATH . '/interview_task/add_edit', $this->data);
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
             return redirect()->to('/' . ADMIN_PATH);
@@ -152,54 +145,57 @@ class Job extends BaseController
 
     public function insertUpdate()
     {
-        //  echo"<pre>"; print_r($_POST);die;
+        //   echo"<pre>";print_r($_POST);
+        //   print_r(array_filter($_POST['addmore']));
+        //   die;
         if ($this->checkSession('A') != '') {
-            $job_name = (string)$this->request->getPostGet('job_name');
-            $job_desc = (string)$this->request->getPostGet('job_desc');
-            $job_budget = (string)$this->request->getPostGet('job_budget');
-            $job_type_id = (string)$this->request->getPostGet('job_type');
-            $job_requirement = $this->request->getPostGet('job_req');
+            $date = (string)$this->request->getPostGet('date');
+            $candidate_name = (string)$this->request->getPostGet('candidate_name');
+            $interview_task_sts = (string)$this->request->getPostGet('interview_task_sts');
+            $task_title_link = array_values($this->request->getPostGet('addmore'));
+            $comment = (string)$this->request->getPostGet('comment');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
+            $str_arr = explode(",", $candidate_name);
             if ($status == '') {
                 $status = 'off';
             }
+            $array_fil = array_filter($task_title_link);
             $fSubmit = FALSE;
-            if ($job_name != '' && $job_desc!='' && $job_budget!='' && $job_type_id !='' && $job_requirement !='') {
+            if ($date != ''  && $interview_task_sts != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
                     $status = '0';
                 }
-                $req_str = implode(",", $job_requirement);
-                // echo $string1;
                 $dataArr = array(
-                    'jobs_name' => $job_name,
-                    'job_desc' => $job_desc,
-                    'job_budget' => $job_budget,
-                    'job_requirement' => $req_str,
-                    'job_type_id' => $job_type_id,
+                    'date' => $date,
+                    'candidate_id' => $str_arr[0],
+                    'candidate_name' => $str_arr[1],
+                    'comments' => $comment,
+                    'interview_task_sts' => $interview_task_sts,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
-
+                $dataArr['task_title_link'] = json_encode($array_fil);
                 if ($id == '') {
-                    $this->LmsModel->simple_insert(JOBS, $dataArr);
-                    $this->session->setFlashdata('success_message', 'Jobs details added successfully.');
+                    $this->LmsModel->simple_insert(INTERVIEW_TASK, $dataArr);
+                    $this->session->setFlashdata('success_message', 'Interview Task added successfully.');
                     $fSubmit = TRUE;
                 } else {
                     $condition = array('id' => $id);
-                    $this->LmsModel->update_details(JOBS, $dataArr, $condition);
-                    $this->session->setFlashdata('success_message', 'Jobs details update successfully');
+                    $this->LmsModel->update_details(INTERVIEW_TASK, $dataArr, $condition);
+                    $this->session->setFlashdata('success_message', 'Interview Task update successfully');
                     $fSubmit = TRUE;
                 }
             } else {
                 $this->session->setFlashdata('error_message', 'Form data is missing.');
             }
             if ($fSubmit) {
-                $url = ADMIN_PATH . '/job/list';
+                $url = ADMIN_PATH . '/interview_task/list';
             } else {
-                if ($id == '') $url = ADMIN_PATH . '/job/add';
-                else $url = ADMIN_PATH . '/job/edit/' . $id;
+                if ($id == '') $url = ADMIN_PATH . '/interview_task/add';
+                else $url = ADMIN_PATH . '/interview_task/edit/' . $id;
             }
             return redirect()->to("$url");
         } else {
@@ -222,9 +218,9 @@ class Job extends BaseController
                 $status = ($mode == '0') ? '0' : '1';
                 $newdata = array('status' => $status);
                 $condition = array('id' => $id);
-                $this->LmsModel->update_details(JOBS, $newdata, $condition);
+                $this->LmsModel->update_details(INTERVIEW_TASK, $newdata, $condition);
                 $returnArr['status'] = '1';
-                $returnArr['response'] = 'Job Status Changed Successfully';
+                $returnArr['response'] = 'Interview Task Status Changed Successfully';
             }
             echo json_encode($returnArr);
             exit;
@@ -241,23 +237,19 @@ class Job extends BaseController
             $id = $uri->getSegment(4);
             if ($id != '') {
                 $condition = array('id' => $id, 'is_deleted' => '0');
-                $this->data['jobDetails'] = $this->LmsModel->get_all_details(JOBS, $condition)->getRow();
-
-                $condition2 = ['id' => $this->data['jobDetails']->job_type_id];
-                $this->data['job_type_details'] = $this->LmsModel->get_all_details(JOB_TYPE, $condition2)->getRow();
-
-                if (!empty($this->data['jobDetails'])) {
-                    $this->data['title'] = 'Job view';
-                    echo view(ADMIN_PATH . '/job/view', $this->data);
+                $this->data['interview_taskDetails'] = $this->LmsModel->get_all_details(INTERVIEW_TASK, $condition)->getRow();
+                if (!empty($this->data['interview_taskDetails'])) {
+                    $this->data['title'] = 'Interview Task view';
+                    echo view(ADMIN_PATH . '/interview_task/view', $this->data);
                 } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Job');
+                    $this->session->setFlashdata('error_message', 'Couldnot find the Job Tpye');
                     // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
-                    return redirect()->route(ADMIN_PATH . '/job/list');
+                    return redirect()->route(ADMIN_PATH . '/interview_task/list');
                 }
             } else {
-                $this->session->setFlashdata('error_message', 'Couldnot find the Job');
+                $this->session->setFlashdata('error_message', 'Couldnot find the Job Type');
                 // $this->setFlashMessage('error', 'Couldn\'t find the subadmin');
-                return redirect()->route(ADMIN_PATH . '/job/list');
+                return redirect()->route(ADMIN_PATH . '/interview_task/list');
             }
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
@@ -276,10 +268,10 @@ class Job extends BaseController
             } else {
                 $record_id = $this->request->getPostGet('record_id');
                 if (isset($record_id)) {
-                    $this->LmsModel->isDelete(JOBS, 'id', TRUE);
+                    $this->LmsModel->isDelete(INTERVIEW_TASK, 'id', TRUE);
                     // $this->setFlashMessage('success', 'Lms deleted successfully');
                     $returnArr['status'] = '1';
-                    $returnArr['response'] = 'Record Deleted Successfully';
+                    $returnArr['response'] = 'Interview Task Deleted Successfully';
                 }
                 // $this->LmsModel->commonDelete(LMS, array('id' => $record_id));
             }

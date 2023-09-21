@@ -34,19 +34,6 @@
                             <th> <?php echo 'DOB' ?></th>
                             <th> <?php echo 'Phone' ?></th>
                             <th> <?php echo 'Email' ?></th>
-                            <th> <?php echo 'Address'; ?> </th>
-                            <th> <?php echo 'Pin code'; ?> </th>
-                            <th> <?php echo 'City'; ?> </th>
-                            <th> <?php echo 'State'; ?> </th>
-                            <th> <?php echo 'Blood group'; ?> </th>
-                            <th> <?php echo 'Aadhar Number'; ?> </th>
-                            <th> <?php echo 'Pan Number'; ?> </th>
-                            <th> <?php echo 'Relationship'; ?> </th>
-                            <th> <?php echo 'Relation Name'; ?> </th>
-                            <th> <?php echo 'Relation Phone'; ?> </th>
-                            <th> <?php echo 'Relation Email'; ?> </th>
-                            <th> <?php echo 'Relation Address'; ?> </th>
-                            <th> <?php echo 'Experience of work'; ?> </th>
                             <th> <?php echo 'Status'; ?> </th>
                             <th> <?php echo 'Action'; ?> </th>
                         </tr>
@@ -103,7 +90,7 @@
             "aaSorting": [3, "desc"],
             columnDefs: [{
                     orderable: false,
-                    targets: [0, 1, 2, 3, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11]
+                    targets: [0, 1, 2, 3]
                 },
                 {
                     responsivePriority: 1,
@@ -145,45 +132,6 @@
                 },
                 {
                     data: 'email'
-                },
-                {
-                    data: 'address'
-                },
-                {
-                    data: 'pin_code'
-                },
-                {
-                    data: 'city'
-                },
-                {
-                    data: 'state'
-                },
-                {
-                    data: 'blood_grp'
-                },
-                {
-                    data: 'aadhar_no'
-                },
-                {
-                    data: 'pan_no'
-                },
-                {
-                    data: 'relationship'
-                },
-                {
-                    data: 'r_name'
-                },
-                {
-                    data: 'r_phone'
-                },
-                {
-                    data: 'r_email'
-                },
-                {
-                    data: 'r_address'
-                },
-                {
-                    data: 'work_exp'
                 },
                 {
                     data: 'status'

@@ -44,7 +44,7 @@
                         <tr>
                             <th scope="row"> Resume </th>
                             <?php if (isset($candidatesDetails->resume) && $candidatesDetails->resume != '') { ?>
-                                <td><a href="<?php if (isset($candidatesDetails->resume) && $candidatesDetails->resume != '') echo ('/' . ADMIN_PATH . '/candidates/view_doc/' . (string)$candidatesDetails->resume . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                                <td><a href="<?php if (isset($candidatesDetails->resume) && $candidatesDetails->resume != '') echo ('/' . ADMIN_PATH . '/candidates/view_doc/' . (string)$candidatesDetails->resume . '')  ?>" class="btn btn-info v_btn" download>View</td> </a>
                             <?php  } else { ?>
                                 <td><a class="btn v_btn">No Document </a></td>
                             <?php } ?>
@@ -75,13 +75,13 @@
                             <td><?php if (isset($stage_details->stage_name)) echo ucfirst($stage_details->stage_name); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"> Stage </th>
-                            <td><?php if (isset($stage_details->stage_name)) echo ucfirst($stage_details->stage_name); ?></td>
-                        </tr>
-                        <tr>
                             <th scope="row"> Backgound Check </th>
                             <td><?php if (isset($candidatesDetails->background_check) && $candidatesDetails->background_check == '0') echo 'NO';
                                 else echo 'YES'; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Ready to Relocate </th>
+                            <td><?php if (isset($candidatesDetails->ready_to_relocate)) echo ucfirst($candidatesDetails->ready_to_relocate); ?></td>
                         </tr>
                         <tr>
                             <th scope="row"> Source </th>
