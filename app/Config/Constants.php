@@ -117,6 +117,10 @@ defined('REASON_REJECTION')          || define('REASON_REJECTION', 'reason_rejec
 defined('CANDIDATES_DETAILS')          || define('CANDIDATES_DETAILS', 'candidates_details');
 defined('PAY')          || define('PAY', 'pay');
 defined('PUBLIC_HOLIDAY')          || define('PUBLIC_HOLIDAY', 'public_holiday');
+defined('INTERVIEW_TASK')          || define('INTERVIEW_TASK', 'interview_task');
+defined('EMPLOYEE_BANK_INFO')          || define('EMPLOYEE_BANK_INFO', 'employee_bank_info');
+
+
 
 /**
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.

@@ -36,8 +36,6 @@
                             <th> <?php echo 'LinkedIn'; ?> </th>
                             <th> <?php echo 'Twitter'; ?> </th>
                             <th> <?php echo 'FaceBook'; ?> </th>
-                            <th> <?php echo 'Notes(multiple)'; ?> </th>
-                            <th> <?php echo 'Followup Alert'; ?> </th>
                             <th> <?php echo 'Status'; ?> </th>
                             <th> <?php echo 'Action'; ?> </th>
                         </tr>
@@ -50,23 +48,6 @@
 </div>
 
 
-<div class="modal" tabindex="-1" id="show_modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="show_data">
-                <!-- <p>Modal body text goes here.</p> -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-            </div>
-        </div>
-    </div>
-</div>
 
 <?= $this->endSection() ?>
 
@@ -144,12 +125,6 @@
                     data: 'facebook'
                 },
                 {
-                    data: 'id'
-                },
-                {
-                    data: 'follow_up_alert'
-                },
-                {
                     data: 'status'
                 },
                 {
@@ -159,27 +134,7 @@
             ]
         });
 
-        const myModal = new bootstrap.Modal('#show_modal');
-
-        $('body').on("click", ".v_btn", function() {
-            // myModal.show();
-            var row_id = $(this).attr('data-row_id');
-            var act_url = $(this).attr('data-act_url');
-            //alert(row_id);
-            $.ajax({
-                type: 'post',
-                url: act_url,
-                data: {
-                    'lms_id': row_id,
-                },
-                dataType: 'json',
-                success: function(res) {
-                    console.log(res[0].id);
-                    myModal.show();
-                    $('#show_data').append(res);
-                }
-            });
-        });
+       
     });
 
 

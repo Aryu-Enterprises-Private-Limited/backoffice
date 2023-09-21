@@ -16,7 +16,7 @@
                     <h3><?= $title; ?></h3>
                 </div>
                 <div class="col-md-1">
-                    <a href="<?= (base_url(ADMIN_PATH . '/job/add')); ?>">
+                    <a href="<?= (base_url(ADMIN_PATH . '/interview_task/add')); ?>">
                         <button type="button" class="btn btn-primary btn-sm butn-back text-white"><?php echo 'Add New'; ?></button>
                     </a>
                 </div>
@@ -25,14 +25,13 @@
 
             <hr>
             <div class="list-label">
+
                 <table id="displayDataTbl" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th> Job Name </th>
-                            <!-- <th> Job Description </th> -->
-                            <th> Job Budget </th>
-                            <th> Job Type </th>
-                            <th> Job Requirement </th>
+                            <th> Date </th>
+                            <th> candidate name </th>
+                            <th> Interview task Status </th>
                             <th> Created AT </th>
                             <th> Status </th>
                             <th> Action </th>
@@ -71,7 +70,7 @@
 <?php endif; ?>
 <script>
     $(function() {
-        var url = "<?php echo base_url(); ?>admin/job/list_ajax";
+        var url = "<?php echo base_url(); ?>admin/interview_task/list_ajax";
         var dataTbl = $("#displayDataTbl").DataTable({
             "scrollX": true,
             "aaSorting": [1, "desc"],
@@ -85,7 +84,7 @@
                 },
                 {
                     responsivePriority: 2,
-                    targets: [3]
+                    targets: [5]
                 }
             ],
             'pageLength': 10,
@@ -100,19 +99,13 @@
                 }
             },
             'columns': [{
-                    data: 'job_name'
-                },
-                // {
-                //     data: 'job_desc'
-                // },
-                {
-                    data: 'job_budget'
+                    data: 'date'
                 },
                 {
-                    data: 'job_type_id'
+                    data: 'candidate_name'
                 },
                 {
-                    data: 'job_requirement'
+                    data: 'interview_task_sts'
                 },
                 {
                     data: 'created_at'

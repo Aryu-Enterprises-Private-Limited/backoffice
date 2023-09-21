@@ -16,7 +16,7 @@
                     <h3><?= $title; ?></h3>
                 </div>
                 <div class="col-md-1">
-                    <a href="<?= (base_url(ADMIN_PATH . '/job/add')); ?>">
+                    <a href="<?= (base_url(ADMIN_PATH . '/emp_bank_info/add')); ?>">
                         <button type="button" class="btn btn-primary btn-sm butn-back text-white"><?php echo 'Add New'; ?></button>
                     </a>
                 </div>
@@ -25,14 +25,16 @@
 
             <hr>
             <div class="list-label">
+
                 <table id="displayDataTbl" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th> Job Name </th>
-                            <!-- <th> Job Description </th> -->
-                            <th> Job Budget </th>
-                            <th> Job Type </th>
-                            <th> Job Requirement </th>
+                            <th> Emaployee Name </th>
+                            <th> Account Number </th>
+                            <th> IFSC Code </th>
+                            <th> Account Type </th>
+                            <th> Branch Name </th>
+                            <th> Employee Status </th>
                             <th> Created AT </th>
                             <th> Status </th>
                             <th> Action </th>
@@ -71,7 +73,7 @@
 <?php endif; ?>
 <script>
     $(function() {
-        var url = "<?php echo base_url(); ?>admin/job/list_ajax";
+        var url = "<?php echo base_url(); ?>admin/emp_bank_info/list_ajax";
         var dataTbl = $("#displayDataTbl").DataTable({
             "scrollX": true,
             "aaSorting": [1, "desc"],
@@ -100,19 +102,22 @@
                 }
             },
             'columns': [{
-                    data: 'job_name'
-                },
-                // {
-                //     data: 'job_desc'
-                // },
-                {
-                    data: 'job_budget'
+                    data: 'employee_name'
                 },
                 {
-                    data: 'job_type_id'
+                    data: 'acc_no'
                 },
                 {
-                    data: 'job_requirement'
+                    data: 'ifsc_code'
+                },
+                {
+                    data: 'acc_type'
+                },
+                {
+                    data: 'branch_name'
+                },
+                {
+                    data: 'employee_sts'
                 },
                 {
                     data: 'created_at'

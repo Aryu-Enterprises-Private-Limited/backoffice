@@ -55,6 +55,7 @@ class Crm extends BaseController
                 'project_details' => trim($dtSearchKeyVal),
                 'price' => strtolower(trim($dtSearchKeyVal)),
                 'Lead' => trim($dtSearchKeyVal),
+                'follow_up_alert' => trim($dtSearchKeyVal),
             );
         }
 
@@ -91,6 +92,7 @@ class Crm extends BaseController
 
             $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/crm/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
 
+            $notesTxt = '<button type="button" class="btn btn-info v_btn" data-act_url="/' . ADMIN_PATH . '/crm/get-notes_details"  data-row_id="' . $rowId . '">View </button>';
 
             $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/crm/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
 
@@ -106,6 +108,8 @@ class Crm extends BaseController
                 'lead' => ucfirst($lead_details->first_name) . ' ' . ucfirst($lead_details->last_name),
                 'project_details' => $row->project_details,
                 'price' => $row->price,
+                'follow_up_alert' => $row->follow_up_alert,
+                "id" => $notesTxt,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
             );
@@ -121,12 +125,44 @@ class Crm extends BaseController
         echo json_encode($returnArr);
     }
 
+    public function get_notes_data()
+    {
+        if ($this->checkSession('A') != '') {
+            $crm_id = (string)$this->request->getPostGet('crm_id');
+            $condition = array('crm_id' => $crm_id);
+            $lms_data = $this->LmsModel->get_all_details(NOTES, $condition);
+            $html = '';
+
+            if (!empty($lms_data)) {
+                $x = 1;
+                foreach ($lms_data->getResult() as $data) {
+                    $html .= '<div class="row">
+                <div class="col-12">
+                    <div class="row form-group">
+                        <label class="col-sm-3 control-label">Notes ' . $x . ': </label>
+                        <p class="control-label">' . ucfirst($data->note) . '</p>
+                    </div>
+                </div>
+            </div>';
+                    $x++;
+                }
+            } else {
+                $html = 'No Records Found';
+            }
+            echo json_encode($html);
+        } else {
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
+        }
+    }
     public function add_edit($id = "")
     {
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
             $this->data['lms_opt'] = $this->CrmModel->get_selected_fields(LMS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
+            $condition2 = array('crm_id' => $id);
+            $this->data['notes_info'] = $this->LmsModel->get_selected_fields(NOTES, $condition2)->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['info'] = $this->LmsModel->get_selected_fields(CRM, $condition)->getRow();
@@ -186,12 +222,14 @@ class Crm extends BaseController
             $lead = (string)$this->request->getPostGet('lead');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
+            $follow_up_alert = (string)$this->request->getPostGet('follow_up_alert');
+            $addmore = $this->request->getPostGet('addmore');
             if ($status == '') {
                 $status = 'off';
             }
             // echo $file;die;
             $fSubmit = FALSE;
-            if ($project_details != '' && $price != '' && $lead != '') {
+            if ($project_details != '' && $price != '' && $lead != '' && $follow_up_alert != '' && $addmore != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
@@ -202,7 +240,9 @@ class Crm extends BaseController
                     'lead' => $lead,
                     'project_details' => $project_details,
                     'price' => $price,
+                    'follow_up_alert' => $follow_up_alert,
                     'status' => $status,
+                    'is_deleted' => '0'
                 );
                 // $file->setRules('uploaded[crm_file]|max_size[crm_file,1024]|ext_in[crm_file,pdf,docx]');
                 if ($file->isValid() && !$file->hasMoved()) {
@@ -214,10 +254,35 @@ class Crm extends BaseController
                 }
                 if ($id == '') {
                     $this->LmsModel->simple_insert(CRM, $dataArr);
+                    $last_inserted_id = $this->LmsModel->get_last_insert_id();
+                    $newdata = array();
+                    foreach ($addmore as $val) {
+                        // print_r($val);die;
+                        $newdata = array(
+                            'crm_id' => $last_inserted_id,
+                            'note' => $val,
+                        );
+                        $this->LmsModel->simple_insert(NOTES, $newdata);
+                    }
                     $this->session->setFlashdata('success_message', 'Crm details added successfully.');
                     // $this->setFlashMessage('success', 'Crm details added successfully');
                     $fSubmit = TRUE;
                 } else {
+
+                    $cond = array('crm_id' => $id);
+                    $this->LmsModel->commonDelete(NOTES, $cond);
+                    $newdata = array();
+                    foreach ($addmore as $val) {
+                        if ($val != '') {
+                            $newdata = array(
+                                'crm_id' => $id,
+                                'note' => $val,
+                            );
+                            // echo"<pre>";print_r($newdata);die;
+                            $this->LmsModel->simple_insert(NOTES, $newdata);
+                        }
+                    }
+
                     $condition = array('id' => $id);
                     $this->LmsModel->update_details(CRM, $dataArr, $condition);
                     $this->session->setFlashdata('success_message', 'Crm details update successfully');

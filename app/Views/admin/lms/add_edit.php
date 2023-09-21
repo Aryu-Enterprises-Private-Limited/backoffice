@@ -88,12 +88,7 @@
                             <input type="text" class="form-control create-input" name="facebook" id="facebook" value="<?php if (isset($info->facebook)) echo $info->facebook; ?>" required>
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold">FollowUp Alert <span class="text-danger">*</span></label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control create-input" name="follow_up_alert" id="follow_up_alert" value="<?php if (isset($info->follow_up_alert)) echo $info->follow_up_alert; ?>" required>
-                        </div>
-                    </div>
+                    
                     <div class="mb-3 row">
                         <?php if (isset($info) && isset($info->status) && $info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>
@@ -103,48 +98,12 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold">Notes <span class="text-danger">*</span></label>
-                        <div class="input-container">
-                            <div class="input-group control-group after-add-more col-sm-10">
-                                <input type="text" name="addmore[]" class="form-control" id="addmore">
-                                <div class="input-group-btn ">
-                                    <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <?php if (isset($notes_info)) { ?>
-                        <?php foreach ($notes_info as $data) {
-                            //echo $data->note
-                            // if($notes_info[0]->note != $data->note) {
-                        ?>
-                            <div class="copy  hide_show">
-                                <div class="control-group input-group" style="margin-top:10px">
-                                    <input type="hidden" id="id" name="notes_id[]" value="<?php if (isset($data) && $data->id) echo $data->id; ?>">
-                                    <input type="text" name="addmore[]" class="form-control" value="<?php if (isset($data)) echo $data->note; ?>" id="removemore">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                                    </div>
-                                </div>
-                            </div>
-                    <?php }
-                    }
-                    //}
-                    ?>
+                    
                     <button type="button" class="btn butn-submit text-white sbmtBtn" id="btn">Submit</button>
                 </form>
             </div>
 
-            <div class="copy hide">
-                <div class="control-group input-group" style="margin-top:10px">
-                    <input type="text" name="addmore[]" class="form-control" id="removemore">
-                    <div class="input-group-btn">
-                        <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                    </div>
-                </div>
-            </div>
+            
 
         </div>
     </div>
@@ -157,25 +116,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        <?php if (isset($notes_info)) { ?>
-            $(".hide_show").show();
-            $(".hide").hide();
-        <?php  } else { ?>
-            $(".hide").hide();
-        <?php  } ?>
-
-        $(".add-more").click(function() {
-            // var input = $('<input type="text">');
-            var html = $(".copy:hidden").clone().removeClass('hide').removeAttr('style');
-            $('.input-container').append(html);
-        });
-
-        $("body").on("click", ".remove", function() {
-            $(this).parents(".control-group").remove();
-        });
-
-    });
+    
 
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {

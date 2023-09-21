@@ -233,6 +233,7 @@ class Candidate extends BaseController
             $reason = (string)$this->request->getPostGet('reason');
             $status = (string)$this->request->getPostGet('status');
             $background_check = (string)$this->request->getPostGet('background_check');
+            $ready_to_relocate = (string)$this->request->getPostGet('ready_to_relocate');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
@@ -241,7 +242,7 @@ class Candidate extends BaseController
                 $background_check = 'off';
             }
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '') {
+            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '' && $ready_to_relocate!='') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
@@ -257,17 +258,18 @@ class Candidate extends BaseController
                     'last_name' => $last_name,
                     'date' => $date,
                     'location' => $location,
-                    'contact_no' => $contact_no,
                     'email' => $email,
+                    'contact_no' => $contact_no,
                     'job_opening_id' => $job_opening_id,
                     'application_status_id' => $application_status_id,
                     'interview_status_id' => $interview_status_id,
                     'stage_id' => $stage_id,
-                    'background_check' => $background_check,
+                    'ready_to_relocate' => $ready_to_relocate,
                     'source' => $source,
+                    'status' => $status,
+                    'background_check' => $background_check,
                     'reason_rejection_id' => $reason_rejection_id,
                     'reason' => $reason,
-                    'status' => $status,
                     'is_deleted' => 0,
                 );
 

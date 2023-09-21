@@ -68,7 +68,7 @@ $routes->add('/' . ADMIN_PATH . '/lms/update', 'Lms::insertUpdate', ['namespace'
 $routes->add('/' . ADMIN_PATH . '/lms/change-status', 'Lms::update_status', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/lms/view/(:segment)', 'Lms::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/lms/delete', 'Lms::delete', ['namespace' => 'App\Controllers\Admin']);
-$routes->add('/' . ADMIN_PATH . '/lms/get-notes_details', 'Lms::get_notes_data', ['namespace' => 'App\Controllers\Admin']);
+
 
 // CRM Route
 $routes->add('/' . ADMIN_PATH . '/crm/list', 'Crm::index', ['namespace' => 'App\Controllers\Admin']);
@@ -80,7 +80,7 @@ $routes->add('/' . ADMIN_PATH . '/crm/change-status', 'Crm::update_status', ['na
 $routes->add('/' . ADMIN_PATH . '/crm/view/(:segment)', 'Crm::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/crm/delete', 'Crm::delete', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/crm/view_doc/(:segment)', 'Crm::showFile', ['namespace' => 'App\Controllers\Admin']);
-
+$routes->add('/' . ADMIN_PATH . '/crm/get-notes_details', 'Crm::get_notes_data', ['namespace' => 'App\Controllers\Admin']);
 
 //employee route
 $routes->add('/' . ADMIN_PATH . '/employee/list', 'Employee::index', ['namespace' => 'App\Controllers\Admin']);
@@ -245,6 +245,26 @@ $routes->add('/' . ADMIN_PATH . '/public_holiday/update', 'Public_holiday::inser
 $routes->add('/' . ADMIN_PATH . '/public_holiday/change-status', 'Public_holiday::update_status', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/public_holiday/view/(:segment)', 'Public_holiday::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/public_holiday/delete', 'Public_holiday::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//interview task route
+$routes->add('/' . ADMIN_PATH . '/interview_task/list', 'Interview_task::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/list_ajax', 'Interview_task::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/add', 'Interview_task::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/edit/(:segment)', 'Interview_task::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/update', 'Interview_task::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/change-status', 'Interview_task::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/view/(:segment)', 'Interview_task::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/interview_task/delete', 'Interview_task::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//emp.bank_info route
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/list', 'Employee_bank_info::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/list_ajax', 'Employee_bank_info::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/add', 'Employee_bank_info::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/edit/(:segment)', 'Employee_bank_info::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/update', 'Employee_bank_info::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/change-status', 'Employee_bank_info::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/view/(:segment)', 'Employee_bank_info::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/emp_bank_info/delete', 'Employee_bank_info::delete', ['namespace' => 'App\Controllers\Admin']);
 
 
 /*

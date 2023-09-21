@@ -67,10 +67,6 @@
                             <td><?php if (isset($lmsDetails->facebook)) echo ucfirst($lmsDetails->facebook); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"> Followup Alert </th>
-                            <td><?php if (isset($lmsDetails->follow_up_alert)) echo ucfirst($lmsDetails->follow_up_alert); ?></td>
-                        </tr>
-                        <tr>
                             <th scope="row"> Status </th>
                             <td><?php if (isset($lmsDetails->status) && $lmsDetails->status == 1) { ?><span class="btn btn-success"><?php echo 'Active'; ?></span><?php } else { ?><span class="btn btn-danger"><?php echo 'In Active'; ?></span><?php } ?></td>
                         </tr>
