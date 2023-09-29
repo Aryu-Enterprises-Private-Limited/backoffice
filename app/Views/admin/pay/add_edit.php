@@ -1,6 +1,14 @@
 <!-- Start content -->
 <?= $this->extend('layout') ?>
-
+<style>
+    img,
+    figure {
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
 <?= $this->section('content') ?>
 <div class="container-fluid mt-4">
     <div class="card create-box">
@@ -44,7 +52,7 @@
                                         $selected = 'selected';
                                     }
                                 ?>
-                                    <option value="<?php echo $value->id .','. ucfirst($value->first_name).' '.ucfirst($value->last_name); ?>" <?= $selected; ?>>
+                                    <option value="<?php echo $value->id . ',' . ucfirst($value->first_name) . ' ' . ucfirst($value->last_name); ?>" <?= $selected; ?>>
                                         <?php echo ucfirst($value->first_name); ?> <?php echo ucfirst($value->last_name); ?>
                                     </option>
                                 <?php } ?>
@@ -56,6 +64,26 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control create-input" name="month_sal" id="month_sal" value="<?php if (isset($pay_info->month_sal)) echo $pay_info->month_sal; ?>" required>
                         </div>
+                    </div>
+
+                    <!-- <div class="field_wrapper">
+                        <div>
+                            <input type="text" name="field_name[]" value="" />
+                            <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/images/add-icon.png" /></a>
+                        </div>
+                    </div> -->
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold"> ADD </label>
+                        <div class="col-sm-10 ">
+                        <div><a href="javascript:void(0);" class="add_button" title="Add field"><img src="/images/add-icon.png" /></a></div>
+                            <!-- <input type="text" class="form-control create-input" name="revisied_dt" id="revisied_dt" value="<?php if (isset($pay_info->revisied_dt)) echo $pay_info->revisied_dt; ?>" required> -->
+                            
+                        </div>
+                    </div>
+                    <div class="mb-3 row field_wrapper2">
+                    </div>
+                    <div class="mb-3 row field_wrapper">
                     </div>
 
                     <div class="mb-3 row">
@@ -87,6 +115,41 @@
                 $('#pay_form').submit();
             }
         });
+
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var wrapper2 = $('.field_wrapper2');
+        // var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="/images/remove-icon.png"/></a></div>'; //New input field html 
+
+        var fieldHTML2 = '<label class="col-sm-2 col-form-label fw-bold">Comments </label><div class="col-sm-10"><textarea placeholder="comments"class="form-control create-input" rows="3" name="comment[]" ></textarea></div><a href="javascript:void(0);" class="remove_button"><img src="/images/remove-icon.png"/></a>';
+
+        var fieldHTML = '<label class="col-sm-2 col-form-label fw-bold ">Revised Date </label><div class="col-sm-10"><input placeholder="revised date" type="date" class="form-control create-input " name="revisied_dt[]"  " required></div><a href="javascript:void(0);" class="remove_button"><img /></a>';
+
+        var x = 1; //Initial field counter is 1
+
+        // Once add button is clicked
+        $(addButton).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increase field counter
+                $(wrapper).append(fieldHTML2); //Add field html
+                $(wrapper2).append(fieldHTML);
+            } else {
+                alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
+            }
+        });
+
+        // Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $('.remove_button').parent('div').remove(); //Remove field html
+            x--; //Decrease field counter
+        });
+
+
+
+
     });
 </script>
 <?= $this->endSection() ?>

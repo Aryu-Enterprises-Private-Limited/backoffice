@@ -4,9 +4,8 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
-// use Dompdf\Dompdf;
-// use Dompdf\Options;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Invoice extends BaseController
 {
@@ -15,49 +14,56 @@ class Invoice extends BaseController
     {
         $this->session = session();
         $this->LmsModel = new \App\Models\LmsModel();
-        // $dompdf = new Dompdf();
-        // $dompdf = service('dompdf');
     }
 
     public function index($data = '')
     {
-        // print_r($data['pdf']);die;
         if ($this->checkSession('A') != '') {
-            if (isset($data['pdf']) && $data['pdf'] == 1) {
-                $dompdf = new Dompdf();
+            if (isset($data['id']) && $data['id'] != '') {
+                $this->data['title'] = 'Invoice';
+                $this->data['form_data'] = $data;
+                // print_r($this->data['form_data']);die;
+                $this->data['client_opt'] = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
+                // $this->data['pdf_opt'] = $this->LmsModel->get_selected_fields(INVOICE_DETAILS, ['id' => $data['id']])->getRow();
+                echo view(ADMIN_PATH . '/invoice/add', $this->data);
+                // $html = view(ADMIN_PATH . '/invoice/pdf', $this->data);
+
+                /*$dompdf = new Dompdf();
                 $add_count = count($data['addmore']);
                 $amnt_count = count($data['amntmore']);
                 $qnty_count = count($data['qntymore']);
                 if ($add_count == $amnt_count && $amnt_count == $qnty_count && $qnty_count == $add_count) {
+                    // $data['css_link'] = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">';
+                    // $data['script_link'] = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>';
+                    // $data['header_logo'] = $header_logo =base_url() . "images/aryuinvoiceheader.png";
                     $html = view(ADMIN_PATH . '/invoice/pdf', $data);
-                        $dompdf->loadHtml($html);
-    
-                        $dompdf->setPaper('A4', 'landscape');
-        
-                        $dompdf->render();
-                        $pdfString = $dompdf->output();
-                        $title = 'Invoice';
-                        $client_opt = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
-                        // return view(ADMIN_PATH . '/invoice/pdf_preview', ['pdfString' => $pdfString]);
-                        return view(ADMIN_PATH . '/invoice/add', ['pdfString' => $pdfString, 'title' => $title, 'client_opt' => $client_opt, 'form_data' => $data]);
-                }
-                 else{
-                     return 0;
-                 }
-                
+                    
+                    $dompdf->loadHtml($html);
+                    // $dompdf->setBasePath('http://localhost:8080/images/aryuinvoiceheader.png');
+                    $dompdf->setPaper('A4', 'landscape');
+
+                    $dompdf->render();
+                    $pdfString = $dompdf->output();
+                    $title = 'Invoice';
+                    $client_opt = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
+                    // return view(ADMIN_PATH . '/invoice/pdf_preview', ['pdfString' => $pdfString]);
+                    return view(ADMIN_PATH . '/invoice/add', ['pdfString' => $pdfString, 'title' => $title, 'client_opt' => $client_opt, 'form_data' => $data]);
+                } else {
+                    return 0;
+                }*/
             } else {
                 $this->data['title'] = 'Invoice';
                 $this->data['client_opt'] = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, ['status' => '1'], ['id', 'first_name', 'last_name'])->getResult();
-                $this->data['invoice_id'] = $this->LmsModel->get_selected_fields(INVOICE_DETAILS,'', ['id'],'desc')->getRow();
-                // print_r($this->data['invoice_id']);die;
+                $this->data['invoice_id'] = $this->LmsModel->get_selected_fields(INVOICE_DETAILS, '', ['id'], 'desc')->getRow();
                 echo view(ADMIN_PATH . '/invoice/add', $this->data);
             }
         } else {
-            
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
         }
     }
 
-    public function invoice_generate()
+    /*  public function invoice_generate()
     {
 
         if ($this->checkSession('A') != '') {
@@ -72,8 +78,8 @@ class Invoice extends BaseController
             $this->data['invoice_no'] = $invoice_no = $this->request->getPostGet('invoice_no');
             $this->data['invoice_date'] = $invoice_date = $this->request->getPostGet('invoice_date');
             $this->data['pdf'] = '1';
-            $this->data['header_logo'] = base_url()."images/aryuinvoiceheader.png";
 
+            // echo $this->data['header_logo'];die;
             //  print_r(array_values($addmore));die;
             $validation = \Config\Services::validation();
             $validation->setRules(
@@ -98,32 +104,100 @@ class Invoice extends BaseController
                 $dataArr['description'] = json_encode($addmore);
                 $dataArr['amount'] = json_encode($amntmore);
                 $dataArr['quantity'] = json_encode($qntymore);
-    
+
                 $result = $this->index($this->data);
-              
-                
-                if($result != 0){
+
+
+                if ($result != 0) {
                     // $this->LmsModel->simple_insert(INVOICE_DETAILS, $dataArr);
                     print_r($result);
-                }else{
+                } else {
                     $this->session->setFlashdata('error_message', 'Enter Correct value');
                     return redirect()->to('/' . ADMIN_PATH . '/invoice');
                 }
             }
-
-            
-            // $html = view(ADMIN_PATH . '/invoice/pdf', $this->data);
-            // $dompdf->loadHtml($html);
-
-            // $dompdf->setPaper('A4', 'landscape');
-
-            // $dompdf->render();
-            // $pdfString = $dompdf->output();
-            // return view(ADMIN_PATH . '/invoice/pdf_preview', ['pdfString' => $pdfString]);
-
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
             return redirect()->to('/' . ADMIN_PATH);
         }
+    }*/
+
+    public function insertUpdate_preview()
+    {
+        echo"<pre>";print_r($_POST);die;
+        //   echo"<pre>";  print_r(array_filter($this->request->getPostGet('addmore')));die;
+        if ($this->checkSession('A') != '') {
+            $this->data['from_name'] =   $from_name = (string)$this->request->getPostGet('from_name');
+            $this->data['to_name'] = $to_name = (string)$this->request->getPostGet('to_name');
+             $addmore = $this->request->getPostGet('addmore');
+             $amntmore = $this->request->getPostGet('amntmore');
+             $qntymore = $this->request->getPostGet('qntymore');
+            $this->data['invoice_no'] = $invoice_no = $this->request->getPostGet('invoice_no');
+            $this->data['invoice_date'] = $invoice_date = $this->request->getPostGet('invoice_date');
+            $id = (string)$this->request->getPostGet('id');
+
+            $this->data['addmore'] = $addmore_array_fil = array_values(array_filter($addmore));
+            $this->data['amntmore'] = $amtmore_array_fil = array_values(array_filter($amntmore));
+            $this->data['qntymore'] = $qnty_array_fil = array_values(array_filter($qntymore));
+            $to_arr = explode(",", $to_name);
+
+            $dataArr = array(
+                'from_name' => $from_name,
+                'to_name' => $to_arr[0],
+                'client_id' => $to_arr[1],
+                'invoice_no' => $invoice_no,
+                'invoice_date' => $invoice_date,
+            );
+            $dataArr['description'] = json_encode($addmore_array_fil);
+            $dataArr['amount'] = json_encode($amtmore_array_fil);
+            $dataArr['quantity'] = json_encode($qnty_array_fil);
+
+            if ($id == '') {
+                $this->LmsModel->simple_insert(INVOICE_DETAILS, $dataArr);
+                $this->data['id'] = $id = $this->LmsModel->get_last_insert_id();
+                $this->session->setFlashdata('success_message', 'Invoice added successfully.');
+                // $fSubmit = TRUE;
+            } else {
+                $this->data['id'] = $id;
+                $condition = array('id' => $id);
+                $this->LmsModel->update_details(INVOICE_DETAILS, $dataArr, $condition);
+                $this->session->setFlashdata('success_message', 'Invoice update successfully');
+                // $fSubmit = TRUE;
+            }
+
+            //  return view(ADMIN_PATH . '/invoice/add', $this->data);
+            $result = $this->index($this->data);
+            // $url = ADMIN_PATH . '/preview_invoice/' . $id;
+            // return redirect()->to("$url");
+        } else {
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
+        }
+    }
+    public function preview_pdf($id)
+    {
+        // header("Content-type:application/pdf");
+        // header("Content-disposition: inline;filename=downlaod.pdf");
+
+        $data = [];
+        $data['title'] = 'Invoice';
+
+        $data['pdf_opt'] = $clients_info = $this->LmsModel->get_selected_fields(INVOICE_DETAILS, ['id' => $id])->getRow();
+        
+
+        $data['client_details'] = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, ['id' => $clients_info->client_id])->getRow();
+        
+        $options = new Options();
+       
+        $dompdf = new Dompdf($options);
+        
+        $body = view(ADMIN_PATH . '/invoice/pdf', $data);
+        // echo $body;
+        // die;
+        $dompdf->loadHtml($body);
+       
+        $dompdf->render();
+        $dompdf->stream("file.pdf", array("Attachment" => 0));
+        
     }
 }
