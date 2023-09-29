@@ -75,48 +75,17 @@ class Schedule extends BaseController
                 $monthNumber = date('m', strtotime($currentMonth));
                 $this->data['filter_month'] = $firstDateOfMonth = date('' . $currentYear . '-' . $monthNumber . '-01');
             }
-            // echo $firstDateOfMonth;die;
             $this->data['dates'] = $datesForCurrentMonth = $this->generateDatesForMonth($currentMonth, $currentYear);
 
-            // $this->data['title'] = 'Schedule List';
             $condition = ['date' => $firstDateOfMonth];
 
-            // 
             $sch_details = $this->LmsModel->get_selected_fields(SCHEDULE_HOURS, $condition, ['id', 'employee_email', 'employee_id', 'date', 'daily_working_hrs']);
 
-            // echo"<pre>";print_r($sch_details->getNumRows());die;
             if ($sch_details->getNumRows() == 0) {
                 $this->data['emp_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'email'])->getResult();
             } else {
                 $this->data['dataArray'] = $sch_details->getResult();
             }
-
-
-
-
-
-
-
-
-            // $sch_date =  $this->LmsModel->get_selected_fields(SCHEDULE_HOURS, '', ['date'], 'desc')->getRow();
-            // $dateString = '';
-            // $month = '';
-            // if (isset($sch_date) && !empty($sch_date)) {
-            //     $dateString = $sch_date->date;
-            //     $date = new DateTime($dateString);
-
-            //     $month = $date->format('F');
-            // }
-
-
-            // $currentMonth = date('F');
-            // if ($month == $currentMonth) {
-            //     $this->data['sch_details']  = $this->LmsModel->get_selected_fields(SCHEDULE_HOURS, ['date' => $dateString], ['id', 'date', 'employee_id', 'daily_working_hrs'], 'desc')->getResult();
-            // }
-            // $currentYear = date('Y');
-            // $this->data['dates'] = $datesForCurrentMonth = $this->generateDatesForMonth($currentMonth, $currentYear);
-
-            // $this->data['emp_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'email'])->getResult();
 
             if ($id != '') {
                 // $condition = array('is_deleted' => '0', 'id' => $id);
@@ -143,7 +112,6 @@ class Schedule extends BaseController
     {
         if ($this->checkSession('A') != '') {
             $sch_hrs = $this->request->getPostGet('sch_hrs');
-            // $email = $this->request->getPostGet('email');
             $date = (string)$this->request->getPostGet('date');
             $id = $this->request->getPostGet('id');
 

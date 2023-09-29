@@ -63,14 +63,12 @@ class Employee extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_DETAILS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
-        $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
+        $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $tblData = array();
         $position = 1;
@@ -714,6 +712,6 @@ class Employee extends BaseController
             $html['response'] = 'Failed to get Department Option';
         }
         echo json_encode($html);
-            exit;
+        exit;
     }
 }

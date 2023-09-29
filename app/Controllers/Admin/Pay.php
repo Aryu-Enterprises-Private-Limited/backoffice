@@ -56,12 +56,10 @@ class Pay extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(PAY, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(PAY, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
@@ -119,7 +117,7 @@ class Pay extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name','last_name'])->getResult();
+            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['pay_info'] = $this->LmsModel->get_selected_fields(PAY, $condition)->getRow();
@@ -146,12 +144,15 @@ class Pay extends BaseController
         if ($this->checkSession('A') != '') {
             $employee_name = (string)$this->request->getPostGet('employee_name');
             $month_sal = (string)$this->request->getPostGet('month_sal');
+            $revisied_dt = $this->request->getPostGet('revisied_dt');
+            $comment = $this->request->getPostGet('comment');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
             }
-            $str_arr = explode (",", $employee_name); 
+
+            $str_arr = explode(",", $employee_name);
             $fSubmit = FALSE;
             if ($month_sal != '') {
                 if ($status == 'on') {
@@ -166,6 +167,15 @@ class Pay extends BaseController
                     'status' => $status,
                     'is_deleted' => '0',
                 );
+                if (isset($revisied_dt) && isset($revisied_dt)) {
+                    $revisied_dt_fil = array_values(array_filter($revisied_dt));
+                    $comment_fil = array_values(array_filter($comment));
+                    $dataArr['revisied_dt'] = json_encode($revisied_dt_fil);
+                    $dataArr['comment'] = json_encode($comment_fil);
+                } else {
+                    $dataArr['revisied_dt'] = '';
+                    $dataArr['comment'] = '';
+                }
 
                 if ($id == '') {
                     $this->LmsModel->simple_insert(PAY, $dataArr);

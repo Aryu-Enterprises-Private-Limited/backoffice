@@ -31,7 +31,6 @@ class Report extends BaseController
     {
         $daterange = $this->request->getGetPost('daterange');
         $employee_id = $this->request->getGetPost('employee_name');
-        // echo $employee_id;die;
         $draw = $this->request->getPostGet('draw');
         $row_start = $this->request->getPostGet('start');
         $rowperpage = $this->request->getPostGet('length'); // Rows display per page
@@ -58,7 +57,6 @@ class Report extends BaseController
 
         $currentDate = date('m/d/Y');
         $condition = array('att_current_date' => $currentDate);
-        // print_r($condition);die;
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'employee_name' => trim($dtSearchKeyVal),
@@ -80,7 +78,7 @@ class Report extends BaseController
         $totCounts = $this->LmsModel->group_count_tbl(EMPLOYEE_ATTENDANCE, $condition, $likeArr);
 
         // $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_ATTENDANCE, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
@@ -104,10 +102,7 @@ class Report extends BaseController
             $key4 = array_search('logout', $att_reason);
 
 
-            // $value1 ='';
-            // $value2 = '';
-            // $value3 ='';
-            // $value4='';
+
             if ($key1 !== false) {
                 $login = $att_time[$key1];
             }
@@ -122,31 +117,6 @@ class Report extends BaseController
             }
 
             if (isset($login) && isset($logout)) {
-                /*$timeString = $login;
-                $login = explode(' ', $timeString);
-
-                $timeString2 = $logout;
-                $logout = explode(' ', $timeString2);
-
-                $loginTime = $login[0];
-                $logoutTime = $logout[0];
-
-                // Convert time strings to seconds
-                $loginTimeInSeconds = strtotime($loginTime);
-                $logoutTimeInSeconds = strtotime($logoutTime);
-
-                // Calculate the time difference in seconds
-                $timeDifferenceInSeconds = $logoutTimeInSeconds - $loginTimeInSeconds;
-
-                // Format the time difference as "hh:mm:ss"
-                $hours = floor($timeDifferenceInSeconds / 3600);
-                $minutes = floor(($timeDifferenceInSeconds % 3600) / 60);
-                $seconds = $timeDifferenceInSeconds % 60;
-
-                // Create the formatted time difference string
-                $login_out_diff = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-
-                   echo "Time Difference: " . $login_out_diff;*/
                 $login = $login;
                 $logout = $logout;
 
@@ -159,10 +129,6 @@ class Report extends BaseController
 
                 // Format the time difference as "hh:mm:ss"
                 $login_out_diff = $timeDifference->format('%H:%I:%S');
-
-                // echo "Time Difference: " . $login_out_diff;
-
-
 
                 $break_diff = '';
                 if (isset($break_out) && isset($break_in)) {
@@ -215,10 +181,7 @@ class Report extends BaseController
 
                     // Create the formatted time difference string
                     $timeDifferenceFormatted = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-
-                    //  echo "Time Difference: " . $timeDifferenceFormatted;
                 }
-                //  echo $login_out_diff;
                 $tblData[] = array(
                     'employee_name' => $data->employee_name,
                     'employee_email' =>  $data->employee_email,
@@ -263,12 +226,53 @@ class Report extends BaseController
 
     public function monthly_list_ajax()
     {
+
+        if ($this->checkSession('A') != '') {
         $currentMonth = date('F');
         $currentYear = date('Y');
-        $this->data['title'] = 'Monthly Report List';
-        $this->data['dates'] = $datesForCurrentMonth = $this->generateDatesForMonth($currentMonth, $currentYear);
-        echo view(ADMIN_PATH . '/report/monthly_list', $this->data);
 
+        $this->data['title'] = 'Monthly Report List';
+        $month = $this->request->getGetPost('month');
+        if (isset($month) && $month != '') {
+            $timestamp = strtotime($month); // Convert the date string to a timestamp
+            $currentMonth = date("F", $timestamp);
+            $currentYear = date("Y", $timestamp);
+        }
+        $abbreviatedMonth = date("M", strtotime($currentMonth));
+
+
+        $dateStringWithSpace = $abbreviatedMonth . ", " . $currentYear;
+
+        $dateString = $dateStringWithSpace;
+
+        // Parse the date string to obtain the year and month
+        $dateComponents = explode(', ', $dateString);
+        if (count($dateComponents) === 2) {
+            $month = $dateComponents[0];
+            $year = $dateComponents[1];
+
+            // Calculate the first day of the specified month and year
+            $firstDayOfMonth = date('Y-m-d', strtotime("{$year}-{$month}-01"));
+
+            // Calculate the last day of the specified month and year
+            $lastDayOfMonth = date('Y-m-t', strtotime("{$year}-{$month}-01"));
+            $condition['att_current_date >='] = $firstDayOfMonth;
+            $condition['att_current_date <='] = $lastDayOfMonth;
+        }
+        //  print_r($condition);die;
+        // }
+
+        $this->data['dates'] = $datesForCurrentMonth = $this->generateDatesForMonth($currentMonth, $currentYear);
+
+        //  $this->data['att_details'] = $this->LmsModel->get_all_details(EMPLOYEE_ATTENDANCE_TOTAL_HOURS)->getResult();
+        $this->data['att_details'] = $this->LmsModel->group_by_atttbl($condition)->getResult();
+        //  echo"<pre>"; print_r($this->data['att_details']);die;
+
+        echo view(ADMIN_PATH . '/report/monthly_list', $this->data);
+    }else {
+        $this->session->setFlashdata('error_message', 'Please login!!!');
+        return redirect()->to('/' . ADMIN_PATH);
+    }
     }
 
     private function generateDatesForMonth($currentMonth, $currentYear)

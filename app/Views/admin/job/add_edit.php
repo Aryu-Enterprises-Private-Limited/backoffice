@@ -47,8 +47,6 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold">Job Description <span class="text-danger">*</span></label>
                         <div class="col-sm-10 reduce_len">
-                            <!-- <div id="div_editor1">
-                        </div> -->
                             <textarea class="form-control create-input" rows="3" name="job_desc" id="job_desc" required><?php if (isset($job_info) && $job_info->job_desc) echo $job_info->job_desc;  ?></textarea>
                         </div>
                     </div>
@@ -83,12 +81,13 @@
                             <select class="form-control js-example-tokenizer" multiple="multiple" name="job_req[]" required>
                                 <option value="">select</option>
                                 <?php
-                                if(isset($job_info->job_requirement)){
-                                $req_arr = explode(",", $job_info->job_requirement);
-                                foreach ($req_arr as $key => $value) {
+                                if (isset($job_info->job_requirement)) {
+                                    $req_arr = explode(",", $job_info->job_requirement);
+                                    foreach ($req_arr as $key => $value) {
                                 ?>
-                                    <option selected="selected"><?= $value; ?></option>
-                                <?php   } }?>
+                                        <option selected="selected"><?= $value; ?></option>
+                                <?php   }
+                                } ?>
                             </select>
                         </div>
                     </div>
@@ -122,16 +121,9 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#job_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#job_form').submit();
             }
-            // var tagsArray = [];
-            // $("#tags span").each(function() {
-            //     tagsArray.push($(this).text());
-            // });
-            // $('#job_req').val(tagsArray.join(','));
-
-            // return false;
         });
 
         $(".js-example-tokenizer").select2({
@@ -141,7 +133,6 @@
 
         var editor1 = new RichTextEditor("#job_desc");
         //editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
-
     });
 </script>
 <?= $this->endSection() ?>

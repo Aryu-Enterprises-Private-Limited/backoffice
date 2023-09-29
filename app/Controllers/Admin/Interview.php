@@ -56,12 +56,10 @@ class Interview extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(INTERVIEW_STATUS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(INTERVIEW_STATUS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
@@ -159,6 +157,7 @@ class Interview extends BaseController
                 $dataArr = array(
                     'interview_sts' => $interview_sts,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

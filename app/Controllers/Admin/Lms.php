@@ -64,14 +64,11 @@ class Lms extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(LMS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(LMS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
-
 
         $tblData = array();
         $position = 1;
@@ -93,7 +90,7 @@ class Lms extends BaseController
 
             $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/lms/view/' . (string)$rowId . '"><i class="fas fa-eye"></i></a>';
 
-            
+
 
             $statusTxt =  '<a data-toggle="tooltip" data-original-title="' . $actTitle . '" class="stsconfirm" href="javascript:void(0);" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/lms/change-status" data-stsmode="' . $mode . '"> <button type="button" class="btn ' . $btnColr . ' btn-sm waves-effect waves-light">' . $disp_status . '</button></a>';
 
@@ -129,7 +126,7 @@ class Lms extends BaseController
         echo json_encode($returnArr);
     }
 
-    
+
 
     public function add_edit($id = "")
     {
@@ -140,8 +137,6 @@ class Lms extends BaseController
                 $condition = array('id' => $id, 'is_deleted' => '0');
 
                 $this->data['info'] = $this->LmsModel->get_selected_fields(LMS, $condition)->getRow();
-                
-                //   echo"<pre>";print_r($this->data['notes_info']);die;
                 if (!empty($this->data['info'])) {
                     $this->data['title'] = 'Edit Lms';
                 } else {
@@ -204,11 +199,11 @@ class Lms extends BaseController
                 $status = 'off';
             }
 
-            
+
             $notes_id = $this->request->getPostGet('notes_id');
 
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $address != '' && $phone != '' && $email != '' && $lead_source != '' && $linked_in != '' && $twitter != '' && $facebook != ''  ) {
+            if ($first_name != '' && $last_name != '' && $address != '' && $phone != '' && $email != '' && $lead_source != '' && $linked_in != '' && $twitter != '' && $facebook != '') {
                 if ($status == 'on') {
                     $status = 1;
                 } else {
@@ -236,7 +231,7 @@ class Lms extends BaseController
                     // $this->setFlashMessage('success', 'lms details added successfully');
                     $fSubmit = TRUE;
                 } else {
-                    
+
                     $condition = array('id' => $id);
 
                     $this->LmsModel->update_details(LMS, $dataArr, $condition);
@@ -247,7 +242,6 @@ class Lms extends BaseController
             } else {
                 $this->session->setFlashdata('error_message', 'Form data is missing.');
             }
-            // echo"<pre>";print_R($_SESSION);die;
             if ($fSubmit) {
                 $url = ADMIN_PATH . '/lms/list';
             } else {
@@ -271,7 +265,6 @@ class Lms extends BaseController
                 $returnArr['response'] = 'Session has been timed out, Please login again and try.';
             } else {
                 $mode = $this->request->getPostGet('mode');
-                // echo $mode;die;
                 $id = $this->request->getPostGet('record_id');
                 $status = ($mode == '0') ? '0' : '1';
                 $newdata = array('status' => $status);

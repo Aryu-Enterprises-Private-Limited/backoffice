@@ -142,6 +142,7 @@
                             if (res.status == '1') {
                                 Swal.fire({
                                     title: "Status Changed!",
+                                    icon: 'success',
                                     text: res.response,
                                     type: "success"
                                 });
@@ -154,10 +155,10 @@
                                 } else {
                                     $('.drRideBox').hide();
                                 }
-                                //setTimeout(function () { $('.swal2-confirm').trigger('click'); }, 2500);
                             } else {
                                 Swal.fire({
                                     title: "Error",
+                                    icon: 'error',
                                     text: res.response,
                                     type: "error"
                                 });
@@ -200,6 +201,7 @@
                             if (res.status == '1') {
                                 Swal.fire({
                                     title: "Deleted!",
+                                    icon: 'success',
                                     text: res.response,
                                     type: "success"
                                 });
@@ -211,6 +213,7 @@
                             } else {
                                 Swal.fire({
                                     title: "Error",
+                                    icon: 'error',
                                     text: res.response,
                                     type: "error"
                                 });

@@ -12,7 +12,6 @@ class Crm extends BaseController
         $this->session = session();
         $this->CrmModel = new \App\Models\CrmModel();
         $this->LmsModel = new \App\Models\LmsModel();
-        // $this->load->helper('uri');
     }
 
     public function index()
@@ -60,17 +59,14 @@ class Crm extends BaseController
         }
 
         $totCounts = $this->CrmModel->get_all_counts(CRM, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('lead' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
+
         $ajaxDataArr = $this->CrmModel->get_all_details(CRM, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
-
         $tblData = array();
-        $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
             $cond = ['id' => $row->lead];
@@ -227,7 +223,6 @@ class Crm extends BaseController
             if ($status == '') {
                 $status = 'off';
             }
-            // echo $file;die;
             $fSubmit = FALSE;
             if ($project_details != '' && $price != '' && $lead != '' && $follow_up_alert != '' && $addmore != '') {
                 if ($status == 'on') {
@@ -235,7 +230,6 @@ class Crm extends BaseController
                 } else {
                     $status = '0';
                 }
-                $name =  '';
                 $dataArr = array(
                     'lead' => $lead,
                     'project_details' => $project_details,
@@ -244,7 +238,6 @@ class Crm extends BaseController
                     'status' => $status,
                     'is_deleted' => '0'
                 );
-                // $file->setRules('uploaded[crm_file]|max_size[crm_file,1024]|ext_in[crm_file,pdf,docx]');
                 if ($file->isValid() && !$file->hasMoved()) {
                     $newName = $file->getRandomName();
                     $file->move(WRITEPATH . CRM_DOC_PATH, $newName);
@@ -252,12 +245,12 @@ class Crm extends BaseController
                 } else {
                     echo 'Upload failed.';
                 }
+                $add_more_fil = array_values(array_filter($addmore));
                 if ($id == '') {
                     $this->LmsModel->simple_insert(CRM, $dataArr);
                     $last_inserted_id = $this->LmsModel->get_last_insert_id();
                     $newdata = array();
-                    foreach ($addmore as $val) {
-                        // print_r($val);die;
+                    foreach ($add_more_fil as $val) {
                         $newdata = array(
                             'crm_id' => $last_inserted_id,
                             'note' => $val,
@@ -268,11 +261,10 @@ class Crm extends BaseController
                     // $this->setFlashMessage('success', 'Crm details added successfully');
                     $fSubmit = TRUE;
                 } else {
-
                     $cond = array('crm_id' => $id);
                     $this->LmsModel->commonDelete(NOTES, $cond);
                     $newdata = array();
-                    foreach ($addmore as $val) {
+                    foreach ($add_more_fil as $val) {
                         if ($val != '') {
                             $newdata = array(
                                 'crm_id' => $id,

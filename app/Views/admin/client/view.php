@@ -42,7 +42,7 @@
                             <td><?php if (isset($clientDetails->phone)) echo ucfirst($clientDetails->phone); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"> Address </th>,
+                            <th scope="row"> Address </th>
                             <td><?php if (isset($clientDetails->address)) echo ucfirst(wordwrap($clientDetails->address, 40, "<br />\n")); ?></td>
                         </tr>
                         <tr>

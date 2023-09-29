@@ -101,10 +101,6 @@
         $(document).ready(function() {
             $("#login_form").validate({
                 rules: {
-                    // username: {
-                    //     required: true,
-                    //     minlength: 3
-                    // },
                     email: {
                         required: true,
                         email: true

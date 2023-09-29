@@ -52,8 +52,7 @@ class Attendance extends BaseController
             $dtSearchKeyVal = $this->request->getPostGet('search')['value']; // Search value
         }
         $likeArr = [];
-        // $currentDate = date('m/d/Y');
-        // $condition = array('att_current_date' => $currentDate);
+
         $condition = array();
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
@@ -68,18 +67,13 @@ class Attendance extends BaseController
             }
         }
         $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_ATTENDANCE, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('employee_name' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        //  print_r($condition);die;
+
         $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_ATTENDANCE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
-
-
         $tblData = array();
-        $position = 1;
-
         foreach ($ajaxDataArr->getResult() as $row) {
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
@@ -88,7 +82,8 @@ class Attendance extends BaseController
                 'employee_email' => $row->employee_email,
                 'att_current_date' => $row->att_current_date,
                 "att_current_time" =>  $row->att_current_time,
-                "reason" =>  str_replace("_", " ", ucfirst($row->reason))
+                "reason" =>  str_replace("_", " ", ucfirst($row->reason)),
+                "ip_address" => $row->ip_address,
             );
         }
         $response = array(

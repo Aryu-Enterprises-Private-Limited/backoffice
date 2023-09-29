@@ -51,19 +51,17 @@ class Employee_bank_info extends BaseController
         $condition = array('is_deleted' => '0');
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
-                'job_type_name' => trim($dtSearchKeyVal),
+                'employee_name' => trim($dtSearchKeyVal),
             );
         }
 
         $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_BANK_INFO, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
-        $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_BANK_INFO, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
+        $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_BANK_INFO, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $tblData = array();
 
@@ -100,7 +98,7 @@ class Employee_bank_info extends BaseController
                 'ifsc_code' => $row->ifsc_code,
                 'acc_type' => $row->acc_type,
                 'branch_name' => ucfirst($row->branch_name),
-                'employee_sts' => str_replace("_"," ",$row->employee_sts),
+                'employee_sts' => str_replace("_", " ", $row->employee_sts),
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -123,7 +121,7 @@ class Employee_bank_info extends BaseController
         if ($this->checkSession('A') != '') {
             $uri = service('uri');
             $id = $uri->getSegment(4);
-            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name','last_name'])->getResult();
+            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['status' => '1', 'is_deleted' => '0'], ['id', 'first_name', 'last_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['employee_bank_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_BANK_INFO, $condition)->getRow();
@@ -147,7 +145,7 @@ class Employee_bank_info extends BaseController
 
     public function insertUpdate()
     {
-        
+
         if ($this->checkSession('A') != '') {
             $employee_name = (string)$this->request->getPostGet('employee_name');
             $acc_no = (string)$this->request->getPostGet('acc_no');
@@ -160,9 +158,9 @@ class Employee_bank_info extends BaseController
             if ($status == '') {
                 $status = 'off';
             }
-            $str_arr = explode (",", $employee_name); 
+            $str_arr = explode(",", $employee_name);
             $fSubmit = FALSE;
-            if ($acc_no != '' && $ifsc_code!='' && $acc_type!='' && $branch_name!='') {
+            if ($acc_no != '' && $ifsc_code != '' && $acc_type != '' && $branch_name != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {

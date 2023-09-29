@@ -53,10 +53,6 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                 </div>
                 <div class="col-lg-12 p-2 my_t">
                     <form autocomplete="off">
-                        <!-- <div class="col-lg-2 float-start m-filter me-1">
-                            <p> Date Date :</p>
-                            <input type="text" class="form-control required" name="daterange" id="datepicker" placeholder="Enter date Range" value="<?php echo $daterange; ?>">
-                        </div> -->
                         <div class="col-lg-2 float-start m-filter me-1">
                             <p> Job Opening :</p>
                             <select name="job_opening_id" id="job_opening_id" class=" form-control">
@@ -121,22 +117,6 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                                 <?php } ?>
                             </select>
                         </div>
-                        <!-- <div class="col-lg-2 float-start m-filter me-1">
-                            <p> Reason for Rejection :</p>
-                            <select name="rr_id" id="rr_id" class=" form-control">
-                                <option value="">select</option>
-                                <?php foreach ($rr_opt as $key => $value) {
-                                    $selected = '';
-                                    if (isset($stage) && $stage == $value->id) {
-                                        $selected = 'selected';
-                                    }
-                                ?>
-                                    <option value="<?php echo $value->id; ?>" <?= $selected ?>>
-                                        <?php echo ucfirst($value->reason_for_rej); ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
-                        </div> -->
                         <div class="col-lg-2 float-start">
                             <p>&nbsp;</p>
                             <input type="button" id="FilterBtns" class="btn btn-success btn-sm btn-bordered py-2 m-filter" value="Filter">
@@ -304,6 +284,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                             if (res.status == '1') {
                                 Swal.fire({
                                     title: "Status Changed!",
+                                    icon: 'success',
                                     text: res.response,
                                     type: "success"
                                 });
@@ -320,6 +301,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                             } else {
                                 Swal.fire({
                                     title: "Error",
+                                    icon: 'error',
                                     text: res.response,
                                     type: "error"
                                 });
@@ -362,6 +344,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                             if (res.status == '1') {
                                 Swal.fire({
                                     title: "Deleted!",
+                                    icon: 'success',
                                     text: res.response,
                                     type: "success"
                                 });
@@ -373,6 +356,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                             } else {
                                 Swal.fire({
                                     title: "Error",
+                                    icon: 'error',
                                     text: res.response,
                                     type: "error"
                                 });
@@ -392,9 +376,6 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
 
         function get_filter_strings() {
             var qryString = '';
-            // if ($('#datepicker').val() != '') {
-            //     qryString += '&daterange=' + $('#datepicker').val();
-            // }
             if ($('#job_opening_id').val() != '') {
                 qryString += '&job_open=' + $('#job_opening_id').val();
             }

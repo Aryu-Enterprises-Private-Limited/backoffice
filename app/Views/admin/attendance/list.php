@@ -51,6 +51,7 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
                                 <th> <?php echo 'Attendance Date' ?></th>
                                 <th> <?php echo 'Attendance Time' ?></th>
                                 <th> <?php echo 'Reason'; ?> </th>
+                                <th> <?php echo 'IP Address'; ?> </th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -135,7 +136,9 @@ if ((isset($_GET['daterange'])) && ($_GET['daterange'] != '')) {
                     {
                         data: 'reason'
                     },
-
+                    {
+                        data: 'ip_address'
+                    },
                 ]
             });
 

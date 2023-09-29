@@ -76,9 +76,6 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
-<!-- 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -88,7 +85,7 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#holiday_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#holiday_form').submit();
             }
         });

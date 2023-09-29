@@ -112,7 +112,7 @@ $routes->add('/' . ADMIN_PATH . '/client/delete', 'Client::delete', ['namespace'
 //report route
 $routes->add('/' . ADMIN_PATH . '/report/list', 'Report::index', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/report/list_ajax', 'Report::list_ajax', ['namespace' => 'App\Controllers\Admin']);
-// $routes->add('/' . ADMIN_PATH . '/report/monthly_list', 'Report::monthly_list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/report/monthly_list', 'Report::monthly_list_ajax', ['namespace' => 'App\Controllers\Admin']);
 
 //in-voice route
  $routes->add('/' . ADMIN_PATH . '/invoice', 'Invoice::index', ['namespace' => 'App\Controllers\Admin']);
@@ -265,6 +265,107 @@ $routes->add('/' . ADMIN_PATH . '/emp_bank_info/update', 'Employee_bank_info::in
 $routes->add('/' . ADMIN_PATH . '/emp_bank_info/change-status', 'Employee_bank_info::update_status', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/emp_bank_info/view/(:segment)', 'Employee_bank_info::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/emp_bank_info/delete', 'Employee_bank_info::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//category route
+$routes->add('/' . ADMIN_PATH . '/category/list', 'Category::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/list_ajax', 'Category::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/add', 'Category::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/edit/(:segment)', 'Category::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/update', 'Category::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/change-status', 'Category::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/view/(:segment)', 'Category::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/category/delete', 'Category::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//reminder alerts
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/list', 'Reminder_alert::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/list_ajax', 'Reminder_alert::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/add', 'Reminder_alert::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/edit/(:segment)', 'Reminder_alert::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/update', 'Reminder_alert::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/change-status', 'Reminder_alert::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/view/(:segment)', 'Reminder_alert::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/reminder_alert/delete', 'Reminder_alert::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//expenses alerts
+$routes->add('/' . ADMIN_PATH . '/expense/list', 'Expense::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/list_ajax', 'Expense::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/add', 'Expense::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/edit/(:segment)', 'Expense::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/update', 'Expense::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/change-status', 'Expense::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/view/(:segment)', 'Expense::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/delete', 'Expense::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/expense/alert_close', 'Expense::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
+
+
+//income alerts
+$routes->add('/' . ADMIN_PATH . '/income/list', 'Income::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/list_ajax', 'Income::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/add', 'Income::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/edit/(:segment)', 'Income::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/update', 'Income::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/change-status', 'Income::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/view/(:segment)', 'Income::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/delete', 'Income::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/income/alert_close', 'Income::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
+
+//billed acc alerts
+$routes->add('/' . ADMIN_PATH . '/billed_acc/list', 'Billed_account::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/list_ajax', 'Billed_account::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/add', 'Billed_account::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/edit/(:segment)', 'Billed_account::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/update', 'Billed_account::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/change-status', 'Billed_account::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/view/(:segment)', 'Billed_account::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/billed_acc/delete', 'Billed_account::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//gst route
+$routes->add('/' . ADMIN_PATH . '/gst/list', 'Gst::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/list_ajax', 'Gst::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/add', 'Gst::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/edit/(:segment)', 'Gst::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/update', 'Gst::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/change-status', 'Gst::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/view/(:segment)', 'Gst::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/delete', 'Gst::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/view_doc/(:segment)', 'Gst::showFile', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/gst/alert_close', 'Gst::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
+
+//itr route
+$routes->add('/' . ADMIN_PATH . '/itr/list', 'Itr::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/list_ajax', 'Itr::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/add', 'Itr::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/edit/(:segment)', 'Itr::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/update', 'Itr::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/change-status', 'Itr::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/view/(:segment)', 'Itr::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/delete', 'Itr::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/view_doc/(:segment)', 'Itr::showFile', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/itr/alert_close', 'Itr::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
+
+//pf route 
+$routes->add('/' . ADMIN_PATH . '/pf/list', 'Provident_fund::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/list_ajax', 'Provident_fund::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/add', 'Provident_fund::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/edit/(:segment)', 'Provident_fund::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/update', 'Provident_fund::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/change-status', 'Provident_fund::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/view/(:segment)', 'Provident_fund::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/delete', 'Provident_fund::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/view_doc/(:segment)', 'Provident_fund::showFile', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/pf/alert_close', 'Provident_fund::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
+
+//tds route 
+$routes->add('/' . ADMIN_PATH . '/tds/list', 'Tds::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/list_ajax', 'Tds::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/add', 'Tds::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/edit/(:segment)', 'Tds::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/update', 'Tds::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/change-status', 'Tds::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/view/(:segment)', 'Tds::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/delete', 'Tds::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/view_doc/(:segment)', 'Tds::showFile', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/tds/alert_close', 'Tds::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
 
 
 /*

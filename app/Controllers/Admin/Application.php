@@ -56,12 +56,11 @@ class Application extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(APPLICATION_STATUS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('app_status' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
+
         $ajaxDataArr = $this->LmsModel->get_all_details(APPLICATION_STATUS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
@@ -159,6 +158,7 @@ class Application extends BaseController
                 $dataArr = array(
                     'app_status' => $app_status,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

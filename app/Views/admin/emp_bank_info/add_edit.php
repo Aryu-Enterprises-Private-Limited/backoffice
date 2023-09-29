@@ -115,7 +115,7 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#emp_bank_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#emp_bank_form').submit();
             }
         });

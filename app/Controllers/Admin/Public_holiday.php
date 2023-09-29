@@ -57,14 +57,11 @@ class Public_holiday extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(PUBLIC_HOLIDAY, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(PUBLIC_HOLIDAY, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
-
 
         $tblData = array();
 

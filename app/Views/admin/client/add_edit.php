@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold" >Address <span class="text-danger">*</span></label>
+                        <label class="col-sm-2 col-form-label fw-bold">Address <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
                             <textarea class="form-control create-input" rows="3" name="address" id="address" required><?php if (isset($client_info) && $client_info->address) echo $client_info->address;  ?></textarea>
                         </div>
@@ -95,7 +95,7 @@
                             <input type="text" class="form-control create-input" name="ifsc_code" id="ifsc_code" value="<?php if (isset($client_info->ifsc_code)) echo $client_info->ifsc_code; ?>" required>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3 row">
                         <?php if (isset($client_info) && isset($client_info->status) && $client_info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>
@@ -132,7 +132,7 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#client_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#client_form').submit();
             }
         });

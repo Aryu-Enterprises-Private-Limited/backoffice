@@ -116,7 +116,7 @@
                         <tr>
                             <th scope="row"> Resume </th>
                             <?php if (isset($empDetails->resume) && $empDetails->resume != '') { ?>
-                            <td><a href="<?php if (isset($empDetails->resume)) echo ('/' . ADMIN_PATH . '/employee/view_doc/' . (string)$empDetails->resume . '')  ?>" class="btn btn-info v_btn" download>View</td> </a>
+                                <td><a href="<?php if (isset($empDetails->resume)) echo ('/' . ADMIN_PATH . '/employee/view_doc/' . (string)$empDetails->resume . '')  ?>" class="btn btn-info v_btn" download>View</td> </a>
                             <?php  } else { ?>
                                 <td><a class="btn v_btn">No Document </a></td>
                             <?php } ?>

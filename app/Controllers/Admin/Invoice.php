@@ -124,14 +124,14 @@ class Invoice extends BaseController
 
     public function insertUpdate_preview()
     {
-        echo"<pre>";print_r($_POST);die;
+        // echo"<pre>";print_r($_POST);die;
         //   echo"<pre>";  print_r(array_filter($this->request->getPostGet('addmore')));die;
         if ($this->checkSession('A') != '') {
             $this->data['from_name'] =   $from_name = (string)$this->request->getPostGet('from_name');
             $this->data['to_name'] = $to_name = (string)$this->request->getPostGet('to_name');
-             $addmore = $this->request->getPostGet('addmore');
-             $amntmore = $this->request->getPostGet('amntmore');
-             $qntymore = $this->request->getPostGet('qntymore');
+            $addmore = $this->request->getPostGet('addmore');
+            $amntmore = $this->request->getPostGet('amntmore');
+            $qntymore = $this->request->getPostGet('qntymore');
             $this->data['invoice_no'] = $invoice_no = $this->request->getPostGet('invoice_no');
             $this->data['invoice_date'] = $invoice_date = $this->request->getPostGet('invoice_date');
             $id = (string)$this->request->getPostGet('id');
@@ -176,28 +176,34 @@ class Invoice extends BaseController
     }
     public function preview_pdf($id)
     {
-        // header("Content-type:application/pdf");
-        // header("Content-disposition: inline;filename=downlaod.pdf");
-
         $data = [];
         $data['title'] = 'Invoice';
 
         $data['pdf_opt'] = $clients_info = $this->LmsModel->get_selected_fields(INVOICE_DETAILS, ['id' => $id])->getRow();
-        
+
 
         $data['client_details'] = $this->LmsModel->get_selected_fields(CLIENT_DETAILS, ['id' => $clients_info->client_id])->getRow();
-        
+
         $options = new Options();
-       
+        $options->setIsPhpEnabled(true);
+        $options->setIsRemoteEnabled(true);
+        $options->set('dpi', 150);
         $dompdf = new Dompdf($options);
-        
+
+        $parser = \Config\Services::parser();
+        // $template = '<head><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><title>{blog_title}</title></head><body><div class="row"><div class="col-md-12 text-danger">col-12</div></div></body>';
+        // $data     = ['blog_title' => 'My ramblings'];
+
+        // return $parser->renderString(view(ADMIN_PATH . '/invoice/pdf', $data));
+        // exit();
+        // $data['bootstrap'] = file_get_contents("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css");
         $body = view(ADMIN_PATH . '/invoice/pdf', $data);
-        // echo $body;
-        // die;
-        $dompdf->loadHtml($body);
-       
+        $body = $parser->renderString($body);
+        return $body;
+
+        $dompdf->loadHtml($parser->renderString(view(ADMIN_PATH . '/invoice/pdf', $data)));
+        $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $dompdf->stream("file.pdf", array("Attachment" => 0));
-        
     }
 }

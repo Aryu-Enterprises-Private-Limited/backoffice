@@ -65,7 +65,7 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#jtype_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#jtype_form').submit();
             }
         });

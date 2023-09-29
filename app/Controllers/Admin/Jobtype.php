@@ -56,14 +56,11 @@ class Jobtype extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(JOB_TYPE, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(JOB_TYPE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
-
 
         $tblData = array();
 

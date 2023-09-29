@@ -233,8 +233,8 @@
     $(document).ready(function() {
         <?php if (isset($info) && $info->id) { ?>
             get_opt_dept();
-    <?php    } ?>
-        
+        <?php    } ?>
+
 
         $('#emergency').hide();
         $('#employe_information').hide();
@@ -269,8 +269,6 @@
                 });
                 $('#employe_information .form-control:hidden').each(function(i, e) {
                     data.append($(e).attr('name'), $(e).val());
-                    // $("cv_resume").remove();
-                    // data.append('cv_resume' , '');
                 });
 
                 var files = $('#cv_resume')[0].files;
@@ -279,13 +277,10 @@
                 }
 
             }
-            // console.log(data);
-            // return false;
             $.ajax({
                 type: 'post',
                 url: act_url,
                 data: data,
-                // dataType: 'json',
                 contentType: false,
                 processData: false,
                 success: function(res) {
@@ -322,7 +317,7 @@
             get_opt_dept();
         });
         // $("#role_id").change(function() {
-            function get_opt_dept() {
+        function get_opt_dept() {
             var role_id = $('#role_id').val();
             var url = "<?php echo base_url(); ?>admin/employee/get_dept_opt_ajax";
             $('#option_val').html('');
@@ -334,8 +329,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    // alert(res);
-                     $('#option_val').append(res);
+                    $('#option_val').append(res);
                 },
             });
         }

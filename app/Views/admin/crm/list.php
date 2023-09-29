@@ -137,10 +137,9 @@
         const myModal = new bootstrap.Modal('#show_modal');
 
         $('body').on("click", ".v_btn", function() {
-            // myModal.show();
+            $('#show_data').html('');
             var row_id = $(this).attr('data-row_id');
             var act_url = $(this).attr('data-act_url');
-            //alert(row_id);
             $.ajax({
                 type: 'post',
                 url: act_url,
@@ -149,7 +148,6 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res[0].id);
                     myModal.show();
                     $('#show_data').append(res);
                 }
@@ -191,6 +189,7 @@
                         if (res.status == '1') {
                             Swal.fire({
                                 title: "Status Changed!",
+                                icon: 'success',
                                 text: res.response,
                                 type: "success"
                             });
@@ -207,6 +206,7 @@
                         } else {
                             Swal.fire({
                                 title: "Error",
+                                icon: 'error',
                                 text: res.response,
                                 type: "error"
                             });
@@ -249,6 +249,7 @@
                         if (res.status == '1') {
                             Swal.fire({
                                 title: "Deleted!",
+                                icon: 'success',
                                 text: res.response,
                                 type: "success"
                             });
@@ -260,6 +261,7 @@
                         } else {
                             Swal.fire({
                                 title: "Error",
+                                icon: 'error',
                                 text: res.response,
                                 type: "error"
                             });

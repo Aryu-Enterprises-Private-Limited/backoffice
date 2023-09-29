@@ -101,7 +101,7 @@
                     <div class="mb-3 row copy hide">
                         <div class="col-sm-10 ">
                             <div class="control-group input-group input-grp removemore" style="margin-top:10px">
-                                <input type="text"  class="form-control">
+                                <input type="text" class="form-control">
                                 <div class="input-group-btn">
                                     <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
                                 </div>
@@ -160,23 +160,19 @@
         <?php  } ?>
 
         $(".add-more").click(function() {
-            // var html = $(".copy").html();
-            // $(".after-add-more").after(html);
-
             var html = $(".copy:hidden").clone().removeClass('hide').removeAttr('style');
-            html.find('input').attr('name','addmore[]');
+            html.find('input').attr('name', 'addmore[]');
             $('.input-container').append(html);
         });
 
         $("body").on("click", ".remove", function() {
             $(this).parents(".control-group").remove();
-            //   $(".removemore").remove();
         });
 
 
         $(".sbmtBtn").click(function(evt) {
             if ($('#interview_task_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#interview_task_form').submit();
             }
         });

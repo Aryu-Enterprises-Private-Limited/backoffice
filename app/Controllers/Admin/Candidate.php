@@ -90,7 +90,7 @@ class Candidate extends BaseController
             }
         }
         $totCounts = $this->LmsModel->get_all_counts(CANDIDATES_DETAILS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('first_name' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
@@ -242,7 +242,7 @@ class Candidate extends BaseController
                 $background_check = 'off';
             }
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '' && $ready_to_relocate!='') {
+            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '' && $ready_to_relocate != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {

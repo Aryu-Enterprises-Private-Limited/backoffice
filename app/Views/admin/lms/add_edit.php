@@ -88,7 +88,7 @@
                             <input type="text" class="form-control create-input" name="facebook" id="facebook" value="<?php if (isset($info->facebook)) echo $info->facebook; ?>" required>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3 row">
                         <?php if (isset($info) && isset($info->status) && $info->status == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>
@@ -98,12 +98,12 @@
                         </div>
                     </div>
 
-                    
+
                     <button type="button" class="btn butn-submit text-white sbmtBtn" id="btn">Submit</button>
                 </form>
             </div>
 
-            
+
 
         </div>
     </div>
@@ -116,12 +116,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
-    
-
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#lms_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#lms_form').submit();
             }
         });

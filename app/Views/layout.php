@@ -11,14 +11,56 @@
     <link href="/css/style.css" rel="stylesheet">
     <?= $this->renderSection('styles') ?>
     <title><?= $title; ?></title>
+
 </head>
+<style type="text/css">
+    /* ============ desktop view ============ */
+    @media all and (min-width: 992px) {
+
+        .dropdown-menu li {
+            position: relative;
+        }
+
+        .dropdown-menu .submenu {
+            display: none;
+            position: absolute;
+            right: 100%;
+            top: -7px;
+        }
+
+        /* .dropdown-menu .submenu-left{ 
+		right:100%; left:auto;
+	} */
+
+        .dropdown-menu>li:hover {
+            background-color: #f1f1f1
+        }
+
+        .dropdown-menu>li:hover>.submenu {
+            display: block;
+        }
+    }
+
+    /* ============ desktop view .end// ============ */
+
+    /* ============ small devices ============ */
+    @media (max-width: 991px) {
+
+        /* .dropdown-menu .dropdown-menu{
+		margin-left:0.7rem; margin-right:0.7rem; margin-bottom: .5rem;
+} */
+
+    }
+
+    /* ============ small devices .end// ============ */
+</style>
 
 <body>
 
     <nav class="navbar navbar-light dasboard-nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?= '/' . ADMIN_PATH . '/dashboard' ?>">
-                <img src="/images/aryulogo.png" alt="aryu-logo" class="dashboard-nav-img">
+                <img src="/images/backoffice_logo.png" alt="aryu-logo" class="dashboard-nav-img">
             </a>
             <div class="col-xl-1 col-sm-4 mt-5 m_header">
                 <div class="dropdown pr-2 drop_m">
@@ -65,7 +107,7 @@
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/attendance/list' ?>">Employee Attendance</a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/list' ?>">Attendance Report</a></li>
-                <!-- <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/monthly_list' ?>">Attendance Report(Monthwise)</a></li> -->
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/monthly_list' ?>">Attendance Report(Monthwise)</a></li>
             </ul>
         </li>
         <li class="nav-item">
@@ -90,12 +132,36 @@
         <li class="nav-item">
             <a class="nav-link  text-white g-5" href="<?= '/' . ADMIN_PATH . '/invoice' ?>"><i class='fa fa-fax'></i> In-Voice Generate </a>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-balance-scale"></i>Finance </a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button"><i class="fa fa-balance-scale"></i> Finance </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/employee/list' ?>"> Accounting </a></li>
-                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/emp_bank_info/list' ?>"> Tax </a></li>
-                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/emp_bank_info/list' ?>"> Alert </a></li>
+                <!-- <li><a class="dropdown-item" href="#"> Dropdown item 1 </a></li> -->
+                <li><a class="dropdown-item"> Accounting &raquo;</a>
+                    <ul class="submenu dropdown-menu">
+                        <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/expense/list' ?>">Expenses</a></li>
+                        <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/income/list' ?>">Income</a></li>
+
+                        <!-- <li><a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+				    	<ul class="submenu dropdown-menu">
+						    <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+						    <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+						</ul>
+				    </li> -->
+                        <!-- <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+				    <li><a class="dropdown-item" href="#">Submenu item 5</a></li> -->
+                    </ul>
+                </li>
+                <li><a class="dropdown-item"> Tax &raquo;</a>
+                    <ul class="submenu dropdown-menu">
+                        <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/gst/list' ?>"> GST </a></li>
+                        <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/itr/list' ?>">ITR</a></li>
+                        <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/pf/list' ?>">PF</a></li>
+                        <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/tds/list' ?>">TDS</a></li>
+                    </ul>
+                </li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/reminder_alert/list' ?>"> Reminder Alerts </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/category/list' ?>"> Category</a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/billed_acc/list' ?>"> Billed Account </a></li>
             </ul>
         </li>
         <!--<li class="nav-item">
@@ -133,7 +199,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+    <script type="text/javascript">
+        //	window.addEventListener("resize", function() {
+        //		"use strict"; window.location.reload(); 
+        //	});
 
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+
+            /////// Prevent closing from click inside dropdown
+            document.querySelectorAll('.dropdown-menu').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            })
+
+
+
+            // make it as accordion for smaller screens
+            if (window.innerWidth < 992) {
+
+                // close all inner dropdowns when parent is closed
+                document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown) {
+                    everydropdown.addEventListener('hidden.bs.dropdown', function() {
+                        // after dropdown is hidden, then find all submenus
+                        this.querySelectorAll('.submenu').forEach(function(everysubmenu) {
+                            // hide every submenu as well
+                            everysubmenu.style.display = 'none';
+                        });
+                    })
+                });
+
+                document.querySelectorAll('.dropdown-menu a').forEach(function(element) {
+                    element.addEventListener('click', function(e) {
+
+                        let nextEl = this.nextElementSibling;
+                        if (nextEl && nextEl.classList.contains('submenu')) {
+                            // prevent opening link if link needs to open dropdown
+                            e.preventDefault();
+                            console.log(nextEl);
+                            if (nextEl.style.display == 'block') {
+                                nextEl.style.display = 'none';
+                            } else {
+                                nextEl.style.display = 'block';
+                            }
+
+                        }
+                    });
+                })
+            }
+            // end if innerWidth
+
+        });
+        // DOMContentLoaded  end
+    </script>
     <?= $this->renderSection('script') ?>
 </body>
 

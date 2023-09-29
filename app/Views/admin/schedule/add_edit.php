@@ -8,8 +8,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<?php //print_r($dates); 
-?>
+
 <div class="container-fluid mt-4">
     <div class="card create-box">
         <div class="card-body">
@@ -60,7 +59,6 @@
 
                                             if (is_array($workingHours)) {
                                                 foreach ($workingHours as $hour) {
-                                                    // echo $hour . " ";
                                                     echo "<td> " . $hour  . "</td>";
                                                 }
                                             } else {

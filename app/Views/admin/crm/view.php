@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-11">
-                <ol class="breadcrumb p-0 m-0">
+                    <ol class="breadcrumb p-0 m-0">
                         <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
                             <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/crm/list' ?>">CRM</a>
@@ -44,14 +44,14 @@
                         <tr>
                             <th scope="row"> Document </th>
                             <?php if (isset($crmDetails->document_name) && $crmDetails->document_name != '') { ?>
-                            <td><a href="<?php if (isset($crmDetails->document_name)) echo ('/' . ADMIN_PATH . '/crm/view_doc/' . (string)$crmDetails->document_name . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                                <td><a href="<?php if (isset($crmDetails->document_name)) echo ('/' . ADMIN_PATH . '/crm/view_doc/' . (string)$crmDetails->document_name . '')  ?>" class="btn btn-info v_btn">View</td> </a>
                             <?php  } else { ?>
                                 <td><a class="btn v_btn">No Document </a></td>
                             <?php } ?>
                         </tr>
                         <tr>
                             <th scope="row"> Followup Alert </th>
-                            <td><?php if (isset($lmsDetails->follow_up_alert)) echo ucfirst($lmsDetails->follow_up_alert); ?></td>
+                            <td><?php if (isset($crmDetails->follow_up_alert)) echo ucfirst($crmDetails->follow_up_alert); ?></td>
                         </tr>
                         <tr>
                             <th scope="row"> Status </th>

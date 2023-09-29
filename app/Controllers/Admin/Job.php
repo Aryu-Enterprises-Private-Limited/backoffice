@@ -52,18 +52,15 @@ class Job extends BaseController
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'jobs_name' => trim($dtSearchKeyVal),
-                // 'job_desc' => trim($dtSearchKeyVal),
                 'job_budget' => trim($dtSearchKeyVal),
             );
         }
 
         $totCounts = $this->LmsModel->get_all_counts(JOBS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(JOBS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
@@ -102,10 +99,9 @@ class Job extends BaseController
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'job_name' => ucfirst($row->jobs_name),
-                // 'job_desc' => ucfirst($row->job_desc),
                 'job_budget' =>  $row->job_budget,
-                'job_type_id' =>  $job_type->job_type_name??'-',
-                'job_requirement' =>  $row->job_requirement??'-',
+                'job_type_id' =>  $job_type->job_type_name ?? '-',
+                'job_requirement' =>  $row->job_requirement ?? '-',
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -152,7 +148,6 @@ class Job extends BaseController
 
     public function insertUpdate()
     {
-        //  echo"<pre>"; print_r($_POST);die;
         if ($this->checkSession('A') != '') {
             $job_name = (string)$this->request->getPostGet('job_name');
             $job_desc = (string)$this->request->getPostGet('job_desc');
@@ -165,14 +160,13 @@ class Job extends BaseController
                 $status = 'off';
             }
             $fSubmit = FALSE;
-            if ($job_name != '' && $job_desc!='' && $job_budget!='' && $job_type_id !='' && $job_requirement !='') {
+            if ($job_name != '' && $job_desc != '' && $job_budget != '' && $job_type_id != '' && $job_requirement != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
                     $status = '0';
                 }
                 $req_str = implode(",", $job_requirement);
-                // echo $string1;
                 $dataArr = array(
                     'jobs_name' => $job_name,
                     'job_desc' => $job_desc,

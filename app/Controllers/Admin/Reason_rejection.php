@@ -56,12 +56,10 @@ class Reason_rejection extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(REASON_REJECTION, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(REASON_REJECTION, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 

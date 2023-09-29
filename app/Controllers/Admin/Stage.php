@@ -56,12 +56,10 @@ class Stage extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(STAGE, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(STAGE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
 
@@ -159,6 +157,7 @@ class Stage extends BaseController
                 $dataArr = array(
                     'stage_name' => $stage_name,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

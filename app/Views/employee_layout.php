@@ -18,7 +18,7 @@
     <nav class="navbar navbar-light dasboard-nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?= '/' . EMPLOYEE_PATH . '/dashboard' ?>">
-                <img src="/images/aryulogo.png" alt="aryu-logo" class="dashboard-nav-img">
+                <img src="/images/backoffice_logo.png" alt="aryu-logo" class="dashboard-nav-img">
             </a>
             <div class="col-xl-1 col-sm-4 mt-5 m_header">
                 <div class="dropdown pr-2 drop_m">

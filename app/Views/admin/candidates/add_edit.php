@@ -167,13 +167,13 @@
                         <label class="col-sm-2 col-form-label fw-bold"> Ready to relocate <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
                             <input type="radio" id="contactChoice1" name="ready_to_relocate" <?php if (isset($candidates_info->ready_to_relocate)) {
-																												echo ($candidates_info->ready_to_relocate == 'yes' ? 'checked' : '');
-																											} ?> value="yes" required>
+                                                                                                    echo ($candidates_info->ready_to_relocate == 'yes' ? 'checked' : '');
+                                                                                                } ?> value="yes" required>
                             <label for="contactChoice1"> Yes </label>
 
                             <input type="radio" id="contactChoice2" name="ready_to_relocate" <?php if (isset($candidates_info->ready_to_relocate)) {
-																												echo ($candidates_info->ready_to_relocate == 'no' ? 'checked' : '');
-																											} ?> value="no" >
+                                                                                                    echo ($candidates_info->ready_to_relocate == 'no' ? 'checked' : '');
+                                                                                                } ?> value="no">
                             <label for="contactChoice2"> No </label>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#candidates_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#candidates_form').submit();
             }
         });

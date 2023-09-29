@@ -66,24 +66,42 @@
                         </div>
                     </div>
 
-                    <!-- <div class="field_wrapper">
-                        <div>
-                            <input type="text" name="field_name[]" value="" />
-                            <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/images/add-icon.png" /></a>
-                        </div>
-                    </div> -->
+                    <div id="addFieldDiv">
 
+                        <?php
+                        if (isset($pay_info) && !empty($pay_info->revisied_dt) && !empty($pay_info->comment)) {
+                            $revisied_dt = json_decode($pay_info->revisied_dt);
+                            $comment = json_decode($pay_info->comment);
+                            //foreach ($revisied_dt as $data) {
+                            for ($i = 0; $i < count($revisied_dt); $i++) {
+                                // echo $i;
+
+                        ?>
+                                <div class="fieldDiv">
+                                    <div class="mb-3 row field_wrapper"><label class="col-sm-2 col-form-label fw-bold ">Revised Date </label>
+                                        <div class="col-sm-10"><input placeholder="revised date" type="date" class="form-control create-input " name="revisied_dt[]" value="<?php if (isset($revisied_dt)) echo $revisied_dt[$i]; ?>" required></div><a href="javascript:void(0);" class="remove_button"><img /></a>
+                                    </div>
+                                    <?php  //}
+                                    //foreach($comment as $data){
+
+                                    ?>
+                                    <div class="mb-3 row field_wrapper2"><label class="col-sm-2 col-form-label fw-bold"> Comments </label>
+                                        <div class="col-sm-10">
+                                            <textarea placeholder="comments" class="form-control create-input" rows="3" name="comment[]" required><?php if (isset($comment)) echo $comment[$i]; ?></textarea>
+                                            <div class="text-end create-input"><a href="javascript:void(0);" class="remove_button"><img src="/images/remove-icon.png" /></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php  }
+                        }
+                        ?>
+
+                    </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold"> ADD </label>
-                        <div class="col-sm-10 ">
-                        <div><a href="javascript:void(0);" class="add_button" title="Add field"><img src="/images/add-icon.png" /></a></div>
-                            <!-- <input type="text" class="form-control create-input" name="revisied_dt" id="revisied_dt" value="<?php if (isset($pay_info->revisied_dt)) echo $pay_info->revisied_dt; ?>" required> -->
-                            
+                        <label class="col-sm-2 col-form-label fw-bold"> </label>
+                        <div class="col-sm-6 ">
+                            <div class="create-input text-end"><a href="javascript:void(0);" class="add_button " title="Add field"><img src="/images/add-icon.png" /></a></div>
                         </div>
-                    </div>
-                    <div class="mb-3 row field_wrapper2">
-                    </div>
-                    <div class="mb-3 row field_wrapper">
                     </div>
 
                     <div class="mb-3 row">
@@ -111,7 +129,7 @@
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {
             if ($('#pay_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#pay_form').submit();
             }
         });
@@ -122,9 +140,9 @@
         var wrapper2 = $('.field_wrapper2');
         // var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="/images/remove-icon.png"/></a></div>'; //New input field html 
 
-        var fieldHTML2 = '<label class="col-sm-2 col-form-label fw-bold">Comments </label><div class="col-sm-10"><textarea placeholder="comments"class="form-control create-input" rows="3" name="comment[]" ></textarea></div><a href="javascript:void(0);" class="remove_button"><img src="/images/remove-icon.png"/></a>';
+        var fieldHTML2 = '<div class="mb-3 row field_wrapper2"><label class="col-sm-2 col-form-label fw-bold">Comments </label><div class="col-sm-10"><textarea placeholder="comments"class="form-control create-input" rows="3" name="comment[]" required></textarea><div class="text-end create-input"><a href="javascript:void(0);" class="remove_button"><img src="/images/remove-icon.png"/></a></div></div></div>';
 
-        var fieldHTML = '<label class="col-sm-2 col-form-label fw-bold ">Revised Date </label><div class="col-sm-10"><input placeholder="revised date" type="date" class="form-control create-input " name="revisied_dt[]"  " required></div><a href="javascript:void(0);" class="remove_button"><img /></a>';
+        var fieldHTML = '<div class="mb-3 row field_wrapper"><label class="col-sm-2 col-form-label fw-bold ">Revised Date </label><div class="col-sm-10"><input placeholder="revised date" type="date" class="form-control create-input " name="revisied_dt[]"  required></div><a href="javascript:void(0);" class="remove_button"><img /></a></div>';
 
         var x = 1; //Initial field counter is 1
 
@@ -133,22 +151,21 @@
             //Check maximum number of input fields
             if (x < maxField) {
                 x++; //Increase field counter
-                $(wrapper).append(fieldHTML2); //Add field html
-                $(wrapper2).append(fieldHTML);
+                // $(wrapper).append(fieldHTML2); //Add field html
+                // $(wrapper2).append(fieldHTML);
+                $('#addFieldDiv').append('<div class="fieldDiv">' + fieldHTML + fieldHTML2 + '</div>');
+                // $('#addFieldDiv').append(fieldHTML2);
             } else {
                 alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
             }
         });
 
         // Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function(e) {
+        $('body').on('click', '.remove_button', function(e) {
             e.preventDefault();
-            $('.remove_button').parent('div').remove(); //Remove field html
+            $(this).parent().parent().parent().parent('div.fieldDiv').remove(); //Remove field html
             x--; //Decrease field counter
         });
-
-
-
 
     });
 </script>

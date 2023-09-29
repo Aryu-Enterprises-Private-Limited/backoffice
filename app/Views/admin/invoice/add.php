@@ -8,9 +8,7 @@
 <?php } else {
     $req = 'required';
 }  ?>
-<?php
-// print_r($form_data);die;
-?>
+
 <div class="container-fluid mt-4">
     <div class="card create-box">
         <div class="card-body">
@@ -19,7 +17,6 @@
                     <h3><?= $title;  ?></h3>
                 </div>
             </div>
-
 
             <div class="create-label">
                 <form id="invoice_form" method="post" action="<?= (base_url(ADMIN_PATH . '/invoice/gen_invoice'))  ?>" autocomplete="off" enctype="multipart/form-data">
@@ -229,11 +226,27 @@
                 </form>
             </div>
             <?php if (isset($form_data['id'])) { ?>
+                <button id="generate-pdf">Generate PDF</button>
+                <div id="download_content">
+                <div class="row">
+                <div class="col-md-12">
+                    <p class="invoice-no text-danger" style="font-weight: bold;margin: 0;padding: 0;margin-bottom: 0!important;">BANK DETAILS:</p>
+                    <p style="margin-bottom: 0!important;">Payment Mode: Bank Transfer</p>
+                    <p style="margin-bottom: 0!important;">Bank Name: Indusind Bank Ltd</p>
+                    <p style="margin-bottom: 0!important;">Account Name: Aryu Enterprises Private Limited</p>
+                    <p style="margin-bottom: 0!important;">Account Type: Current</p>
+                    <p style="margin-bottom: 0!important;">Account No: 259994715106</p>
+                    <p style="margin-bottom: 0!important;">Branch: Velacherry</p>
+                    <p style="margin-bottom: 0!important;">IFSC Code: INDB00060</p>
+                </div>
+            </div>
+                </div>
                 <!-- <img src="http://localhost:8080/images/aryuinvoiceheader.png" alt="Header Image" class="img-fluid"> -->
 
                 <!-- <iframe src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" width="100%" height="1000px"></iframe> -->
-                    <embed src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" type="application/pdf" height="720" width="100%"/>
-
+                <embed  src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" type="application/pdf" height="720" width="100%" />
+                
+                
             <?php } ?>
         </div>
     </div>
@@ -241,10 +254,14 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+
 <?php if (session('error_message')) : ?>
     <script>
         toastr.error('<?= session('error_message') ?>');
@@ -252,6 +269,20 @@
 <?php endif; ?>
 <script type="text/javascript">
     $(document).ready(function() {
+        // function addScript(url) {
+        //     var script = document.createElement('script');
+        //     script.type = 'application/javascript';
+        //     script.src = url;
+        //     console.log(script);
+        //     document.head.appendChild(script);
+        // }
+        // addScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
+        $("#generate-pdf").click(function() {
+            var element = document.getElementById('download_content');
+            console.log(element);
+            html2pdf(element);
+        });
+
         <?php if (isset($form_data['id'])) { ?>
             $(".hide_show").show();
             $(".hide").hide();

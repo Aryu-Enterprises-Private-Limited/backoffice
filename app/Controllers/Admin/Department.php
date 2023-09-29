@@ -56,14 +56,12 @@ class Department extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(DEPARTMENT_DETAILS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
-        $ajaxDataArr = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
+        $ajaxDataArr = $this->LmsModel->get_all_details(DEPARTMENT_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $tblData = array();
         $position = 1;
@@ -159,6 +157,7 @@ class Department extends BaseController
                 $dataArr = array(
                     'department_name' => $department_name,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

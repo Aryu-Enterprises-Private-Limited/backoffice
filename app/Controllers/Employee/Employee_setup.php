@@ -39,7 +39,6 @@ class Employee_setup extends BaseController
         if (!$validation->withRequest($this->request)->run()) {
             $this->session->setFlashdata('error_message', 'Login failed.');
             return redirect()->to('/');
-            // return view('/' . ADMIN_PATH);
         } else {
             $condition = ['email' => $email, 'is_deleted' => 0];
             $getEmployeeData = $this->AdminModel->get_selected_fields(EMPLOYEE_DETAILS, $condition, array('status', 'password', 'id', 'first_name', 'email'));
@@ -71,9 +70,6 @@ class Employee_setup extends BaseController
                 return redirect()->to('/');
             }
         }
-
-        // $this->session->setFlashdata('error_message', 'Login failed.');
-        // return redirect()->to('/' . ADMIN_PATH);
     }
 
     public function dashboard()

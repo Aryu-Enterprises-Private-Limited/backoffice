@@ -41,12 +41,12 @@ class LmsModel extends Model
         // Add a "LIKE" query
         // $likeCondition = 'employee_name LIKE "%search_string%"'; // Replace "search_string" with your actual search term
         if (!empty($likearr)) {
-        $builder->where($likearr);
-        $results = $builder->get()->getResult();
+            $builder->where($likearr);
+            $results = $builder->get()->getResult();
         }
 
         // Retrieve the filtered results
-        
+
 
         // Output the result count and the filtered results
         // echo 'Result Count: ' . $resultCount . '<br>';
@@ -55,5 +55,15 @@ class LmsModel extends Model
 
 
         return $builder->countAllResults();
+    }
+
+    public function group_by_atttbl($condition = '')
+    {
+        // $sql = 'employee_id,employee_email,group_concat(total_hrs SEPARATOR "~") AS concatenated_hrs,group_concat(att_current_date SEPARATOR "~") AS concatenated_date,employee_name';
+
+        $sql = 'employee_id,employee_email,CONCAT_WS("~", GROUP_CONCAT(total_hrs SEPARATOR "~")) AS concatenated_hrs,CONCAT_WS("~", GROUP_CONCAT(att_current_date SEPARATOR "~")) AS concatenated_date,employee_name';
+        $builder = $this->db->table(EMPLOYEE_ATTENDANCE_TOTAL_HOURS)->select(new RawSql($sql))
+            ->where($condition)->groupBy('employee_id, employee_email, employee_name');
+        return $builder->get();
     }
 }

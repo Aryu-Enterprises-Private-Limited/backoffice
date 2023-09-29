@@ -31,7 +31,6 @@
                             <th> Last Name </th>
                             <th> Email </th>
                             <th> Phone </th>
-                            <!-- <th> Address </th> -->
                             <th> Company Name </th>
                             <th> Bank Name </th>
                             <th> Branch Name </th>
@@ -109,9 +108,6 @@
                 {
                     data: 'phone'
                 },
-                // {
-                //     data: 'address'
-                // },
                 {
                     data: 'company_name'
                 },
@@ -171,6 +167,7 @@
                         if (res.status == '1') {
                             Swal.fire({
                                 title: "Status Changed!",
+                                icon: 'success',
                                 text: res.response,
                                 type: "success"
                             });
@@ -187,6 +184,7 @@
                         } else {
                             Swal.fire({
                                 title: "Error",
+                                icon: 'error',
                                 text: res.response,
                                 type: "error"
                             });
@@ -230,6 +228,7 @@
                         if (res.status == '1') {
                             Swal.fire({
                                 title: "Deleted!",
+                                icon: 'success',
                                 text: res.response,
                                 type: "success"
                             });
@@ -241,6 +240,7 @@
                         } else {
                             Swal.fire({
                                 title: "Error",
+                                icon: 'error',
                                 text: res.response,
                                 type: "error"
                             });

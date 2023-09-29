@@ -56,19 +56,17 @@ class Role extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_ROLE, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
         $ajaxDataArr = $this->LmsModel->get_all_details(EMPLOYEE_ROLE, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
         $tblData = array();
         $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
-            $cond = array('id'=> $row->department_id);
+            $cond = array('id' => $row->department_id);
             $dept_name = $this->LmsModel->get_selected_fields(DEPARTMENT_DETAILS, $cond)->getRow();
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
@@ -98,7 +96,7 @@ class Role extends BaseController
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'role_name' => ucfirst($row->role_name),
-                'department_id' => ucfirst($dept_name->department_name ??'-'),
+                'department_id' => ucfirst($dept_name->department_name ?? '-'),
                 'created_at' => ucfirst($row->created_at),
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt

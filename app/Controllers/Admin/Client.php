@@ -65,16 +65,13 @@ class Client extends BaseController
         }
 
         $totCounts = $this->LmsModel->get_all_counts(CLIENT_DETAILS, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
-        // $condition
-        // print_r($condition);die;
-        $ajaxDataArr = $this->LmsModel->get_all_details(CLIENT_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
 
+        $ajaxDataArr = $this->LmsModel->get_all_details(CLIENT_DETAILS, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
         $tblData = array();
-        $position = 1;
 
         foreach ($ajaxDataArr->getResult() as $row) {
             $rowId =  (string)$row->id;
@@ -175,7 +172,7 @@ class Client extends BaseController
                 $status = 'off';
             }
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $phone != '' && $email != '' && $address != '' && $company_name!='' && $bank_name!='' && $branch_name!='' && $acc_no!='' && $ifsc_code!='') {
+            if ($first_name != '' && $last_name != '' && $phone != '' && $email != '' && $address != '' && $company_name != '' && $bank_name != '' && $branch_name != '' && $acc_no != '' && $ifsc_code != '') {
 
                 if ($status == 'on') {
                     $status = '1';
@@ -189,12 +186,12 @@ class Client extends BaseController
                     'email' => $email,
                     'status' => $status,
                     'address' => $address,
-                    'company_name'=>$company_name,
-                    'bank_name'=>$bank_name,
-                    'branch_name'=>$branch_name,
-                    'acc_no'=>$acc_no,
-                    'ifsc_code'=>$ifsc_code,
-                    'is_deleted'=>'0',
+                    'company_name' => $company_name,
+                    'bank_name' => $bank_name,
+                    'branch_name' => $branch_name,
+                    'acc_no' => $acc_no,
+                    'ifsc_code' => $ifsc_code,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

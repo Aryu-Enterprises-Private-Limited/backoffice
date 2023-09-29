@@ -51,12 +51,13 @@ class Interview_task extends BaseController
         $condition = array('is_deleted' => '0');
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
-                'job_type_name' => trim($dtSearchKeyVal),
+                'candidate_name' => trim($dtSearchKeyVal),
+                'candidate_name' => trim($dtSearchKeyVal),
             );
         }
 
         $totCounts = $this->LmsModel->get_all_counts(INTERVIEW_TASK, $condition, '', $likeArr);
-        $sortArr = array('dt' => -1);
+        $sortArr = array('candidate_id' => -1);
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
@@ -124,7 +125,6 @@ class Interview_task extends BaseController
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['inter_task_info'] = $this->LmsModel->get_selected_fields(INTERVIEW_TASK, $condition)->getRow();
-            //    echo"<pre>"; print_r($this->data['inter_task_info']);die;
                 if (!empty($this->data['inter_task_info'])) {
                     $this->data['title'] = 'Edit Interview Task';
                 } else {
@@ -145,9 +145,6 @@ class Interview_task extends BaseController
 
     public function insertUpdate()
     {
-        //   echo"<pre>";print_r($_POST);
-        //   print_r(array_filter($_POST['addmore']));
-        //   die;
         if ($this->checkSession('A') != '') {
             $date = (string)$this->request->getPostGet('date');
             $candidate_name = (string)$this->request->getPostGet('candidate_name');

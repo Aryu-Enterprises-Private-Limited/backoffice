@@ -94,7 +94,10 @@ defined('INVOICE_NO')            || define('INVOICE_NO', 'AYE');
 defined('CRM_DOC_PATH')  || define('CRM_DOC_PATH', './uploads/crm_doc');
 defined('EMPLOYEE_RESUME_DOC_PATH')  || define('EMPLOYEE_RESUME_DOC_PATH', './uploads/employee_cv_doc');
 defined('CANDIDATES_RESUME_DOC_PATH')  || define('CANDIDATES_RESUME_DOC_PATH', './uploads/candidates_cv_doc');
-
+defined('GST_DOC_PATH')  || define('GST_DOC_PATH', './uploads/gst_doc');
+defined('ITR_DOC_PATH')  || define('ITR_DOC_PATH', './uploads/itr_doc');
+defined('PF_DOC_PATH')  || define('PF_DOC_PATH', './uploads/pf_doc');
+defined('TDS_DOC_PATH')  || define('TDS_DOC_PATH', './uploads/tds_doc');
 
 //database table name
 defined('ADMIN_USERS')                  || define('ADMIN_USERS', 'admin');
@@ -103,6 +106,7 @@ defined('NOTES')                  || define('NOTES', 'notes');
 defined('CRM')                  || define('CRM', 'crm');
 defined('EMPLOYEE_DETAILS')          || define('EMPLOYEE_DETAILS', 'employee_details');
 defined('EMPLOYEE_ATTENDANCE')          || define('EMPLOYEE_ATTENDANCE', 'employee_attendance');
+defined('EMPLOYEE_ATTENDANCE_TOTAL_HOURS')          || define('EMPLOYEE_ATTENDANCE_TOTAL_HOURS', 'employee_attendance_total_hrs');
 defined('CLIENT_DETAILS')          || define('CLIENT_DETAILS', 'client_details');
 defined('INVOICE_DETAILS')          || define('INVOICE_DETAILS', 'invoice_details');
 defined('EMPLOYEE_ROLE')          || define('EMPLOYEE_ROLE', 'employee_role');
@@ -119,6 +123,15 @@ defined('PAY')          || define('PAY', 'pay');
 defined('PUBLIC_HOLIDAY')          || define('PUBLIC_HOLIDAY', 'public_holiday');
 defined('INTERVIEW_TASK')          || define('INTERVIEW_TASK', 'interview_task');
 defined('EMPLOYEE_BANK_INFO')          || define('EMPLOYEE_BANK_INFO', 'employee_bank_info');
+defined('CATEGORY')          || define('CATEGORY', 'category');
+defined('REMINDER_ALERT')          || define('REMINDER_ALERT', 'reminder_alert');
+defined('EXPENSE_DETAILS')          || define('EXPENSE_DETAILS', 'expense_details');
+defined('INCOME_DETAILS')          || define('INCOME_DETAILS', 'income_details');
+defined('BILLED_ACC_DETAILS')          || define('BILLED_ACC_DETAILS', 'billed_acc_details');
+defined('GST_DETAILS')          || define('GST_DETAILS', 'gst_details');
+defined('ITR_DETAILS')          || define('ITR_DETAILS', 'itr_details');
+defined('PF_DETAILS')          || define('PF_DETAILS', 'pf_details');
+defined('TDS_DETAILS')          || define('TDS_DETAILS', 'tds_details');
 
 
 
