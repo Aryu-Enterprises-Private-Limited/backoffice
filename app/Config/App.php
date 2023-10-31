@@ -18,7 +18,7 @@ class App extends BaseConfig
      *    http://example.com/
      */
     // public string $baseURL = 'http://3.110.215.46/';
-    public string $baseURL = 'http://localhost:8080/';
+    public string $baseURL = 'http://65.2.144.80/';
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.
@@ -172,7 +172,7 @@ class App extends BaseConfig
      *
      * @deprecated use Config\Session::$expiration instead.
      */
-    public int $sessionExpiration = 7200;
+    public int $sessionExpiration = 43200;
 
     /**
      * --------------------------------------------------------------------------
