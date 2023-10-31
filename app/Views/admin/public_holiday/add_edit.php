@@ -15,7 +15,11 @@
                     <ol class="breadcrumb p-0 m-0">
                         <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
-                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/public_holiday/list' ?>"><?php echo  'Pay'; ?> </a>
+                        <?php if (isset($pholiday_info) && $pholiday_info->current_year) { ?>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/public_holiday/list_details?year='.$pholiday_info->current_year ?>"><?php echo  'Holiday'; ?> </a>
+                        <?php }else{ ?>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/public_holiday/list_details?year='.date("Y"); ?>"><?php echo  'Holiday'; ?> </a>
+                     <?php   } ?>
                         </li>
                         <?php if (isset($pholiday_info) && $pholiday_info->reason) { ?>
                             <li class="breadcrumb-item">
@@ -42,7 +46,7 @@
                         <label class="col-sm-2 col-form-label fw-bold">Current Year </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control create-input" name="curr_year" id="curr_year" value="<?php if (isset($pholiday_info->current_year)) echo $pholiday_info->current_year;
-                                                                                                                        else echo date("Y");  ?>" readonly>
+                                                                                                                        else echo date("Y");  ?>" >
                         </div>
                     </div>
                     <div class="mb-3 row">

@@ -124,7 +124,7 @@ class Invoice extends BaseController
 
     public function insertUpdate_preview()
     {
-        // echo"<pre>";print_r($_POST);die;
+        //  echo"<pre>";print_r($_POST);die;
         //   echo"<pre>";  print_r(array_filter($this->request->getPostGet('addmore')));die;
         if ($this->checkSession('A') != '') {
             $this->data['from_name'] =   $from_name = (string)$this->request->getPostGet('from_name');
@@ -153,9 +153,17 @@ class Invoice extends BaseController
             $dataArr['quantity'] = json_encode($qnty_array_fil);
 
             if ($id == '') {
-                $this->LmsModel->simple_insert(INVOICE_DETAILS, $dataArr);
-                $this->data['id'] = $id = $this->LmsModel->get_last_insert_id();
-                $this->session->setFlashdata('success_message', 'Invoice added successfully.');
+                if(isset($invoice_no)){
+                  $invoice_no_dt =   $this->LmsModel->get_selected_fields(INVOICE_DETAILS, ['invoice_no' => $invoice_no]);
+                  if ($invoice_no_dt->getNumRows() == 1) {
+                    $condition = array('invoice_no' => $invoice_no);
+                    $this->LmsModel->update_details(INVOICE_DETAILS, $dataArr, $condition);
+                  }else{
+                    $this->LmsModel->simple_insert(INVOICE_DETAILS, $dataArr);
+                    $this->data['id'] = $id = $this->LmsModel->get_last_insert_id();
+                    $this->session->setFlashdata('success_message', 'Invoice added successfully.');
+                }
+                }
                 // $fSubmit = TRUE;
             } else {
                 $this->data['id'] = $id;

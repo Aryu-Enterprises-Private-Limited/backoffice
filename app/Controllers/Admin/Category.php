@@ -123,7 +123,7 @@ class Category extends BaseController
                 if (!empty($this->data['cat_info'])) {
                     $this->data['title'] = 'Edit Category';
                 } else {
-                    $this->session->setFlashdata('error_message', 'Couldnot find the Interview Task');
+                    $this->session->setFlashdata('error_message', 'Couldnot find the Category');
                     return redirect()->route(ADMIN_PATH . '/category/list');
                 }
             } else {

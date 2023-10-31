@@ -24,7 +24,7 @@
         .dropdown-menu .submenu {
             display: none;
             position: absolute;
-            right: 100%;
+            left: 100%;
             top: -7px;
         }
 
@@ -64,7 +64,7 @@
             </a>
             <div class="col-xl-1 col-sm-4 mt-5 m_header">
                 <div class="dropdown pr-2 drop_m">
-                    <div class="dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
+                    <div class="dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" role="button">
                         <span class="admintext">Admin</span>
                     </div>
                     <ul class="dropdown-menu" data-popper-placement="bottom-end" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-53px, 26px);">
@@ -89,8 +89,11 @@
         <li class="nav-item">
             <a class="nav-link  text-white" href="<?= '/' . ADMIN_PATH . '/crm/list' ?>"><i class="fa fa-list" aria-hidden="true"></i>CRM</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link  text-white" href="<?= '/' . ADMIN_PATH . '/links/list' ?>"><i class="fa fa-link" aria-hidden="true"></i> Links </a>
+        </li>
         <li class="nav-item ">
-            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i> Employee </a>
+            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-users"></i> Employee </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/employee/list' ?>"> Employee Setup </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/emp_bank_info/list' ?>"> Emp Bank info </a></li>
@@ -98,6 +101,9 @@
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/role/list' ?>"> Role </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/department/list' ?>"> Department </a></li>
             </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  text-white" href="<?= '/' . ADMIN_PATH . '/company_info/list' ?>"><i class="fa fa-info-circle" aria-hidden="true"></i> Company info </a>
         </li>
         <li class="nav-item">
             <a class="nav-link  text-white g-5" href="<?= '/' . ADMIN_PATH . '/schedule/list' ?>"><i class="fa fa-calendar" aria-hidden="true"></i> Schedule </a>
@@ -108,13 +114,16 @@
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/attendance/list' ?>">Employee Attendance</a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/list' ?>">Attendance Report</a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/report/monthly_list' ?>">Attendance Report(Monthwise)</a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/employee_tracker/list' ?>">Employee Tracker</a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/attendance_category/list' ?>">Attendance Category</a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/work_report/list' ?>">Employee Work Report</a></li>
             </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link  text-white g-5" href="<?= '/' . ADMIN_PATH . '/public_holiday/list' ?>"><i class="fa fa-table" aria-hidden="true"></i> Public Holiday </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-clock-o" aria-hidden="true"></i> Recuritment </a>
+            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fa fa-folder-open" aria-hidden="true"></i> Recuritment </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/candidates/list' ?>"> Candidates </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/interview_task/list' ?>"> Interview Task </a></li>
@@ -124,10 +133,20 @@
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/interview/list' ?>"> Interview Status </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/stage/list' ?>"> Stage </a></li>
                 <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/reason_rejection/list' ?>"> Reason For Rejection </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/application_source/list' ?>"> Application Source </a></li>
             </ul>
         </li>
+       
         <li class="nav-item">
             <a class="nav-link  text-white" href="<?= '/' . ADMIN_PATH . '/client/list' ?>"><i class="fa fa-user" aria-hidden="true"></i> Client </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  text-white dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true"><i class="fas fa-book-reader"></i> Ayu academy </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/student_info/list' ?>"> Student information </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/fees/list' ?>"> Fees </a></li>
+                <li><a class="dropdown-item" href="<?= '/' . ADMIN_PATH . '/courses/list' ?>"> Courses </a></li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link  text-white g-5" href="<?= '/' . ADMIN_PATH . '/invoice' ?>"><i class='fa fa-fax'></i> In-Voice Generate </a>

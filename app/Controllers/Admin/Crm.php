@@ -127,12 +127,11 @@ class Crm extends BaseController
             $crm_id = (string)$this->request->getPostGet('crm_id');
             $condition = array('crm_id' => $crm_id);
             $lms_data = $this->LmsModel->get_all_details(NOTES, $condition);
-            $html = '';
-
+            $html = 'No Records Found';
             if (!empty($lms_data)) {
                 $x = 1;
                 foreach ($lms_data->getResult() as $data) {
-                    $html .= '<div class="row">
+                    $html = '<div class="row">
                 <div class="col-12">
                     <div class="row form-group">
                         <label class="col-sm-3 control-label">Notes ' . $x . ': </label>

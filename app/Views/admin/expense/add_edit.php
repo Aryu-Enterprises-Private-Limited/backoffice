@@ -72,7 +72,7 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold">Amount <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control create-input" name="amount" id="amount" value="<?php if (isset($exp_info->amount)) echo $exp_info->amount; ?>" required>
+                            <input type="text" class="form-control create-input numberonly" name="amount" id="amount" value="<?php if (isset($exp_info->amount)) echo $exp_info->amount; ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -103,6 +103,12 @@
                 $('.sbmtBtn').attr("disabled", true);
                 $('#expense_form').submit();
             }
+        });
+
+        $('.numberonly').keypress(function(e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9.]/g))
+                return false;
         });
     });
 </script>

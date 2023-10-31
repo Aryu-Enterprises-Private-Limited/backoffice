@@ -121,13 +121,13 @@ class Stage extends BaseController
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['stage_info'] = $this->LmsModel->get_selected_fields(STAGE, $condition)->getRow();
                 if (!empty($this->data['stage_info'])) {
-                    $this->data['title'] = 'Edit Stage status';
+                    $this->data['title'] = 'Edit Stage';
                 } else {
                     $this->session->setFlashdata('error_message', 'Couldnot find the Stage');
                     return redirect()->route(ADMIN_PATH . '/stage/list');
                 }
             } else {
-                $this->data['title'] = 'Add Stage status';
+                $this->data['title'] = 'Add Stage';
             }
             echo view(ADMIN_PATH . '/stage/add_edit', $this->data);
         } else {

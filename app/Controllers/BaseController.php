@@ -54,6 +54,7 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        $this->setUriSegments();
     }
 
     public function checkSession($type = '')
@@ -67,8 +68,8 @@ abstract class BaseController extends Controller
         if ($type == 'E') {
             $sessData = $session->get(APP_NAME . '_session_employee_id');
         }
-        if ($type == 'C') {
-            $sessData = $session->get(APP_NAME . '_session_client_id');
+        if ($type == 'M') {
+            $sessData = $session->get(APP_NAME . '_session_manager_id');
         }
         if ($sessData == NULL) {
             $sessData = '';
@@ -81,5 +82,22 @@ abstract class BaseController extends Controller
         //print_r($url);die;
         header('Location: /' . $url);
         exit();
+    }
+
+    public function setUriSegments()
+    {
+        $uri = service('uri');
+        $base_url =  base_url();
+        if (isset($uri) && $uri != $base_url) {
+            $curr_panel = ($uri->getSegment(1) != '') ? $uri->getSegment(1) : '';
+            $curr_module = ($uri->getSegment(2) != '') ? $uri->getSegment(2) : '';
+            // $curr_method = ($uri->getSegment(3) != '') ? $uri->getSegment(3) : '';
+            // $curr_id = ($uri->getSegment(4) != '') ? $uri->getSegment(4) : '';
+
+            $this->data['curr_panel'] = $this->data['uriSegment1'] = $curr_panel;
+            $this->data['curr_module'] = $this->data['uriSegment2'] = $curr_module;
+            // $this->data['curr_method'] = $this->data['uriSegment3'] = $curr_method;
+            // $this->data['curr_id'] = $this->data['uriSegment4'] = $curr_id;
+        }
     }
 }

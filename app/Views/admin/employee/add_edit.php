@@ -52,12 +52,37 @@
                         <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" value="<?php if (isset($info) && $info->dob) echo $info->dob; ?>" required>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label"> Gender <span class="text-danger">*</span></label>
+                        <select class="form-select form-control" name="gender" id="gender" required>
+                            <option value=""> select </option>
+                            <option value="male" <?php $sel = '';
+                                                    if (isset($info) && $info->gender == 'male') {
+                                                        $sel = 'selected';
+                                                    }
+                                                    ?> <?= $sel; ?>>Male</option>
+                            <option value="female" <?php $sel = '';
+                                                    if (isset($info) && $info->gender == 'female') {
+                                                        $sel = 'selected';
+                                                    }
+                                                    ?> <?= $sel; ?>>Female</option>
+                            <option value="others" <?php $sel = '';
+                                                    if (isset($info) && $info->gender == 'others') {
+                                                        $sel = 'selected';
+                                                    }
+                                                    ?> <?= $sel; ?>>Others</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Phone <span class="text-danger">*</span></label>
                         <input type="tel" class="form-control" placeholder="Enter The Phone No" name="phone_number" id="phone_number" value="<?php if (isset($info) && $info->phone) echo $info->phone; ?>" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" placeholder="Enter The Email" name="email" <?= $read; ?> id="email" value="<?php if (isset($info) && $info->email) echo $info->email; ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Employee Id <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Enter The Employee Id" id="employeeid" name="employeeid" value="<?php if (isset($info) && $info->employeeid) echo $info->employeeid; ?>" required>
                     </div>
                     <?php if (!isset($info)) { ?>
                         <div class="form-group row">
@@ -106,7 +131,29 @@
                     <div class="mb-3">
                         <label class="form-label"> Department <span class="text-danger">*</span></label>
                         <select class="form-select form-control" name="department_id" id="department_id" required>
-                            <option value="" id="option_val">select</option>
+                            <option value="">select</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Employment Type <span class="text-danger">*</span></label>
+                        <select class="form-select form-control" name="emp_type" id="emp_type" required>
+                            <option value=""> select </option>
+
+                            <option value="full_time" <?php $sel = '';
+                                                        if (isset($info) && $info->employment_type == 'full_time') {
+                                                            $sel = 'selected';
+                                                        }
+                                                        ?> <?= $sel; ?>> Full Time </option>
+                            <option value="freelance" <?php $sel = '';
+                                                        if (isset($info) && $info->employment_type == 'freelance') {
+                                                            $sel = 'selected';
+                                                        }
+                                                        ?> <?= $sel; ?>> Freelance </option>
+                            <option value="intern" <?php $sel = '';
+                                                    if (isset($info) && $info->employment_type == 'intern') {
+                                                        $sel = 'selected';
+                                                    }
+                                                    ?> <?= $sel; ?>>Intern</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -320,7 +367,7 @@
         function get_opt_dept() {
             var role_id = $('#role_id').val();
             var url = "<?php echo base_url(); ?>admin/employee/get_dept_opt_ajax";
-            $('#option_val').html('');
+            $('#department_id').html('');
             $.ajax({
                 type: 'post',
                 url: url,
@@ -329,7 +376,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    $('#option_val').append(res);
+                    $('#department_id').append(res);
                 },
             });
         }

@@ -100,8 +100,8 @@ class Job extends BaseController
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'job_name' => ucfirst($row->jobs_name),
                 'job_budget' =>  $row->job_budget,
-                'job_type_id' =>  $job_type->job_type_name ?? '-',
-                'job_requirement' =>  $row->job_requirement ?? '-',
+                'job_type_id' =>  isset($job_type->job_type_name) && $job_type->job_type_name !='' ? ucfirst($job_type->job_type_name) : '-',
+                'job_requirement' =>  isset($row->job_requirement) && $row->job_requirement !='' ? ucfirst($row->job_requirement) : '-',
                 'created_at' => $row->created_at,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt
@@ -174,6 +174,7 @@ class Job extends BaseController
                     'job_requirement' => $req_str,
                     'job_type_id' => $job_type_id,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

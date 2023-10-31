@@ -54,6 +54,10 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                 <div class="col-lg-12 p-2 my_t">
                     <form autocomplete="off">
                         <div class="col-lg-2 float-start m-filter me-1">
+                            <p> Date Range :</p>
+                            <input type="text" class="form-control required" name="daterange" id="datepicker" placeholder="Enter date Range" value="<?php echo $daterange; ?>">
+                        </div>
+                        <div class="col-lg-2 float-start m-filter me-1">
                             <p> Job Opening :</p>
                             <select name="job_opening_id" id="job_opening_id" class=" form-control">
                                 <option value="">select</option>
@@ -117,7 +121,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="col-lg-2 float-start">
+                        <div class="col-lg-1 float-start">
                             <p>&nbsp;</p>
                             <input type="button" id="FilterBtns" class="btn btn-success btn-sm btn-bordered py-2 m-filter" value="Filter">
                         </div>
@@ -135,6 +139,7 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                         <tr>
                             <th> Name </th>
                             <th> Date </th>
+                            <th> Schedule Date </th>
                             <th> Location </th>
                             <th> Contact No </th>
                             <th> Job Opening </th>
@@ -219,6 +224,9 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                 },
                 {
                     data: 'date'
+                },
+                {
+                    data: 'schedule_date'
                 },
                 {
                     data: 'location'
@@ -373,9 +381,13 @@ if ((isset($_GET['stage'])) && ($_GET['stage'] != '')) {
                 }
             })
         });
+        $("#datepicker").datepicker();
 
         function get_filter_strings() {
             var qryString = '';
+            if ($('#datepicker').val() != '') {
+                qryString += '&daterange=' + $('#datepicker').val();
+            }
             if ($('#job_opening_id').val() != '') {
                 qryString += '&job_open=' + $('#job_opening_id').val();
             }

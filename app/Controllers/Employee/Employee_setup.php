@@ -95,4 +95,84 @@ class Employee_setup extends BaseController
         // $this->setFlashMessage('success', 'Successfully logout from your account');
         return redirect()->to('/');
     }
+
+    public function holiday_list()
+    {
+        if ($this->checkSession('E') != '') {
+            $this->data['title'] = 'PUBLIC HOLIDAY';
+            $this->data['curr_yr'] = $current_yr = date('Y');
+           
+            $condition = array('status' => 1, 'is_deleted' => 0, 'current_year' => $current_yr);
+
+            $this->data['holiday_list'] = $this->AdminModel->get_all_details(PUBLIC_HOLIDAY, $condition)->getResult();
+
+            echo view(EMPLOYEE_PATH . '/attendance/holiday_list', $this->data);
+        } else {
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/');
+        }
+    }
+
+   /* public function list_ajax($returnType = 'json')
+    {
+        $draw = $this->request->getPostGet('draw');
+        $row_start = $this->request->getPostGet('start');
+        $rowperpage = $this->request->getPostGet('length'); // Rows display per page
+
+        $columnIndex = 0;
+        if (isset($this->request->getPostGet('order')[0]['column'])) {
+            $columnIndex = $this->request->getPostGet('order')[0]['column']; // Column index
+        }
+        $sortField = ''; // Column name
+        if (isset($this->request->getPostGet('columns')[$columnIndex]['data'])) {
+            $sortField = $this->request->getPostGet('columns')[$columnIndex]['data'];
+        }
+        $columnIndex = 'asc';
+        if (isset($this->request->getPostGet('order')[0]['dir'])) {
+            $sortJob = $this->request->getPostGet('order')[0]['dir']; // asc or desc
+        }
+        $dtSearchKeyVal = '';
+        if (isset($this->request->getPostGet('search')['value'])) {
+            $dtSearchKeyVal = $this->request->getPostGet('search')['value']; // Search value
+        }
+        $likeArr = [];
+
+
+
+        $current_yr = date('Y');
+        $condition = array('status' => 1, 'is_deleted' => 0, 'current_year' => $current_yr);
+        if ($dtSearchKeyVal != '') {
+            $likeArr = array(
+                'reason' => trim($dtSearchKeyVal),
+                'current_year' => strtolower(trim($dtSearchKeyVal)),
+            );
+        }
+
+        $totCounts = $this->AdminModel->get_all_counts(PUBLIC_HOLIDAY, $condition, '', $likeArr);
+        $sortArr = array('date' => -1);
+        if ($sortField != '') {
+            $sortArr = array($sortField => $sortJob);
+        }
+
+        $ajaxDataArr = $this->AdminModel->get_all_details(PUBLIC_HOLIDAY, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
+
+        $tblData = array();
+        $position = 1;
+
+        foreach ($ajaxDataArr->getResult() as $row) {
+            $tblData[] = array(
+                'date' => $row->date,
+                'reason' => ucfirst($row->reason),
+            );
+        }
+        $response = array(
+            "status" => '1',
+            "draw" => intval($draw),
+            "iTotalRecords" => $totCounts,
+            "iTotalDisplayRecords" => $totCounts,
+            "aaData" => $tblData
+        );
+        $returnArr = $response;
+        echo json_encode($returnArr);
+    }*/
 }

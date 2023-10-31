@@ -40,10 +40,10 @@
                     }
                     ?>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label fw-bold"> Date </label>
+                        <label class="col-sm-2 col-form-label fw-bold"> Date <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control create-input" name="date" id="date" value="<?php if (isset($candidates_info->date)) echo $candidates_info->date;
-                                                                                                                else echo date("Y-m-d"); ?>" readonly>
+                            <input type="date" class="form-control create-input" name="date" id="date" value="<?php if (isset($candidates_info->date)) echo $candidates_info->date;
+                                                                                                                else echo date("Y-m-d"); ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -155,6 +155,12 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold"> Schedule Date </label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control create-input" name="schedule_date" id="schedule_date" value="<?php if (isset($candidates_info->schedule_date)) echo $candidates_info->schedule_date; ?>" >
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
                         <?php if (isset($candidates_info) && isset($candidates_info->background_check) && $candidates_info->background_check == '1') $sT = 'checked="checked"';
                         else $sT = ''; ?>
                         <label class="col-sm-2 col-form-label fw-bold">Background Check</label>
@@ -178,13 +184,31 @@
                         </div>
                     </div>
 
-
                     <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label fw-bold"> Source <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <select class="form-select form-control create-input" name="source_id" id="source_id" required>
+                                <option value="">select</option>
+                                <?php foreach ($source_opt as $key => $value) {
+                                    $selected = '';
+                                    if (isset($candidates_info->source_id) && $candidates_info->source_id == $value->id) {
+                                        $selected = 'selected';
+                                    }
+                                ?>
+                                    <option value="<?php echo $value->id; ?>" <?= $selected; ?>>
+                                        <?php echo ucfirst($value->source_name); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold"> Source <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control create-input" name="source" id="source" value="<?php if (isset($candidates_info->source)) echo $candidates_info->source; ?>" required>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold"> Reason for Rejection </label>
                         <div class="col-sm-10">

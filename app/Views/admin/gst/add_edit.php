@@ -54,7 +54,7 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label fw-bold"> Document <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control create-input" name="gst_document" id="gst_document" value="" <?= $req; ?>>
+                            <input type="file" class="form-control create-input" name="gst_document[]" id="gst_document" value="" <?= $req; ?> multiple>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -86,6 +86,7 @@
                 $('#gst_form').submit();
             }
         });
+
     });
 </script>
 <?= $this->endSection() ?>

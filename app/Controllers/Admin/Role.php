@@ -96,7 +96,7 @@ class Role extends BaseController
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'role_name' => ucfirst($row->role_name),
-                'department_id' => ucfirst($dept_name->department_name ?? '-'),
+                'department_id' => isset($dept_name->department_name) && $dept_name->department_name !='' ? ucfirst($dept_name->department_name) : '-',
                 'created_at' => ucfirst($row->created_at),
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt

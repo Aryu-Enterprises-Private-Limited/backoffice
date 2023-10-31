@@ -205,7 +205,14 @@ abstract class BaseModel
                     if ($strlen == 4) {
                         $builder->where("YEAR(filed_date)", $condition['filed_date']);
                     }
-                } else {
+                }else if(isset($condition['dob'])){
+                    // print_r($condition);die;
+                    $dateParts = explode('-', $condition['dob']);
+                    $month = $dateParts[1];
+                    $day = $dateParts[2];
+                    $builder->where("DATE_FORMAT(dob, '%m-%d')", "$month-$day")->where("is_deleted", $condition['is_deleted'])->where("status", $condition['status']);
+                }
+                 else {
                     $builder->where($condition);
                 }
             }

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 
 use App\Controllers\BaseController;
+use DateTime;
 
 class Candidate extends BaseController
 {
@@ -32,6 +33,7 @@ class Candidate extends BaseController
 
     public function list_ajax($returnType = 'json')
     {
+        $daterange = $this->request->getGetPost('daterange');
         $job_open_id = $this->request->getGetPost('job_open');
         $app_sts_id = $this->request->getGetPost('app_sts');
         $int_sts_id = $this->request->getGetPost('int_sts');
@@ -89,6 +91,15 @@ class Candidate extends BaseController
                 $condition['stage_id'] = $stage_id;
             }
         }
+        if (isset($daterange) && !empty($daterange)) {
+            $date = DateTime::createFromFormat('m/d/Y', $daterange);
+            // Format the date in 'Y-m-d' format
+            $formattedDate = $date->format('Y-m-d');
+            if (!empty($daterange)) {
+                $condition['schedule_date'] = $formattedDate;
+            }
+        }
+        // print_r($condition);die;
         $totCounts = $this->LmsModel->get_all_counts(CANDIDATES_DETAILS, $condition, '', $likeArr);
         $sortArr = array('first_name' => -1);
         if ($sortField != '') {
@@ -117,7 +128,10 @@ class Candidate extends BaseController
             $stage_details = $this->LmsModel->get_all_details(STAGE, $cond4)->getRow();
 
             $cond5 = ['id' => $row->reason_rejection_id];
-            $rr_details = $this->LmsModel->get_all_details(REASON_REJECTION, $cond4)->getRow();
+            $rr_details = $this->LmsModel->get_all_details(REASON_REJECTION, $cond5)->getRow();
+
+            $cond6 = ['id' => $row->source_id];
+            $app_source_details = $this->LmsModel->get_all_details(APPLICATION_SOURCE, $cond6)->getRow();
 
             $background_check = 'YES';
             if ($row->background_check == '0') {
@@ -152,17 +166,19 @@ class Candidate extends BaseController
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'name' => ucfirst($row->first_name) . ' ' . ucfirst($row->last_name),
                 'date' => $row->date,
+                'schedule_date' => isset($row->schedule_date) && $row->schedule_date != '' ? ($row->schedule_date) : '-',
+                // 'schedule_date' => $row->schedule_date,
                 'location' => $row->location,
                 'contact_no' => $row->contact_no,
                 'email' => $row->email,
                 'resume' => 0,
-                'job_opening_id' => ucfirst($job_details->jobs_name),        //
-                'application_status_id' => ucfirst($app_details->app_status), //
-                'interview_status_id' => ucfirst($int_sts_details->interview_sts), //
-                'stage_id' => ucfirst($stage_details->stage_name), //
-                'background_check' => $background_check, //
-                'source' => $row->source,
-                'reason_rejection' => ucfirst($rr_details->reason_for_rej),
+                'job_opening_id' => isset($job_details->jobs_name) && $job_details->jobs_name != '' ? ucfirst($job_details->jobs_name) : '-', 
+                'application_status_id' => isset($app_details->app_status) && $app_details->app_status != '' ? ucfirst($app_details->app_status) : '-', 
+                'interview_status_id' => isset($int_sts_details->interview_sts) && $int_sts_details->interview_sts != '' ? ucfirst($int_sts_details->interview_sts) : '-',
+                'stage_id' => isset($stage_details->stage_name) && $stage_details->stage_name != '' ? ucfirst($stage_details->stage_name) : '-',
+                'background_check' => $background_check,
+                'source' => isset($app_source_details->source_name) && $app_source_details->source_name != '' ? ucfirst($app_source_details->source_name) : '-',
+                'reason_rejection' => isset($rr_details->reason_for_rej) && $rr_details->reason_for_rej !='' ? ucfirst($rr_details->reason_for_rej) : '-',
                 'reason' => $row->reason,
                 'created_at' => $row->created_at,
                 // 'updated_at' => $row->updated_at,
@@ -192,6 +208,7 @@ class Candidate extends BaseController
             $this->data['int_sts_opt'] = $this->LmsModel->get_selected_fields(INTERVIEW_STATUS, ['status' => '1', 'is_deleted' => '0'], ['id', 'interview_sts'])->getResult();
             $this->data['stage_opt'] = $this->LmsModel->get_selected_fields(STAGE, ['status' => '1', 'is_deleted' => '0'], ['id', 'stage_name'])->getResult();
             $this->data['rr_opt'] = $this->LmsModel->get_selected_fields(REASON_REJECTION, ['status' => '1', 'is_deleted' => '0'], ['id', 'reason_for_rej'])->getResult();
+            $this->data['source_opt'] = $this->LmsModel->get_selected_fields(APPLICATION_SOURCE, ['status' => '1', 'is_deleted' => '0'], ['id', 'source_name'])->getResult();
             if ($id != '') {
                 $condition = array('is_deleted' => '0', 'id' => $id);
                 $this->data['candidates_info'] = $this->LmsModel->get_selected_fields(CANDIDATES_DETAILS, $condition)->getRow();
@@ -228,12 +245,13 @@ class Candidate extends BaseController
             $application_status_id = (string)$this->request->getPostGet('application_status_id');
             $interview_status_id = (string)$this->request->getPostGet('interview_status_id');
             $stage_id = (string)$this->request->getPostGet('stage_id');
-            $source = (string)$this->request->getPostGet('source');
+            $source_id = (string)$this->request->getPostGet('source_id');
             $reason_rejection_id = (string)$this->request->getPostGet('reason_rejection_id');
             $reason = (string)$this->request->getPostGet('reason');
             $status = (string)$this->request->getPostGet('status');
             $background_check = (string)$this->request->getPostGet('background_check');
             $ready_to_relocate = (string)$this->request->getPostGet('ready_to_relocate');
+            $schedule_date = (string)$this->request->getPostGet('schedule_date');
             $id = (string)$this->request->getPostGet('id');
             if ($status == '') {
                 $status = 'off';
@@ -242,7 +260,7 @@ class Candidate extends BaseController
                 $background_check = 'off';
             }
             $fSubmit = FALSE;
-            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source != '' && $ready_to_relocate != '') {
+            if ($first_name != '' && $last_name != '' && $date != '' && $location != '' && $contact_no != '' && $email != '' && $job_opening_id != '' && $application_status_id != '' && $interview_status_id != '' && $stage_id != '' && $source_id != '' && $ready_to_relocate != '') {
                 if ($status == 'on') {
                     $status = '1';
                 } else {
@@ -265,12 +283,13 @@ class Candidate extends BaseController
                     'interview_status_id' => $interview_status_id,
                     'stage_id' => $stage_id,
                     'ready_to_relocate' => $ready_to_relocate,
-                    'source' => $source,
+                    'source_id' => $source_id,
                     'status' => $status,
                     'background_check' => $background_check,
                     'reason_rejection_id' => $reason_rejection_id,
                     'reason' => $reason,
                     'is_deleted' => 0,
+                    'schedule_date' => $schedule_date
                 );
 
                 if ($id == '') {
@@ -421,6 +440,9 @@ class Candidate extends BaseController
 
                 $condition6 = ['id' => $this->data['candidatesDetails']->reason_rejection_id];
                 $this->data['rr_details'] =  $this->LmsModel->get_all_details(REASON_REJECTION, $condition6)->getRow();
+
+                $condition7 = ['id' => $this->data['candidatesDetails']->source_id];
+                $this->data['app_source_details'] =  $this->LmsModel->get_all_details(APPLICATION_SOURCE, $condition7)->getRow();
 
                 if (!empty($this->data['candidatesDetails'])) {
                     $this->data['title'] = 'Candidates  view';

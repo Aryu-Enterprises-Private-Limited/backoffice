@@ -1,7 +1,8 @@
 <!-- Start content -->
 <?= $this->extend('layout') ?>
 <?= $this->section('styles') ?>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> -->
+<link rel="stylesheet" href="/plugins/datatable/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <?= $this->endSection() ?>
 
@@ -18,12 +19,9 @@
                         <button type="button" class="btn btn-primary btn-sm butn-back text-white"><?php echo 'Add New'; ?></button>
                     </a>
                 </div>
-
             </div>
-
             <hr>
             <div class="list-label">
-
                 <table id="displayDataTbl" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
@@ -148,6 +146,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
+                    // console.log(res);
                     myModal.show();
                     $('#show_data').append(res);
                 }

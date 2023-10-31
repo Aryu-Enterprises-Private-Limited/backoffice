@@ -181,6 +181,12 @@ class Employee extends BaseController
             $confirmpassword = (string)$this->request->getPostGet('confirmpassword');
             $role_id = (string)$this->request->getPostGet('role_id');
             $department_id = (string)$this->request->getPostGet('department_id');
+            $employeeid = (string)$this->request->getPostGet('employeeid');
+            $gender = (string)$this->request->getPostGet('gender');
+            $emp_type = (string)$this->request->getPostGet('emp_type');
+
+
+
 
 
             $relationship = (string)$this->request->getPostGet('relationship');
@@ -220,6 +226,9 @@ class Employee extends BaseController
                             'confirmpassword' => 'required|max_length[255]|matches[password]',
                             'department_id' => 'required',
                             'role_id' => 'required',
+                            'gender' => 'required',
+                            'emp_type' => 'required',
+                            'employeeid' => 'required|is_unique[employee_details.employeeid]',
                         ],
                         [   // Errors
                             'first_name' => [
@@ -262,6 +271,12 @@ class Employee extends BaseController
                                 'required' => 'This field is required.',
                             ],
                             'department_id' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'gender' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'emp_type' => [
                                 'required' => 'This field is required.',
                             ],
                         ]
@@ -370,6 +385,9 @@ class Employee extends BaseController
                             'status' => $status,
                             'notes' => $notes,
                             'is_deleted' => '0',
+                            'employeeid' => $employeeid,
+                            'gender' => $gender,
+                            'employment_type' => $emp_type,
                         );
                         $dataArr['password'] = password_hash($password, PASSWORD_DEFAULT);
                         if ($file !== null) {
@@ -407,7 +425,10 @@ class Employee extends BaseController
                             'aadhar_no' => 'required',
                             'pan_no' => 'required',
                             'department_id' => 'required',
+                            'gender' => 'required',
+                            'emp_type' => 'required',
                             'role_id' => 'required',
+                            'employeeid' => 'required|is_unique[employee_details.employeeid,id,' . $id . ']',
                             // 'password' => 'required|max_length[25]|min_length[8]',
                             // 'confirmpassword' => 'required|max_length[255]|matches[password]',
                         ],
@@ -454,6 +475,12 @@ class Employee extends BaseController
                             'department_id' => [
                                 'required' => 'This field is required.',
                             ],
+                            'gender' => [
+                                'required' => 'This field is required.',
+                            ],
+                            'emp_type' => [
+                                'required' => 'This field is required.',
+                            ],
                         ]
                     );
                     if (!$validation->withRequest($this->request)->run()) {
@@ -471,7 +498,7 @@ class Employee extends BaseController
                             'relationship' => 'required',
                             'r_name' => 'required',
                             'r_phone' => 'required|max_length[10]|min_length[10]|is_unique[employee_details.r_phone,id,' . $id . ']',
-                            'r_email' => 'required|valid_email|is_unique[employee_details.r_email,id,' . $id . ']',
+                            // 'r_email' => 'required|valid_email|is_unique[employee_details.r_email,id,' . $id . ']',
                             'r_address' => 'required',
 
                         ],
@@ -485,9 +512,9 @@ class Employee extends BaseController
                             'r_phone' => [
                                 'required' => 'This field is required.',
                             ],
-                            'r_email' => [
-                                'required' => 'This field is required.',
-                            ],
+                            // 'r_email' => [
+                            //     'required' => 'This field is required.',
+                            // ],
                             'r_address' => [
                                 'required' => 'This field is required.',
                             ],
@@ -556,6 +583,9 @@ class Employee extends BaseController
                             'status' => $status,
                             'notes' => $notes,
                             'is_deleted' => '0',
+                            'employeeid' => $employeeid,
+                            'gender' => $gender,
+                            'employment_type' => $emp_type,
                         );
                         // $dataArr['password'] = password_hash($password, PASSWORD_DEFAULT);
                         if ($file !== null) {

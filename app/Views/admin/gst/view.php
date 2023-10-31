@@ -41,14 +41,20 @@
                             <th scope="row"> Reference No </th>
                             <td><?php if (isset($gst_details->ref_no)) echo ucfirst($gst_details->ref_no); ?></td>
                         </tr>
+                        <?php 
+                        $commaSeparated = $gst_details->gst_document;
+                        $fileNamesArray = explode(',', $commaSeparated);
+                        foreach($fileNamesArray as $key => $file){
+                        ?>
                         <tr>
-                            <th scope="row"> Document </th>
-                            <?php if (isset($gst_details->gst_document) && $gst_details->gst_document != '') { ?>
-                                <td><a href="<?php if (isset($gst_details->gst_document)) echo ('/' . ADMIN_PATH . '/gst/view_doc/' . (string)$gst_details->gst_document . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                            <th scope="row"> Document <?= $key +1 ; ?></th>
+                            <?php if (isset($file) && $file != '') { ?>
+                                <td><a href="<?php if (isset($file)) echo ('/' . ADMIN_PATH . '/gst/view_doc/' . (string)$file . '')  ?>" class="btn btn-info v_btn">View</td> </a>
                             <?php  } else { ?>
                                 <td><a class="btn v_btn">No Document </a></td>
                             <?php } ?>
                         </tr>
+                   <?php } ?>
                         <tr>
                             <th scope="row"> Status </th>
                             <td><?php if (isset($gst_details->status) && $gst_details->status == 1) { ?><span class="btn btn-success"><?php echo 'Active'; ?></span><?php } else { ?><span class="btn btn-danger"><?php echo 'In Active'; ?></span><?php } ?></td>

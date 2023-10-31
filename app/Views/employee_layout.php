@@ -22,7 +22,7 @@
             </a>
             <div class="col-xl-1 col-sm-4 mt-5 m_header">
                 <div class="dropdown pr-2 drop_m">
-                    <div class="dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
+                    <div class="dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" role="button">
                         <span class="admintext">Employee</span>
                     </div>
                     <ul class="dropdown-menu" data-popper-placement="bottom-end" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-53px, 26px);">
@@ -35,7 +35,6 @@
                 </div>
             </div>
         </div>
-
     </nav>
 
     <ul class="nav">
@@ -43,20 +42,20 @@
             <a class="nav-link text-white" href="<?= '/' . EMPLOYEE_PATH . '/dashboard' ?>"><i class="fa fa-th-large" aria-hidden="true"></i>Dashboard</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link  text-white" href="<?= '/' . EMPLOYEE_PATH . '/attendance' ?>"><i class="fa fa-list" aria-hidden="true"></i>Attendance</a>
+            <a class="nav-link  text-white" href="<?= '/' . EMPLOYEE_PATH . '/attendance' ?>"><i class="fa fa-clock-o" aria-hidden="true"></i>Attendance</a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link  text-white" href="<?= '/' . EMPLOYEE_PATH . '/attendance/list' ?>"><i class="fa fa-list" aria-hidden="true"></i>Attendance List</a>
-        </li> -->
-        <!-- <li class="nav-item">
-        <a class="nav-link  text-white" href="<?= '/' . ADMIN_PATH . '/employee/list' ?>"><i class="fa fa-list" aria-hidden="true"></i>Employee Setup</a>
-        </li> -->
-
+        <li class="nav-item">
+            <a class="nav-link  text-white" href="<?= '/' . EMPLOYEE_PATH . '/work_report/list' ?>"><i class="fa fa-tasks" aria-hidden="true"></i> Work Report </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  text-white" href="<?= '/' . EMPLOYEE_PATH . '/public_holiday/list' ?>"><i class="fa fa-table" aria-hidden="true"></i> Public Holiday List </a>
+        </li>
     </ul>
 
 
 
     <?= $this->renderSection('content') ?>
+
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark footer">
         <div class="container-fluid justify-content-center">
             <a class="navbar-brand " href="#">Copy
@@ -66,9 +65,6 @@
     </nav>
     <!-- Include jQuery library -->
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
-
-
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!-- Include Toastr library -->

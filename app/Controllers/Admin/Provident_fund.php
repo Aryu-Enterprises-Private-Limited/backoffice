@@ -157,7 +157,8 @@ class Provident_fund extends BaseController
             $paid_date = (string)$this->request->getPostGet('paid_date');
             $ref_no = (string)$this->request->getPostGet('ref_no');
             $amount = (string)$this->request->getPostGet('amount');
-            $file = $this->request->getFile('pf_document');
+            // $file = $this->request->getFile('pf_document');
+            $file = $this->request->getFileMultiple('pf_document');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             $month = date("F", strtotime($filed_date));
@@ -180,15 +181,33 @@ class Provident_fund extends BaseController
                     'status' => $status,
                     'is_deleted' => '0',
                 );
-                if ($file !== null) {
-                    if ($file->isValid() && !$file->hasMoved()) {
-                        $newName = $file->getRandomName();
-                        $file->move(WRITEPATH . PF_DOC_PATH, $newName);
-                        $dataArr['pf_document'] = $file->getName();
-                    } else {
-                        echo 'Upload failed.';
+                if (isset($file) && !empty($file)) {
+                    $commaSeparated =array();
+                    $flag= 'success';
+                    foreach($file as  $file){
+                        if ($file->isValid() && !$file->hasMoved()) {
+                            $newName = $file->getRandomName();
+                            $file->move(WRITEPATH . PF_DOC_PATH, $newName);
+                            $commaSeparated[] = $file->getName();
+                            // $dataArr['gst_document'] = $file->getName();
+                        }else{
+                            $flag='fail';
+                        }
+                    }
+                    if($flag != 'fail'){
+                        $file_str = implode(',', $commaSeparated);
+                        $dataArr['pf_document'] = $file_str;
                     }
                 }
+                // if ($file !== null) {
+                //     if ($file->isValid() && !$file->hasMoved()) {
+                //         $newName = $file->getRandomName();
+                //         $file->move(WRITEPATH . PF_DOC_PATH, $newName);
+                //         $dataArr['pf_document'] = $file->getName();
+                //     } else {
+                //         echo 'Upload failed.';
+                //     }
+                // }
                 if ($id == '') {
                     $this->LmsModel->simple_insert(PF_DETAILS, $dataArr);
                     $this->session->setFlashdata('success_message', 'PF added successfully.');

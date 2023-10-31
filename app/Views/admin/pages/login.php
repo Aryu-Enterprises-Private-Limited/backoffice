@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title> <?= $title; ?> </title>
 </head>
@@ -15,16 +16,16 @@
 <body>
     <div class="conatiner">
         <div class="aryu-logo">
-            <img src="images/aryulogo.png" class="rounded" alt="...">
+            <img src="/images/aryulogo.png" class="rounded" alt="...">
         </div>
         <div class="card total-card">
-            <img src="images/aryulogo_boder.png" class="rounded top-border" alt="...">
+            <img src="/images/aryulogo_boder.png" class="rounded top-border" alt="...">
             <div class="card-body">
                 <div class="card log-card">
                     <div class="log">
                         <div class="row">
                             <div class="col-md-2">
-                                <img src="images/login.png" class="rounded log-key" alt="...">
+                                <img src="/images/login.png" class="rounded log-key" alt="...">
                             </div>
                             <div class="col-md-10">
                                 <h2 class="admin"><?= $title; ?></h2>

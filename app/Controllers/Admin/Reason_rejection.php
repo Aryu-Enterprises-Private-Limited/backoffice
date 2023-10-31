@@ -157,6 +157,7 @@ class Reason_rejection extends BaseController
                 $dataArr = array(
                     'reason_for_rej' => $reason_for_rej,
                     'status' => $status,
+                    'is_deleted' => '0',
                 );
 
                 if ($id == '') {

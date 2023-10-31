@@ -49,14 +49,28 @@
                             <th scope="row"> Amount </th>
                             <td><?php if (isset($pf_details->amount)) echo ucfirst($pf_details->amount); ?></td>
                         </tr>
+                        <?php 
+                        $commaSeparated = $gst_details->pf_document;
+                        $fileNamesArray = explode(',', $commaSeparated);
+                        foreach($fileNamesArray as $key => $file){
+                        ?>
                         <tr>
+                            <th scope="row"> Document <?= $key +1 ; ?></th>
+                            <?php if (isset($file) && $file != '') { ?>
+                                <td><a href="<?php if (isset($file)) echo ('/' . ADMIN_PATH . '/pf/view_doc/' . (string)$file . '')  ?>" class="btn btn-info v_btn">View</td> </a>
+                            <?php  } else { ?>
+                                <td><a class="btn v_btn">No Document </a></td>
+                            <?php } ?>
+                        </tr>
+                   <?php } ?>
+                        <!-- <tr>
                             <th scope="row"> Document </th>
                             <?php if (isset($pf_details->pf_document) && $pf_details->pf_document != '') { ?>
                                 <td><a href="<?php if (isset($pf_details->pf_document)) echo ('/' . ADMIN_PATH . '/pf/view_doc/' . (string)$pf_details->pf_document . '')  ?>" class="btn btn-info v_btn">View</td> </a>
                             <?php  } else { ?>
                                 <td><a class="btn v_btn">No Document </a></td>
                             <?php } ?>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <th scope="row"> Status </th>
                             <td><?php if (isset($pf_details->status) && $pf_details->status == 1) { ?><span class="btn btn-success"><?php echo 'Active'; ?></span><?php } else { ?><span class="btn btn-danger"><?php echo 'In Active'; ?></span><?php } ?></td>

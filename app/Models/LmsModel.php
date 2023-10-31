@@ -66,4 +66,11 @@ class LmsModel extends Model
             ->where($condition)->groupBy('employee_id, employee_email, employee_name');
         return $builder->get();
     }
+
+    public function public_yr_group($condition = ''){
+        $sql = 'current_year,CONCAT_WS("~", GROUP_CONCAT(reason SEPARATOR "~")) AS concatenated_reason,CONCAT_WS("~", GROUP_CONCAT(date SEPARATOR "~")) AS concatenated_date';
+        $builder = $this->db->table(PUBLIC_HOLIDAY)->select(new RawSql($sql))
+            ->where($condition)->groupBy('current_year');
+        return $builder->get();
+    }
 }

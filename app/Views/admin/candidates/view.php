@@ -85,7 +85,7 @@
                         </tr>
                         <tr>
                             <th scope="row"> Source </th>
-                            <td><?php if (isset($candidatesDetails->source)) echo ucfirst($candidatesDetails->source); ?></td>
+                            <td><?php if (isset($app_source_details->source_name)) echo ucfirst($app_source_details->source_name); ?></td>
                         </tr>
                         <tr>
                             <th scope="row"> Reason for Rejection </th>

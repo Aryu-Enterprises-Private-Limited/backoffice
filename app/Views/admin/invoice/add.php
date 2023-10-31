@@ -225,28 +225,12 @@
                     <button type="button" class="btn butn-submit text-white sbmtBtn" id="btn">Preview & Submit</button>
                 </form>
             </div>
+            
             <?php if (isset($form_data['id'])) { ?>
-                <button id="generate-pdf">Generate PDF</button>
-                <div id="download_content">
-                <div class="row">
-                <div class="col-md-12">
-                    <p class="invoice-no text-danger" style="font-weight: bold;margin: 0;padding: 0;margin-bottom: 0!important;">BANK DETAILS:</p>
-                    <p style="margin-bottom: 0!important;">Payment Mode: Bank Transfer</p>
-                    <p style="margin-bottom: 0!important;">Bank Name: Indusind Bank Ltd</p>
-                    <p style="margin-bottom: 0!important;">Account Name: Aryu Enterprises Private Limited</p>
-                    <p style="margin-bottom: 0!important;">Account Type: Current</p>
-                    <p style="margin-bottom: 0!important;">Account No: 259994715106</p>
-                    <p style="margin-bottom: 0!important;">Branch: Velacherry</p>
-                    <p style="margin-bottom: 0!important;">IFSC Code: INDB00060</p>
-                </div>
-            </div>
-                </div>
-                <!-- <img src="http://localhost:8080/images/aryuinvoiceheader.png" alt="Header Image" class="img-fluid"> -->
+                <button id="generate-pdf" class="btn butn-submit text-white" id="btn" onclick="createPDF()">Generate PDF</button>
+                <iframe id="download_content" src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" width="100%" height="1000"></iframe>
+                <!-- <embed id="download_content" src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" type="application/pdf" height="720" width="100%" /> -->
 
-                <!-- <iframe src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" width="100%" height="1000px"></iframe> -->
-                <embed  src="http://localhost:8080/admin/preview_invoice/<?= $form_data['id'] ?>" type="application/pdf" height="720" width="100%" />
-                
-                
             <?php } ?>
         </div>
     </div>
@@ -254,13 +238,12 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-
 
 <?php if (session('error_message')) : ?>
     <script>
@@ -268,20 +251,30 @@
     </script>
 <?php endif; ?>
 <script type="text/javascript">
+    function createPDF() {
+        var sTable = $('#download_content');
+        // var sTable = document.getElementById('download_content');
+        console.log(sTable.contents().find('html').html());
+        // console.log(.outerHTML)
+
+        var style = '<link type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css" rel="stylesheet">';
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<!DOCTYPE html>');
+        // win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+        // win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        // win.document.write('</head>');
+        // win.document.write('<body>');
+        // win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        // win.document.write('</body></html>');
+        win.document.write(sTable.contents().find('html').html());
+        win.print();    // PRINT THE CONTENTS.
+        win.close(); 	// CLOSE THE CURRENT WINDOW.
+    }
     $(document).ready(function() {
-        // function addScript(url) {
-        //     var script = document.createElement('script');
-        //     script.type = 'application/javascript';
-        //     script.src = url;
-        //     console.log(script);
-        //     document.head.appendChild(script);
-        // }
-        // addScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
-        $("#generate-pdf").click(function() {
-            var element = document.getElementById('download_content');
-            console.log(element);
-            html2pdf(element);
-        });
+        
 
         <?php if (isset($form_data['id'])) { ?>
             $(".hide_show").show();

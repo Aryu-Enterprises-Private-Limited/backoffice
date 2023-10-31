@@ -209,7 +209,7 @@
         $(".sbmtBtn").click(function(evt) {
             // e.preventDefault();
             if ($('#attendance_form').valid()) {
-                $('#sbmtBtn').attr("disabled", true);
+                $('.sbmtBtn').attr("disabled", true);
                 $('#attendance_form').submit();
             }
         });

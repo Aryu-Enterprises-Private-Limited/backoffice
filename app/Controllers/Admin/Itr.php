@@ -151,7 +151,8 @@ class Itr extends BaseController
             $filed_date = (string)$this->request->getPostGet('filed_date');
             $paid_date = (string)$this->request->getPostGet('paid_date');
             $tax_amount = (string)$this->request->getPostGet('tax_amount');
-            $file = $this->request->getFile('itr_document');
+            // $file = $this->request->getFile('itr_document');
+            $file = $this->request->getFileMultiple('itr_document');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             $year = date("Y", strtotime($filed_date));
@@ -174,13 +175,23 @@ class Itr extends BaseController
                     'status' => $status,
                     'is_deleted' => '0',
                 );
-                if ($file !== null) {
-                    if ($file->isValid() && !$file->hasMoved()) {
-                        $newName = $file->getRandomName();
-                        $file->move(WRITEPATH . ITR_DOC_PATH, $newName);
-                        $dataArr['itr_document'] = $file->getName();
-                    } else {
-                        echo 'Upload failed.';
+
+                if (isset($file) && !empty($file)) {
+                    $commaSeparated =array();
+                    $flag= 'success';
+                    foreach($file as  $file){
+                        if ($file->isValid() && !$file->hasMoved()) {
+                            $newName = $file->getRandomName();
+                            $file->move(WRITEPATH . ITR_DOC_PATH, $newName);
+                            $commaSeparated[] = $file->getName();
+                            // $dataArr['itr_document'] = $file->getName();
+                        }else{
+                            $flag='fail';
+                        }
+                    }
+                    if($flag != 'fail'){
+                        $file_str = implode(',', $commaSeparated);
+                        $dataArr['itr_document'] = $file_str;
                     }
                 }
                 if ($id == '') {

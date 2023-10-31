@@ -46,9 +46,43 @@ $routes->add('/' . EMPLOYEE_PATH . '/attendance/update', 'Attendance::insertUpda
 $routes->add('/' . EMPLOYEE_PATH . '/attendance/list_ajax', 'Attendance::list_ajax', ['namespace' => 'App\Controllers\Employee']);
 
 
+$routes->get('/' . EMPLOYEE_PATH . '/work_report/list', 'Work_report::index', ['namespace' => 'App\Controllers\Employee']);
+$routes->add('/' . EMPLOYEE_PATH . '/work_report/update', 'Work_report::insertUpdate', ['namespace' => 'App\Controllers\Employee']);
+$routes->add('/' . EMPLOYEE_PATH . '/work_report/list_ajax', 'Work_report::list_ajax', ['namespace' => 'App\Controllers\Employee']);
+$routes->add('/' . EMPLOYEE_PATH . '/work_report/add', 'Work_report::add_edit', ['namespace' => 'App\Controllers\Employee']);
+$routes->add('/' . EMPLOYEE_PATH . '/work_report/view/(:segment)', 'Work_report::view', ['namespace' => 'App\Controllers\Employee']);
 
-//client protal route
-// $routes->get('/'. CLIENT_PATH , 'Client::login',['namespace' => 'App\Controllers\Client']);
+$routes->get('/' . EMPLOYEE_PATH . '/public_holiday/list', 'Employee_setup::holiday_list', ['namespace' => 'App\Controllers\Employee']);
+// $routes->add('/' . EMPLOYEE_PATH . '/public_holiday/list_ajax', 'Employee_setup::list_ajax', ['namespace' => 'App\Controllers\Employee']);
+
+
+
+//manager protal route
+$routes->get('/' . MANAGER_PATH, 'Manager_setup::index', ['namespace' => 'App\Controllers\Manager']);
+$routes->post('/' . MANAGER_PATH . '/do-login', 'Manager_setup::do_login', ['namespace' => 'App\Controllers\Manager']);
+$routes->get('/' . MANAGER_PATH . '/dashboard', 'Manager_setup::dashboard', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/logout', 'Manager_setup::logout', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/public_holiday/list', 'Manager_setup::holiday_list', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/public_holiday/list_ajax', 'Manager_setup::list_ajax', ['namespace' => 'App\Controllers\Manager']);
+
+//attendance report
+$routes->add('/' . MANAGER_PATH . '/att_report/list', 'Att_report::list', ['namespace' => 'App\Controllers\Manager']);
+// $routes->add('/' . MANAGER_PATH . '/att_report/list_ajax', 'Att_report::list_ajax', ['namespace' => 'App\Controllers\Manager']);
+
+
+//employee details
+$routes->add('/' . MANAGER_PATH . '/employee/list', 'Employee::index', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/employee/list_ajax', 'Employee::list_ajax', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/chart/pie-fetch-data', 'Employee::fetchData', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/chart/gen-pie-fetch-data', 'Employee::fetchgenderData', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/chart/job-pie-fetch-data', 'Employee::fetchjobtypeData', ['namespace' => 'App\Controllers\Manager']);
+
+//application cadidates details
+$routes->add('/' . MANAGER_PATH . '/candidates/list', 'Candidate::index', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/candidates/list_ajax', 'Candidate::list_ajax', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/barchart/bar-fetch-data', 'Candidate::fetchData', ['namespace' => 'App\Controllers\Manager']);
+$routes->add('/' . MANAGER_PATH . '/funnelchart/funnel-fetch-data', 'Candidate::fetchfunnelData', ['namespace' => 'App\Controllers\Manager']);
+
 
 
 
@@ -115,7 +149,7 @@ $routes->add('/' . ADMIN_PATH . '/report/list_ajax', 'Report::list_ajax', ['name
 $routes->add('/' . ADMIN_PATH . '/report/monthly_list', 'Report::monthly_list_ajax', ['namespace' => 'App\Controllers\Admin']);
 
 //in-voice route
- $routes->add('/' . ADMIN_PATH . '/invoice', 'Invoice::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/invoice', 'Invoice::index', ['namespace' => 'App\Controllers\Admin']);
 //   $routes->add('/' . ADMIN_PATH . '/invoice/(:any)?', 'Invoice::index/$1', ['namespace' => 'App\Controllers\Admin']);
 //$routes->add('/' . ADMIN_PATH . '/invoice/gen_invoice', 'Invoice::invoice_generate', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/invoice/gen_invoice', 'Invoice::insertUpdate_preview', ['namespace' => 'App\Controllers\Admin']);
@@ -214,6 +248,16 @@ $routes->add('/' . ADMIN_PATH . '/reason_rejection/change-status', 'Reason_rejec
 $routes->add('/' . ADMIN_PATH . '/reason_rejection/view/(:segment)', 'Reason_rejection::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/reason_rejection/delete', 'Reason_rejection::delete', ['namespace' => 'App\Controllers\Admin']);
 
+//application source route
+$routes->add('/' . ADMIN_PATH . '/application_source/list', 'Application_source::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/list_ajax', 'Application_source::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/add', 'Application_source::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/edit/(:segment)', 'Application_source::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/update', 'Application_source::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/change-status', 'Application_source::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/view/(:segment)', 'Application_source::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/application_source/delete', 'Application_source::delete', ['namespace' => 'App\Controllers\Admin']);
+
 
 //candidates route
 $routes->add('/' . ADMIN_PATH . '/candidates/list', 'Candidate::index', ['namespace' => 'App\Controllers\Admin']);
@@ -245,6 +289,8 @@ $routes->add('/' . ADMIN_PATH . '/public_holiday/update', 'Public_holiday::inser
 $routes->add('/' . ADMIN_PATH . '/public_holiday/change-status', 'Public_holiday::update_status', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/public_holiday/view/(:segment)', 'Public_holiday::view', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/public_holiday/delete', 'Public_holiday::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/list_details', 'Public_holiday::list_details', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/public_holiday/details_list_ajax', 'Public_holiday::details_list_ajax', ['namespace' => 'App\Controllers\Admin']);
 
 //interview task route
 $routes->add('/' . ADMIN_PATH . '/interview_task/list', 'Interview_task::index', ['namespace' => 'App\Controllers\Admin']);
@@ -367,6 +413,77 @@ $routes->add('/' . ADMIN_PATH . '/tds/delete', 'Tds::delete', ['namespace' => 'A
 $routes->add('/' . ADMIN_PATH . '/tds/view_doc/(:segment)', 'Tds::showFile', ['namespace' => 'App\Controllers\Admin']);
 $routes->add('/' . ADMIN_PATH . '/tds/alert_close', 'Tds::alert_close_ajax', ['namespace' => 'App\Controllers\Admin']);
 
+//attendance_category Route
+$routes->add('/' . ADMIN_PATH . '/attendance_category/list', 'Attendance_category::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/list_ajax', 'Attendance_category::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/add', 'Attendance_category::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/edit/(:segment)', 'Attendance_category::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/update', 'Attendance_category::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/change-status', 'Attendance_category::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/view/(:segment)', 'Attendance_category::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/attendance_category/delete', 'Attendance_category::delete', ['namespace' => 'App\Controllers\Admin']);
+
+// employee_tracker Route
+$routes->add('/' . ADMIN_PATH . '/employee_tracker/list', 'Employee_tracker::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/employee_tracker/update', 'Employee_tracker::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+
+//links Route
+$routes->add('/' . ADMIN_PATH . '/links/list', 'Links::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/list_ajax', 'Links::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/add', 'Links::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/edit/(:segment)', 'Links::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/update', 'Links::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/change-status', 'Links::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/view/(:segment)', 'Links::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/links/delete', 'Links::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//company info route
+$routes->add('/' . ADMIN_PATH . '/company_info/list', 'Company_info::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/list_ajax', 'Company_info::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/add', 'Company_info::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/edit/(:segment)', 'Company_info::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/update', 'Company_info::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/change-status', 'Company_info::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/view/(:segment)', 'Company_info::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/delete', 'Company_info::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/company_info/check_password', 'Company_info::password_validate', ['namespace' => 'App\Controllers\Admin']);
+
+
+//courses route
+$routes->add('/' . ADMIN_PATH . '/courses/list', 'Courses::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/list_ajax', 'Courses::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/add', 'Courses::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/edit/(:segment)', 'Courses::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/update', 'Courses::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/change-status', 'Courses::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/view/(:segment)', 'Courses::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/courses/delete', 'Courses::delete', ['namespace' => 'App\Controllers\Admin']);
+
+// student_info route
+$routes->add('/' . ADMIN_PATH . '/student_info/list', 'Student_info::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/list_ajax', 'Student_info::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/add', 'Student_info::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/edit/(:segment)', 'Student_info::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/update', 'Student_info::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/change-status', 'Student_info::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/view/(:segment)', 'Student_info::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/student_info/delete', 'Student_info::delete', ['namespace' => 'App\Controllers\Admin']);
+
+//fees route
+$routes->add('/' . ADMIN_PATH . '/fees/list', 'Fees::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/list_ajax', 'Fees::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/add', 'Fees::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/edit/(:segment)', 'Fees::add_edit', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/update', 'Fees::insertUpdate', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/change-status', 'Fees::update_status', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/view/(:segment)', 'Fees::view', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/delete', 'Fees::delete', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/payment_details/(:segment)', 'Fees::payment_details', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/fees/update_payment', 'Fees::insertUpdate_payment', ['namespace' => 'App\Controllers\Admin']);
+
+$routes->get('/' . ADMIN_PATH . '/work_report/list', 'Work_report::index', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/work_report/list_ajax', 'Work_report::list_ajax', ['namespace' => 'App\Controllers\Admin']);
+$routes->add('/' . ADMIN_PATH . '/work_report/view/(:segment)', 'Work_report::view', ['namespace' => 'App\Controllers\Admin']);
 
 /*
  * --------------------------------------------------------------------

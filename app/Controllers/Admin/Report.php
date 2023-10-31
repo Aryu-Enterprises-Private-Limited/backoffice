@@ -19,7 +19,7 @@ class Report extends BaseController
     {
         if ($this->checkSession('A') != '') {
             $this->data['title'] = 'Report List';
-            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['is_deleted' => '0',], ['id', 'first_name', 'last_name'])->getResult();
+            $this->data['employee_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, ['is_deleted' => '0','status' => '1' ], ['id', 'first_name', 'last_name'])->getResult();
             echo view(ADMIN_PATH . '/report/list', $this->data);
         } else {
             $this->session->setFlashdata('error_message', 'Please login!!!');
@@ -76,7 +76,6 @@ class Report extends BaseController
         }
 
         $totCounts = $this->LmsModel->group_count_tbl(EMPLOYEE_ATTENDANCE, $condition, $likeArr);
-
         // $totCounts = $this->LmsModel->get_all_counts(EMPLOYEE_ATTENDANCE, $condition, '', $likeArr);
         $sortArr = array('id' => -1);
         if ($sortField != '') {
@@ -267,7 +266,8 @@ class Report extends BaseController
         //  $this->data['att_details'] = $this->LmsModel->get_all_details(EMPLOYEE_ATTENDANCE_TOTAL_HOURS)->getResult();
         $this->data['att_details'] = $this->LmsModel->group_by_atttbl($condition)->getResult();
         //  echo"<pre>"; print_r($this->data['att_details']);die;
-
+        $cond = array('status' => 1 ,'is_deleted' => 0);
+        $this->data['emp_details'] = $this->LmsModel->get_selected_fields(EMPLOYEE_DETAILS, $cond, ['id', 'email'])->getResult();
         echo view(ADMIN_PATH . '/report/monthly_list', $this->data);
     }else {
         $this->session->setFlashdata('error_message', 'Please login!!!');

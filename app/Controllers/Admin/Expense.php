@@ -52,12 +52,14 @@ class Expense extends BaseController
                         } else {
                             $error_data = '';
                         }
-                        $totalAmount += $st->amount;
+                        $str_r = str_replace(",","", $st->amount);
+                        $totalAmount += $str_r;
+                        // $totalAmount += $st->amount;
                         $sheet->setCellValue('G' . $rows, $error_data);
                         $rows++;
                     }
                     $writer = new Xlsx($spreadsheet);
-                    $sheet->setCellValue('H' . $rows, $totalAmount);
+                    $sheet->setCellValue('H' . $rows, number_format($totalAmount,2));
                     // $footerText = 'Total: ' . $totalAmount;
                     // // $headerFooter->setOddFooter('&L&G&C&"Times New Roman,Regular"Total: ' . $totalAmount);
                     // $sheet->getHeaderFooter()->setOddFooter('&L&G&C&"Times New Roman,Regular"'.$footerText);
@@ -113,13 +115,22 @@ class Expense extends BaseController
             $dtSearchKeyVal = $this->request->getPostGet('search')['value']; // Search value
         }
         $likeArr = [];
-        $currentDate = date('Y-m-d');
-        $condition = array('is_deleted' => '0', 'date' => $currentDate);
+        // $currentDate = date('Y-m-d');
+        $current_yr = date('Y');
+        $current_mnth = date('m');
+        $firstDayOfMonth = date('Y-m-d', strtotime("{$current_yr}-{$current_mnth}-01"));
+        $lastDayOfMonth = date('Y-m-t', strtotime("{$current_yr}-{$current_mnth}-01"));
+
+        $condition = array('is_deleted' => '0');
+        $condition['date >='] = $firstDayOfMonth;
+        $condition['date <='] = $lastDayOfMonth;
+        // $condition = array('is_deleted' => '0', 'date' => $currentDate);
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'invoice_no' => trim($dtSearchKeyVal),
                 'category_name' => trim($dtSearchKeyVal),
                 'amount' => trim($dtSearchKeyVal),
+                'description' => trim($dtSearchKeyVal),
             );
         }
         if (isset($filter) && $filter == '1') {
@@ -207,13 +218,16 @@ class Expense extends BaseController
 
 
             $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/expense/delete"><i class="fas fa-trash-alt"></i></a>';
-            $totalAmount += $row->amount;
+            $str_r = str_replace(",","", $row->amount);
+            $totalAmount += $str_r;
+            // $totalAmount += $row->amount;
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
                 'date' => $row->date,
                 'invoice_no' => $row->invoice_no,
                 'category_name' => ucfirst($row->category_name),
+                'description' => ucfirst($row->description),
                 'amount' => $row->amount,
                 "status" =>  $statusTxt,
                 "action" =>  $actionTxt,
@@ -226,7 +240,7 @@ class Expense extends BaseController
             "iTotalRecords" => $totCounts,
             "iTotalDisplayRecords" => $totCounts,
             "aaData" => $tblData,
-            "totalAmount" => $totalAmount
+            "totalAmount" => number_format($totalAmount,2)
         );
         $returnArr = $response;
         echo json_encode($returnArr);

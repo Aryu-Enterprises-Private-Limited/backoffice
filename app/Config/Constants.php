@@ -82,7 +82,7 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125);    // highest a
 
 defined('ADMIN_PATH')          || define('ADMIN_PATH', 'admin');
 defined('EMPLOYEE_PATH')          || define('EMPLOYEE_PATH', 'employee');
-// defined('CLIENT_PATH')          || define('CLIENT_PATH', 'client');
+defined('MANAGER_PATH')          || define('MANAGER_PATH', 'manager');
 
 
 
@@ -106,6 +106,7 @@ defined('NOTES')                  || define('NOTES', 'notes');
 defined('CRM')                  || define('CRM', 'crm');
 defined('EMPLOYEE_DETAILS')          || define('EMPLOYEE_DETAILS', 'employee_details');
 defined('EMPLOYEE_ATTENDANCE')          || define('EMPLOYEE_ATTENDANCE', 'employee_attendance');
+defined('ATTENDANCE_CATEGORY')          || define('ATTENDANCE_CATEGORY', 'attendance_category');
 defined('EMPLOYEE_ATTENDANCE_TOTAL_HOURS')          || define('EMPLOYEE_ATTENDANCE_TOTAL_HOURS', 'employee_attendance_total_hrs');
 defined('CLIENT_DETAILS')          || define('CLIENT_DETAILS', 'client_details');
 defined('INVOICE_DETAILS')          || define('INVOICE_DETAILS', 'invoice_details');
@@ -118,6 +119,7 @@ defined('APPLICATION_STATUS')          || define('APPLICATION_STATUS', 'applicat
 defined('INTERVIEW_STATUS')          || define('INTERVIEW_STATUS', 'interview_status');
 defined('STAGE')          || define('STAGE', 'stage');
 defined('REASON_REJECTION')          || define('REASON_REJECTION', 'reason_rejection');
+defined('APPLICATION_SOURCE')          || define('APPLICATION_SOURCE', 'application_source');
 defined('CANDIDATES_DETAILS')          || define('CANDIDATES_DETAILS', 'candidates_details');
 defined('PAY')          || define('PAY', 'pay');
 defined('PUBLIC_HOLIDAY')          || define('PUBLIC_HOLIDAY', 'public_holiday');
@@ -132,9 +134,17 @@ defined('GST_DETAILS')          || define('GST_DETAILS', 'gst_details');
 defined('ITR_DETAILS')          || define('ITR_DETAILS', 'itr_details');
 defined('PF_DETAILS')          || define('PF_DETAILS', 'pf_details');
 defined('TDS_DETAILS')          || define('TDS_DETAILS', 'tds_details');
+defined('EMPLOYEE_TRACKER')          || define('EMPLOYEE_TRACKER', 'employee_tracker');
+defined('LINKS')          || define('LINKS', 'links');
+defined('COMPANY_INFO')          || define('COMPANY_INFO', 'company_information');
+defined('COURSES')          || define('COURSES', 'courses');
+defined('STUDENT_INFO')          || define('STUDENT_INFO', 'student_infromation');
+defined('FEES')          || define('FEES', 'fees_details');
+defined('FEES_PAYMENT_DETAILS')          || define('FEES_PAYMENT_DETAILS', 'fees_payment_details');
+defined('EMPLOYEE_WORK_REPORT')          || define('EMPLOYEE_WORK_REPORT', 'employee_work_report');
 
 
-
+defined('MANAGER_USERS')                  || define('MANAGER_USERS', 'manager_details');
 /**
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.
  */

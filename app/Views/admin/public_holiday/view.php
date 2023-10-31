@@ -10,7 +10,7 @@
                     <ol class="breadcrumb p-0 m-0">
                         <li class="breadcrumb-item bread-home"><a href="<?= '/' . ADMIN_PATH . '/dashboard' ?>"><i class="fa fa-home me-0" aria-hidden="true"></i></a></li>
                         <li class="breadcrumb-item">
-                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/public_holiday/list' ?>">Holiday</a>
+                            <a class="text-decoration-none" href="<?= '/' . ADMIN_PATH . '/public_holiday/list_details?year='.$pholidayDetails->current_year ?>">Holiday</a>
                         </li>
                         <?php if (isset($pholidayDetails)) { ?>
                             <li class="breadcrumb-item">

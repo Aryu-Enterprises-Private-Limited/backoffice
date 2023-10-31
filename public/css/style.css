@@ -1,7 +1,7 @@
 .aryu-logo
 {
    text-align: center;
-   margin-top: 120px;
+   margin-top: 80px;
 }
 .login-box
 {
@@ -66,7 +66,7 @@
 .nav
 {
     background-color: #445989;
-    height: 50px;
+    height: 86px;
 }
 .welcome-box
 {
@@ -102,7 +102,7 @@ i
 .butn-submit
 {
     background-color: #445989;
-    margin-left: 1025px;
+    /* margin-left: 1025px; */
 }
 .butn-back
 {
@@ -154,7 +154,7 @@ body
 .card
 {
     display: block;
-    margin-bottom: 200px ;
+    /* margin-bottom: 200px ; */
    
 }
 .emp_details_view_label
@@ -181,6 +181,7 @@ body
     /* background-color: red; */
     color: white;
     text-align: center;
+    z-index: 3;
  }
 
  .btn-info{
@@ -215,4 +216,13 @@ body
 .reduce_len{
         flex: 0 0 auto;
         width: 47.333333%;
+}
+
+.select-input {
+  width: 70px;
+}
+.general_ttl{
+  background-color: #00FFFF;    
+  font-weight: bold;
+  
 }

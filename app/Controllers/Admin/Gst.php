@@ -153,7 +153,8 @@ class Gst extends BaseController
         if ($this->checkSession('A') != '') {
             $filed_date = (string)$this->request->getPostGet('filed_date');
             $ref_no = (string)$this->request->getPostGet('ref_no');
-            $file = $this->request->getFile('gst_document');
+            // $file = $this->request->getFile('gst_document');
+            $file = $this->request->getFileMultiple('gst_document');
             $status = (string)$this->request->getPostGet('status');
             $id = (string)$this->request->getPostGet('id');
             $month = date("F", strtotime($filed_date));
@@ -174,15 +175,26 @@ class Gst extends BaseController
                     'status' => $status,
                     'is_deleted' => '0',
                 );
-                if ($file !== null) {
-                    if ($file->isValid() && !$file->hasMoved()) {
-                        $newName = $file->getRandomName();
-                        $file->move(WRITEPATH . GST_DOC_PATH, $newName);
-                        $dataArr['gst_document'] = $file->getName();
-                    } else {
-                        echo 'Upload failed.';
+
+                if (isset($file) && !empty($file)) {
+                    $commaSeparated =array();
+                    $flag= 'success';
+                    foreach($file as  $file){
+                        if ($file->isValid() && !$file->hasMoved()) {
+                            $newName = $file->getRandomName();
+                            $file->move(WRITEPATH . GST_DOC_PATH, $newName);
+                            $commaSeparated[] = $file->getName();
+                            // $dataArr['gst_document'] = $file->getName();
+                        }else{
+                            $flag='fail';
+                        }
+                    }
+                    if($flag != 'fail'){
+                        $file_str = implode(',', $commaSeparated);
+                        $dataArr['gst_document'] = $file_str;
                     }
                 }
+                
                 if ($id == '') {
                     $this->LmsModel->simple_insert(GST_DETAILS, $dataArr);
                     $this->session->setFlashdata('success_message', 'GST added successfully.');

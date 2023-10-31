@@ -51,12 +51,14 @@ class Income extends BaseController
                         } else {
                             $error_data = '';
                         }
-                        $totalAmount += $st->amount;
+                        $str_r = str_replace(",","", $st->amount);
+                        $totalAmount += $str_r;
+                        // $totalAmount += $st->amount;
                         $sheet->setCellValue('G' . $rows, $error_data);
                         $rows++;
                     }
                     $writer = new Xlsx($spreadsheet);
-                    $sheet->setCellValue('H' . $rows, $totalAmount);
+                    $sheet->setCellValue('H' . $rows, number_format($totalAmount,2));
                     // $footerText = 'Total: ' . $totalAmount;
                     // // $headerFooter->setOddFooter('&L&G&C&"Times New Roman,Regular"Total: ' . $totalAmount);
                     // $sheet->getHeaderFooter()->setOddFooter('&L&G&C&"Times New Roman,Regular"'.$footerText);
@@ -112,8 +114,15 @@ class Income extends BaseController
             $dtSearchKeyVal = $this->request->getPostGet('search')['value']; // Search value
         }
         $likeArr = [];
-        $currentDate = date('Y-m-d');
-        $condition = array('is_deleted' => '0', 'date' => $currentDate);
+        // $currentDate = date('Y-m-d');
+        $current_yr = date('Y');
+        $current_mnth = date('m');
+        $firstDayOfMonth = date('Y-m-d', strtotime("{$current_yr}-{$current_mnth}-01"));
+        $lastDayOfMonth = date('Y-m-t', strtotime("{$current_yr}-{$current_mnth}-01"));
+
+        $condition = array('is_deleted' => '0');
+        $condition['date >='] = $firstDayOfMonth;
+        $condition['date <='] = $lastDayOfMonth;
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'invoice_no' => trim($dtSearchKeyVal),
@@ -170,6 +179,7 @@ class Income extends BaseController
                 }
             }
         }
+        // print_r($condition);die;
         $totCounts = $this->LmsModel->get_all_counts(INCOME_DETAILS, $condition, '', $likeArr);
         $sortArr = array('date' => -1);
         if ($sortField != '') {
@@ -209,7 +219,8 @@ class Income extends BaseController
 
 
             $actionTxt .= '<a href="javascript:void(0);" class="delconfirm btn btn-icon text-danger" data-row_id="' . $rowId . '" data-act_url="/' . ADMIN_PATH . '/income/delete"><i class="fas fa-trash-alt"></i></a>';
-            $totalAmount += $row->amount;
+            $str_r = str_replace(",","", $row->amount);
+            $totalAmount += $str_r;
             $tblData[] = array(
                 // 'DT_RowId' => (string)$rowId,
                 // 'checker_box' => '<input class="checkRows" name="checkbox_id[]" type="checkbox" value="' . $rowId . '">',
@@ -229,7 +240,7 @@ class Income extends BaseController
             "iTotalRecords" => $totCounts,
             "iTotalDisplayRecords" => $totCounts,
             "aaData" => $tblData,
-            "totalAmount" => $totalAmount
+            "totalAmount" => number_format($totalAmount,2) 
         );
         $returnArr = $response;
         echo json_encode($returnArr);

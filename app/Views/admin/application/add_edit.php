@@ -60,7 +60,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script src="/plugins/validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".sbmtBtn").click(function(evt) {

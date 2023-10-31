@@ -128,8 +128,8 @@ if ((isset($_GET['year'])) && ($_GET['year'] != '')) {
                     </thead>
                     <tbody></tbody>
                     <tfoot>
-                        <tr>
-                            <td colspan="4"> Total </th>
+                        <tr class="general_ttl">
+                            <td colspan="4" style="text-align: right;"> General Total </th>
                             <td id="totalAmountElement"></td>
                             <td></td>
                             <td></td>
@@ -184,7 +184,7 @@ if ((isset($_GET['year'])) && ($_GET['year'] != '')) {
         // var url = "<?php echo base_url(); ?>admin/expense/list_ajax";
         var dataTbl = $("#displayDataTbl").DataTable({
             "scrollX": true,
-            "aaSorting": [1, "desc"],
+            "aaSorting": [0, "asc"],
             columnDefs: [{
                     orderable: false,
                     targets: [0]
@@ -198,7 +198,7 @@ if ((isset($_GET['year'])) && ($_GET['year'] != '')) {
                     targets: [4]
                 }
             ],
-            'pageLength': 10,
+            'pageLength': 25,
             'processing': true,
             'serverSide': true,
             'serverMethod': 'post',

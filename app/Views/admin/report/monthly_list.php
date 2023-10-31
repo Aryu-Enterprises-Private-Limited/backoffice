@@ -83,9 +83,40 @@ if ((isset($_GET['month'])) && ($_GET['month'] != '')) {
                                             }
                                             echo "</tr>";
                                         }
+                                    } else if (!empty($emp_details) && empty(($att_details))) {
+                                        // if (!empty($emp_details)) {
+                                        foreach ($emp_details as $item) {
+                                            echo "<tr>";
+                                            echo "<td> " . ucfirst($item->email) . "</td>";
+                                            if (is_array($dates)) {
+                                                $att_dt = array();
+                                                foreach ($dates as $dt) {
+                                                    // print_r($att_dt);
+                                                    // print_r($dt);
+                                                    // if (isset($att_dt[$x]) && $dt == $att_dt[$x]) {
+                                                    if (in_array($dt, $att_dt)) {
+                                                        $total_hrs = gmdate("H:i", $seconds[$x]);
+                                                        list($hours, $minutes) = explode(":", $total_hrs);
+
+                                                        // Format the time duration
+                                                        $total_hrs = sprintf("%02d hr %02d mins", $hours, $minutes);
+                                                        echo "<td> " . $total_hrs  . "</td>";
+                                                        $x++;
+                                                    } else {
+                                                        echo "<td>  </td>";
+                                                        $x = 0;
+                                                    }
+                                                    // echo $counter;
+                                                }
+                                            }
+                                            echo "</tr>";
+                                        }
                                     } else { ?>
                                         <td colspan="33">No Records Found</td>
-                                    <?php   } ?>
+                                    <?php   }
+                                    ?>
+
+
                                 </tbody>
                             </table>
                         </div>

@@ -24,12 +24,53 @@ class Public_holiday extends BaseController
             return redirect()->to('/' . ADMIN_PATH);
         }
     }
-
+    
     public function list_ajax($returnType = 'json')
+    {
+        $condition = array('is_deleted' => '0');
+        $ajaxDataArr = $this->LmsModel->public_yr_group($condition)->getResult();
+        // echo"<pre>";print_r($ajaxDataArr);die;
+        $tblData = array();
+        $totCounts = count($ajaxDataArr);
+        foreach ($ajaxDataArr as $row) {
+            $actionTxt = '';
+            $qryString = 'year=' . $row->current_year;
+            $actionTxt = '<a class="btn btn-icon text-info" href="/' . ADMIN_PATH . '/public_holiday/list_details?' . $qryString . '"><i class="fa fa-plus" aria-hidden="true"></i></a>';
+            $tblData[] = array(
+                'current_year' => ucfirst($row->current_year),
+                "action" =>  $actionTxt
+            );
+        }
+        $response = array(
+            "status" => '1',
+            // "draw" => intval($draw),
+            "iTotalRecords" => $totCounts,
+            "iTotalDisplayRecords" => $totCounts,
+            "aaData" => $tblData
+        );
+        $returnArr = $response;
+        echo json_encode($returnArr);
+    }
+
+
+    public function list_details()
+    {
+        if ($this->checkSession('A') != '') {
+            $this->data['title'] = 'Public Holiday List';
+            echo view(ADMIN_PATH . '/public_holiday/details_list', $this->data);
+        } else {
+            $this->session->setFlashdata('error_message', 'Please login!!!');
+            return redirect()->to('/' . ADMIN_PATH);
+        }
+    }
+
+
+    public function details_list_ajax($returnType = 'json')
     {
         $draw = $this->request->getPostGet('draw');
         $row_start = $this->request->getPostGet('start');
         $rowperpage = $this->request->getPostGet('length'); // Rows display per page
+        $year = $this->request->getPostGet('year');
 
         $columnIndex = 0;
         if (isset($this->request->getPostGet('order')[0]['column'])) {
@@ -48,7 +89,7 @@ class Public_holiday extends BaseController
             $dtSearchKeyVal = $this->request->getPostGet('search')['value']; // Search value
         }
         $likeArr = [];
-        $condition = array('is_deleted' => '0');
+        $condition = array('is_deleted' => '0','status'=>'1','current_year'=> $year);
         if ($dtSearchKeyVal != '') {
             $likeArr = array(
                 'reason' => trim($dtSearchKeyVal),
@@ -61,10 +102,10 @@ class Public_holiday extends BaseController
         if ($sortField != '') {
             $sortArr = array($sortField => $sortJob);
         }
+
         $ajaxDataArr = $this->LmsModel->get_all_details(PUBLIC_HOLIDAY, $condition, $sortArr, $rowperpage, $row_start, $likeArr);
-
         $tblData = array();
-
+        
         foreach ($ajaxDataArr->getResult() as $row) {
             $rowId =  (string)$row->id;
             $disp_status = 'Inactive';
