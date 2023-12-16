@@ -1,0 +1,263 @@
+.aryu-logo
+{
+   text-align: center;
+   margin-top: 80px;
+}
+.login-box
+{
+  height: 466px;
+  width: 450px;
+  margin-top: 50px;
+  margin-left: 740px;
+}
+
+.total-card
+{
+    margin: auto;
+    width:500px;
+    height: 520px;
+}
+.Submit-button
+{
+    text-align: center;
+}
+.log-key
+{
+    width: 32px;
+    height: 42px;
+    margin-left: 22px;
+    margin-top: 8px;
+
+}
+.log{
+    background-color: #F6F6F6;
+    width: 464px;
+    height: 78px;
+}
+.log-card
+{
+    position: relative;
+    top:-95px;
+}
+.login-button
+{
+    background-color:#445989;
+    margin-left: 90px;
+    width: 203px;
+ 
+}
+.mail-pass
+{
+    padding: 20px;
+}
+.admin
+{
+    margin-top: 8px;
+}
+.dasboard-nav
+{
+    background-color: #eff1fb;
+  
+}
+.dashboard-nav-img
+{
+    margin-left: 37px;
+}
+.nav
+{
+    background-color: #445989;
+    height: 86px;
+}
+.welcome-box
+{
+    width: 1828px;
+    height: 171px;
+    margin-left: 40px;
+    margin-top: 40px;
+    padding: 5px;
+}
+i
+{
+    
+    margin-right: 7px;
+}
+.admin
+{
+    color: #465887;
+    margin-right: 40px;
+}
+.btn-clr
+{
+    background-color: #445989;
+    
+}
+.create-input
+{
+    width: 580px;
+}
+.create-label
+{
+    margin-left: 250px;
+}
+.butn-submit
+{
+    background-color: #445989;
+    /* margin-left: 1025px; */
+}
+.butn-back
+{
+    margin-right: 20px;
+    background-color: #445989;
+    width: 80px;
+}
+body
+{
+    background-color: #EFF1FB;
+}
+.list-inline-btn
+{
+    text-align: end;
+}
+.butn-add
+{
+    background-color: #90c238;
+    border: #90c238;
+}
+.butn-edit
+{
+    background-color: #c22524;
+    border: #c22524;
+}
+.butn-export
+{
+    background-color: #7f8dac;
+    border: #7f8dac;
+}
+.input-login
+{
+    padding-left: 33px;
+}
+.favicon-login
+{
+    position: relative;
+    top: 40px;
+    margin-left: -40px;
+    
+}
+.favicon-password
+{
+    position: relative;
+    top: 40px;
+    margin-left: -70px;
+    
+}
+.card
+{
+    display: block;
+    margin-bottom: 200px ;
+   
+}
+.emp_details_view_label
+{
+    font-size: 80px;
+}
+.text-danger {
+    color: #b94a48;
+}
+
+.error {
+    color: #b94a48;
+}
+#btn {
+    background-color: #445989;
+    margin-left: 450px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* background-color: red; */
+    color: white;
+    text-align: center;
+    z-index: 3;
+ }
+
+ .btn-info{
+    color: #ffffff;
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    padding: 0.25rem 0.5rem;
+    height: 33px;
+    width:63px;
+
+ }
+
+ .input-groups {
+    width: 60%;
+}
+.input-grp {
+    width: 75%;
+}
+.hidden {
+    display: none;
+}
+
+.create-inputs {
+    width: 50px;
+}
+.create-in {
+    width: 250px;
+}
+.len{
+    width: 40%;
+}
+.reduce_len{
+        flex: 0 0 auto;
+        width: 47.333333%;
+}
+
+.select-input {
+  width: 70px;
+}
+.general_ttl{
+  background-color: #00FFFF;    
+  font-weight: bold;
+  
+}
+.bg-dangers{
+    background-color: #dc3545ba!important;
+  }
+  .bg-successs{
+    background-color: #198754bf!important;
+  }
+  .bg-lavender{
+    background-color: #630fc7ad!important;
+  }
+  .bg-orange{
+    background-color: 	#ffa500cf!important;
+  }
+  .bg-yellow{
+    background-color: 	#ffff00bf!important;
+  }
+  .bg-pink{
+    background-color: 	#c915b38a!important;
+  }
+  .bg-blue{
+    background-color: 	#3da0c9db!important;
+  }
+  .bg-grey{
+    background-color: 	#808080c4!important;
+  }
+  .bg-purple{
+    background-color: 	#800080cf!important;
+  }
+  .bg-green{
+    background-color: 	#7cfc00b3!important;
+  }
+
+  .btn-size{
+    padding:12px;
+    width: auto;
+  }
