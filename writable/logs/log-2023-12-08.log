@@ -1,0 +1,361 @@
+INFO - 2023-12-08 05:55:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:55:22 --> [DEPRECATED] Creation of dynamic property App\Controllers\Employee\Employee_setup::$session is deprecated in APPPATH\Controllers\Employee\Employee_setup.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Employee\Employee_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:55:22 --> [DEPRECATED] Creation of dynamic property App\Controllers\Employee\Employee_setup::$AdminModel is deprecated in APPPATH\Controllers\Employee\Employee_setup.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Employee\Employee_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:55:22 --> [DEPRECATED] Creation of dynamic property App\Controllers\Employee\Employee_setup::$data is deprecated in APPPATH\Controllers\Employee\Employee_setup.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Employee\Employee_setup->index()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Employee\Employee_setup))
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:56:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:56:06 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$session is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:56:06 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$AdminModel is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:56:06 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:56:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:56:09 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$session is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:56:09 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$AdminModel is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:56:09 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:32 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$session is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:32 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$AdminModel is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:32 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$session is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$AdminModel is deprecated in APPPATH\Controllers\Manager\Manager_setup.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Manager_setup->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Manager_setup::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Candidate::$session is deprecated in APPPATH\Controllers\Manager\Candidate.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Candidate->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Candidate::$LmsModel is deprecated in APPPATH\Controllers\Manager\Candidate.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Candidate->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Candidate::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Candidate::$session is deprecated in APPPATH\Controllers\Manager\Candidate.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Candidate->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Candidate::$LmsModel is deprecated in APPPATH\Controllers\Manager\Candidate.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Candidate->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Candidate::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$session is deprecated in APPPATH\Controllers\Manager\Employee.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Employee->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$LmsModel is deprecated in APPPATH\Controllers\Manager\Employee.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Employee->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$session is deprecated in APPPATH\Controllers\Manager\Employee.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Employee->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$LmsModel is deprecated in APPPATH\Controllers\Manager\Employee.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Employee->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$session is deprecated in APPPATH\Controllers\Manager\Employee.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Employee->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$LmsModel is deprecated in APPPATH\Controllers\Manager\Employee.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Employee->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:34 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Employee::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:40 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$session is deprecated in APPPATH\Controllers\Manager\Gst.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:40 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$LmsModel is deprecated in APPPATH\Controllers\Manager\Gst.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:40 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:57:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:57:41 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$session is deprecated in APPPATH\Controllers\Manager\Gst.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:41 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$LmsModel is deprecated in APPPATH\Controllers\Manager\Gst.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:57:41 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:58:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:58:32 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$session is deprecated in APPPATH\Controllers\Manager\Gst.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:58:32 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$LmsModel is deprecated in APPPATH\Controllers\Manager\Gst.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:58:32 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 05:58:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 05:58:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$session is deprecated in APPPATH\Controllers\Manager\Gst.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:58:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$LmsModel is deprecated in APPPATH\Controllers\Manager\Gst.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 05:58:33 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 06:00:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 06:00:50 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$session is deprecated in APPPATH\Controllers\Manager\Gst.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 06:00:50 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$LmsModel is deprecated in APPPATH\Controllers\Manager\Gst.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 06:00:50 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+INFO - 2023-12-08 06:00:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-12-08 06:00:50 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$session is deprecated in APPPATH\Controllers\Manager\Gst.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 06:00:50 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$LmsModel is deprecated in APPPATH\Controllers\Manager\Gst.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\Manager\Gst->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+WARNING - 2023-12-08 06:00:50 --> [DEPRECATED] Creation of dynamic property App\Controllers\Manager\Gst::$data is deprecated in APPPATH\Controllers\BaseController.php on line 97.
+ 1 APPPATH\Controllers\BaseController.php(57): App\Controllers\BaseController->setUriSegments()
+ 2 SYSTEMPATH\CodeIgniter.php(905): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')
+ERROR - 2023-12-08 06:00:54 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:173
+Stack trace:
+#0 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(173): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'backoffice', 3306, '', 0)
+#1 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\BaseConnection.php(391): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1700): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\BaseModel.php(367): CodeIgniter\Database\BaseBuilder->countAllResults()
+#5 C:\xampp\htdocs\Backoffice\app\Controllers\Manager\Gst.php(66): CodeIgniter\BaseModel->get_all_counts('gst_details', Array, '', Array)
+#6 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\CodeIgniter.php(932): App\Controllers\Manager\Gst->list_ajax()
+#7 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Manager\Gst))
+#8 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\Backoffice\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:218
+Stack trace:
+#0 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\BaseConnection.php(391): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1700): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#3 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\BaseModel.php(367): CodeIgniter\Database\BaseBuilder->countAllResults()
+#4 C:\xampp\htdocs\Backoffice\app\Controllers\Manager\Gst.php(66): CodeIgniter\BaseModel->get_all_counts('gst_details', Array, '', Array)
+#5 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\CodeIgniter.php(932): App\Controllers\Manager\Gst->list_ajax()
+#6 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Manager\Gst))
+#7 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\Backoffice\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\Backoffice\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2023-12-08 06:00:54 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 427.
+ 1 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1700): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `gst_details`
+WHERE `is_deleted` = :is_deleted:', [...], false)
+ 3 SYSTEMPATH\BaseModel.php(367): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 4 APPPATH\Controllers\Manager\Gst.php(66): CodeIgniter\BaseModel->get_all_counts('gst_details', [...], '', [])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Manager\Gst->list_ajax()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Manager\Gst))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\Backoffice\\public\\index.php')

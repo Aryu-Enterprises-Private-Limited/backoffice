@@ -1,0 +1,100 @@
+login 
+vijay@aryuenterprises.com
+AYE20@21
+
+FOR INTRANET PROJECT DEV CRENTIALS
+
+github
+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
+
+http://3.110.215.46/
+Admin login:
+
+dsiegel@conversionmediagroup.com
+AryuPass2021!
+
+
+vijay@aryuenterprises.com
+Test@123
+
+db_admin
+Mgm@dba%100
+
+
+ci4 CRENTIALS
+Current ip 3.110.215.46 
+Database : backoffice
+user: admin,
+pswrd : Admin@54321
+Mysql server root password :Ammu@0411
+
+
+
+
+inbound_report_success_view
+-----------------------------------------------
+
+Agent login:
+
+ACambridge@cmg.com
+abennie@cmg.com
+CMGintranet!
+
+
+aruna@aryuenterprises.com
+CMGintranet!
+
+
+admin_user
+3zu3VU$75EHU49b2c
+
+
+http://13.232.19.116/
+
+
+----------------------------------------------
+
+er911
+
+admin login DEV CRENTIALS
+developer@aryuenterprises.com
+Test@123
+
+db login 
+cmg_demo2
+Demo@2022!
+
+
+---------------------------------------------
+fyj
+http://3.20.133.13/
+admin@fyjnreports.com
+AryuDev23!
+
+database 
+http://3.20.133.13/phpmyadmin/
+username: laravel
+password:May@2023%LV
+
+
+else if(isset($_REQUEST["func"]) && $_REQUEST["func"]=="check_unique"){
+	$table = $_REQUEST["table"];
+	$value = $_REQUEST["val"];
+	$field = $_REQUEST["field"];
+	$sql = "select * from ".$table." where ".$field." = '".$value."' ";
+	echo $db->db_num($sql);
+	exit;
+}
+
+
+ /usr/bin/php /var/www/html/cronfiles/hourly_results_api_py.php
+
+/usr/bin/php /var/www/html/cronfiles/time_slice_report_py.php
+
+2022-05-16~2022-05-29
+
+2022-08-08~2022-08-21 574
+
+select destination_code from campaigns_vendors WHERE destination_code!='' GROUP BY destination_code ORDER BY destination_code ASC
+
+12
