@@ -19,7 +19,7 @@ class Employee_setup extends BaseController
             $this->data['title'] = 'Dashboard';
             echo view(EMPLOYEE_PATH . '/pages/dashboard', $this->data);
         } else {
-            $this->data['title'] = 'Organization Tests';
+            $this->data['title'] = 'Aryu Organization Tests';
             return view(EMPLOYEE_PATH . '/pages/login', $this->data);
         }
     }
